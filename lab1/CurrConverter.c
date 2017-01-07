@@ -26,6 +26,7 @@ int main()
    } else if (uinput == '2') {
       FtoUSD();
    } else if (uinput == 'Q') {
+      printf("Quitting program...\n");
       return 0;
    } else {
       printf("Invalid input\n");
