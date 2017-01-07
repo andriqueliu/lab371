@@ -13,7 +13,7 @@ void USDtoF(void);
 void FtoUSD(void);
 double findCurrency(char uinput, char currency[]);
 
-char uinput; // Expresses user input
+char uinput; // User input
 
 int main()
 {
