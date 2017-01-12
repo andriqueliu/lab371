@@ -21,8 +21,8 @@ module syncDown(qOut, clk, rst);
 	
 	assign d0 = Qbar[0];
 	assign d1 = ~(qOut[1] ^ qOut[0]);
-	assign d2 = ~(qOut[2] ^ (qOut[1]|qOut[0]));
-	assign d3 = ~(qOut[3] ^ (qOut[2]|qOut[1]|qOut[0]));
+	assign d2 = ~(qOut[2] ^ (qOut[1] & qOut[0]));
+	assign d3 = ~(qOut[3] ^ (qOut[2] & qOut[1] & qOut[0]));
 
 	DFlipFlop ff0 (.q(qOut[0]), .qBar(Qbar[0]), .D(d0), .clk(clk), .rst(rst));
 	DFlipFlop ff1 (.q(qOut[1]), .qBar(Qbar[1]), .D(d1), .clk(clk), .rst(rst));
