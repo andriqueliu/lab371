@@ -38,4 +38,6 @@ int main()
 
 	// Print result
 	printf("Result: %i\n", result);
+
+	return 0;
 }
