@@ -3,6 +3,9 @@
 //
 // Note: Currency values are current as of Jan. 6 2017 on
 // the currency authority www.xe.com
+//
+// This program prompts the user for desired foreign currency,
+// printing exchange rates and calculating foreign currency. 
 
 #include <stdio.h>  // Standard I/O
 #include <string.h> // For string operations (copy, compare, etc.)
@@ -13,7 +16,8 @@ void USDtoF(void);
 void FtoUSD(void);
 double findCurrency(char uinput, char currency[]);
 
-char uinput; // User input
+char uinput;   // User input
+double amount; // User-defined amount to exchange
 
 int main()
 {
@@ -69,7 +73,11 @@ void USDtoF(void)
         }
         // If there is a valid currency input
         if (strcmp(currency,"") > 0) {
-            printf("%lf %s per 1.00 USD\n", foreignVal, currency);
+            printf("%.2lf %s per 1.00 USD\n", foreignVal, currency);
+            printf("Enter amount to exchange:\n");
+            scanf("%lf", &amount);
+            getchar();
+            printf("%.2lf %s per %.2lf USD\n", (foreignVal * amount), currency, amount);
         }
         strcpy(currency,"");
     }
@@ -99,7 +107,11 @@ void FtoUSD(void)
         // If there is a valid currency input
         if (strcmp(currency,"") > 0) {
             finalVal = 1.00 / foreignVal;
-            printf("%lf %s per dollar USD\n", finalVal, currency);
+            printf("%.2lf USD per 1.00 %s\n", finalVal, currency);
+            printf("Enter amount to exchange:\n");
+            scanf("%lf", &amount);
+            getchar();
+            printf("%.2lf USD per %.2lf %s\n", (finalVal * amount), amount, currency);
         }
         strcpy(currency,"");
     }
