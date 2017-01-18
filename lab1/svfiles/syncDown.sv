@@ -12,16 +12,17 @@ module DFlipFlop(q, qBar, D, clk, rst);
 	end
 endmodule
 
-module clkDivider(clk, clk_out);
-output clk_out;
-input clk; // connect to system 50 MHz clock
-reg [25:0] tBase; // system time base
-always@(posedge clk) 
-begin
-tBase <= tBase + 1'b1;
-clk_out <= tBase[25];
-end
-endmodule 
+module clock_divider (clock, divided_clocks);
+	input clock;
+	output [31:0] divided_clocks;
+	reg [31:0] divided_clocks;
+
+	initial
+		divided_clocks = 0;
+
+	always @(posedge clock)
+		divided_clocks = divided_clocks + 1;
+endmodule
 
 module syncDown(qOut, clk, rst);
 
@@ -31,7 +32,7 @@ module syncDown(qOut, clk, rst);
 	wire [3:0] Qbar;
 	wire clock;
 	
-	clkDivider newClock (.clk(clk), .clk_out(clock));
+	clock_divider newClock (.clk(clk), .divided_clocks(clock));
 	assign d0 = Qbar[0];
 	assign d1 = ~(qOut[1] ^ qOut[0]);
 	assign d2 = ~(qOut[2] ^ (qOut[1] & qOut[0]));
