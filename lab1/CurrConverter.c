@@ -61,7 +61,7 @@ void USDtoF(void)
     while (uinput != 'Q') {
         printf("Enter foreign currency\n");
         printf("0 for options, Q to quit program\n");
-            scanf("%c", &uinput);
+        scanf("%c", &uinput);
         getchar();
         
         if (uinput == '0') {
@@ -94,7 +94,7 @@ void FtoUSD(void)
     while (uinput != 'Q') {
         printf("Enter foreign currency\n");
         printf("0 for options, Q to quit program\n");
-            scanf("%c", &uinput);
+        scanf("%c", &uinput);
         getchar();
         
         if (uinput == '0') {
