@@ -46,6 +46,8 @@
 	 #stimDelay rst = 1;
 	 #stimDelay rst = 1;
 	 #stimDelay rst = 1;
+	 #stimDelay rst = 1;
+	 #stimDelay rst = 1;	 
 	 end
 	 
 	 #(20*period); // needed to see END of simulation
