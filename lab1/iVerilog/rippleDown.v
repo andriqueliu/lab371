@@ -1,18 +1,8 @@
-module DFlipFlop(q, qBar, D, clk, rst);
-	input D, clk, rst;
-	output q, qBar;
-	reg q;
-	not n1 (qBar, q);
-	always@ (negedge rst or posedge clk)
-		begin
-		if(!rst)
-		q = 0;
-		else
-	q = D;
-	end
-endmodule
-
-module rippleDown(qOut, clk, rst);
+// RippleDown.v
+// EE 371 Lab 1 Project
+//	RippleDown controls a counter operating in a ripple down pattern
+//	Authors: Nikhil Grover, Emraj Sidhu, Andrique Liu
+module RippleDown(qOut, clk, rst);
 
 	input clk, rst;
 	output [3:0] qOut;

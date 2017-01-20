@@ -1,18 +1,8 @@
-module DFlipFlop(q, qBar, D, clk, rst);
-	input D, clk, rst;
-	output q, qBar;
-	reg q;
-	not n1 (qBar, q);
-	always@ (negedge rst or posedge clk)
-		begin
-		if(!rst)
-		q = 0;
-		else
-	q = D;
-	end
-endmodule
-
-module johnsonCounter(out,clk, rst);
+// JohnsonCounter.v
+// EE 371 Lab 1 Project
+//	JohnsonCounter controls a counter operating in a Johnson pattern
+//	Authors: Nikhil Grover, Emraj Sidhu, Andrique Liu
+module JohnsonCounter(out,clk, rst);
 	input clk, rst;
 	output[3:0] out;
 	reg [3:0] out;
@@ -59,3 +49,4 @@ module johnsonCounter(out,clk, rst);
 	end
 	
 	endmodule
+	
