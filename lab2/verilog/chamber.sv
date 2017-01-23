@@ -6,23 +6,16 @@
 // Left body of water is at +3 feet relative to chamber default
 // Right body of water is at -3 feet relative to chamber default
 module chamber (clk, reset, gateR, gateL, increase, decrease,
-					 gondInWater, gondInR, gondInL);
+					 gondInWater, gondInR, gondInL,
+					 rightGood, leftGood);
 	input  logic clk, reset;         // Clock and reset signals
 	input  logic gateR, gateL;       // Open/close left and right gates
 	input  logic increase, decrease; // Increase/decrease water level
 	output logic gondInWater;        // Is gondola in this body of water?
-	// Is the gondola in the left or right body of water?
+	// Is the gondola in the right or left body of water?
 	input  logic gondInR, gondInL;
-	
-	
-	int level;
-	
-	
-	// Set default water level = 0
-	initial begin
-		level = 0;
-		
-	end
+	// Are the right/left water differentials good?
+	input  logic rightGood, leftGood;
 	
 	// State variables
 	// Is the gondola in, or is the gondola outside this body of water?
