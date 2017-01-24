@@ -3,14 +3,11 @@
 
 //Should an output be added that tells you if the water levels are good?
 //like indicated in the rightWater module?
-module gate(clk, reset, leftLevel, rightLevel, open);
+module gate(clk, reset, openCase, open);
 	
 	input logic clk, reset;
-	input logic leftLevel, rightLevel;
+	input logic openCase;
 	output logic open;
-
-	logic diff = leftLevel - rightLevel; //Not sure if this is correct. I actually
-						//want to take the absolute value
 
 	//State variables
 	enum {OPEN, CLOSE}, ps, ns;
@@ -19,7 +16,7 @@ module gate(clk, reset, leftLevel, rightLevel, open);
 		case (ps)
 		
 		OPEN:
-			if(diff > 0.3) begin
+			if(!openCase) begin
 				ns = CLOSE;
 				open = 0;
 			end else begin
@@ -27,7 +24,7 @@ module gate(clk, reset, leftLevel, rightLevel, open);
 				open = 1;
 			end
 		CLOSE:
-			if(diff > 0.3) begin
+			if(!openCase) begin
 				ns = CLOSE;
 				open = 0;
 			end else begin
