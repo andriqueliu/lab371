@@ -1,5 +1,6 @@
 // EE 371 Lab 2 Project
 // gate is a lower level module that dictates whether a gondola may cross
+// Authors: Andrique Liu, Emraj Sidhu, Nikhil Grover
 
 //Should an output be added that tells you if the water levels are good?
 //like indicated in the rightWater module?
