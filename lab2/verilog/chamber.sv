@@ -45,14 +45,13 @@ module chamber (clk, reset, gateR, gateL, increase, decrease,
 		endcase
 	end
 	
-	// 
+	// Potential solution for sequential logic block -Nikhil
 	always_ff @(posedge clk) begin
 		if (reset) begin
-			
+			ps <= OUT;
+		end else begin
+			ps <= ns;
 		end
-		
-		end
-		
 	end
 	
 	
