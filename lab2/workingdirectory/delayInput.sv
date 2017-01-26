@@ -51,7 +51,6 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 	
 	// Combinational Logic
 	// A "minute" in design time is a half second in real time
-	
 	always_comb begin
 		// Once count counts specified number of ticks, enable is sent
 		if (count == (CLOCK * MINUTES / 2)) begin
@@ -60,7 +59,7 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 			enable = 0;
 		end
 		
-		// If count is active, 
+		// If count is active, set busy flag. Else, clear busy flag.
 		if (count >= 0) begin
 			busy = 1;
 		end else begin
