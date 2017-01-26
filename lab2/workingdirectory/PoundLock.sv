@@ -40,6 +40,18 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	
 	// Try without delay input first... 
 	
+	logic increaseBusy, decreaseBusy, arrivalBusy;
+	logic increaseEn, decreaseEn, arrivalEn;
+	
+	
+	delayInput incDelay (.clk(clk[whichClock]), .reset, .start(increase),
+	                     .enable(increaseEn), .busy(increaseBusy));
+	delayInput decDelay (.clk(clk[whichClock]), .reset, .start(decrease),
+	                     .enable(decreaseEn), .busy(decreaseBusy));
+	delayInput arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
+	                     .enable(arrivalEn), .busy(arrivalBusy));
+	
+	
 	// Board Version
 	uinput ui0 (.clk(clk[whichClock]), .reset, .in(~KEY[0]), .out(reset));
 	uinput ui1 (.clk(clk[whichClock]), .reset, .in(~KEY[1]), .out(increase));
@@ -53,9 +65,10 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
                 .gateR, .gateL,
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
-					 .increaseEnable(increase), .decreaseEnable(decrease), .arrivingEnable(arriving),
+					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(arrivalEn),
 					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
-					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4])
+					 .);
 	
 	// MS Version
 //	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
