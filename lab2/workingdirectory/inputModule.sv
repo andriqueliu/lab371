@@ -39,12 +39,12 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	logic arrivingBuffer, departingBuffer, gateRBuffer, gateLBuffer;
 	logic increaseEnableBuffer, decreaseEnableBuffer;
 	
-	assign arrivingBuffer = arriving;
-	assign departingBuffer = departing;
-	assign gateRBuffer = gateR;
-	assign gateLBuffer = gateL;
-	assign increaseEnableBuffer = increaseEnable;
-	assign decreaseEnableBuffer = decreaseEnable;
+//	assign arrivingBuffer = arriving;
+//	assign departingBuffer = departing;
+//	assign gateRBuffer = gateR;
+//	assign gateLBuffer = gateL;
+//	assign increaseEnableBuffer = increaseEnable;
+//	assign decreaseEnableBuffer = decreaseEnable;
 	
 	// !!!!!!!!!
 	logic gondL;
@@ -108,20 +108,106 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (increaseBusy || decreaseBusy || arrivingBusy) begin
-			arrivingBuffer = arrivingBuffer & 1'b0;
-			departingBuffer = departingBuffer & 1'b0;
-			gateRBuffer = gateRBuffer & 1'b0;
-			gateLBuffer = gateLBuffer & 1'b0;
-			increaseEnableBuffer = increaseEnableBuffer & 1'b0;
-			decreaseEnableBuffer = decreaseEnableBuffer & 1'b0;
+//			arrivingBuffer = arrivingBuffer & 1'b0;
+//			departingBuffer = departingBuffer & 1'b0;
+//			gateRBuffer = gateRBuffer & 1'b0;
+//			gateLBuffer = gateLBuffer & 1'b0;
+//			increaseEnableBuffer = increaseEnableBuffer & 1'b0;
+//			decreaseEnableBuffer = decreaseEnableBuffer & 1'b0;
+			arrivingBuffer = 1'b0;
+			departingBuffer = 1'b0;
+			gateRBuffer = 1'b0;
+			gateLBuffer = 1'b0;
+			increaseEnableBuffer = 1'b0;
+			decreaseEnableBuffer = 1'b0;
 		end else begin
-			arrivingBuffer = arrivingBuffer & 1'b1;
-			departingBuffer = departingBuffer & 1'b1;
-			gateRBuffer = gateRBuffer & 1'b1;
-			gateLBuffer = gateLBuffer & 1'b1;
-			increaseEnableBuffer = increaseEnableBuffer & 1'b1;
-			decreaseEnableBuffer = decreaseEnableBuffer & 1'b1;
+//			arrivingBuffer = arrivingBuffer & 1'b1;
+//			departingBuffer = departingBuffer & 1'b1;
+//			gateRBuffer = gateRBuffer & 1'b1;
+//			gateLBuffer = gateLBuffer & 1'b1;
+//			increaseEnableBuffer = increaseEnableBuffer & 1'b1;
+//			decreaseEnableBuffer = decreaseEnableBuffer & 1'b1;
+			arrivingBuffer = arriving;
+			departingBuffer = departing;
+			gateRBuffer = gateR;
+			gateLBuffer = gateL;
+			increaseEnableBuffer = increaseEnable;
+			decreaseEnableBuffer = decreaseEnable;
 		end
 	end
 	
+endmodule
+
+module inputModule_testbench();
+	logic clk, reset;         // Clock, reset
+	logic increase, decrease; // Increase/decrease water levels
+	logic gateR, gateL;       // Open/close left and right gates
+	// Output to LEDRs; indicate where gondola is
+	logic gondInL, gondInChamber, gondInR;
+	// Output to LEDRs; indicate whether gates are open or closed
+	logic gateRClosed, gateLClosed;
+	
+	inputModule dut (clk, reset, increase, decrease, gateR, gateL,
+                   gondInL, gondInChamber, gondInR,
+						 gateRClosed, gateLClosed);
+	
+	// Set up the clock.
+	parameter CLOCK_PERIOD=100;
+	initial begin
+		clk <= 0;
+		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+	end
+	
+	// Set up the inputs to the design. Each line is a clock cycle.
+	initial begin
+								  @(posedge clk);
+	reset <= 1; 			  @(posedge clk);
+								  @(posedge clk);
+	reset <= 0;            @(posedge clk);
+								  @(posedge clk);
+//	gateR <= 1;            @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk); // 6
+	decrease <= 0;         @(posedge clk);
+								  @(posedge clk);
+	gateR <= 1;            @(posedge clk);
+	gateR <= 0;            @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	$stop; // End the simulation.
+	end
 endmodule
