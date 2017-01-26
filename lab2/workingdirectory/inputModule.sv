@@ -12,24 +12,25 @@ Delayed input commands: arrival, increase, decrease
 
 */
 module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
-                    gateR, gateL, gateROut, gateLOut, gondInRIn, gondInLIn, gondInChamberIn,
+                    gateR, gateL,
 						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
 						  increaseEnable, decreaseEnable, arrivingEnable,
-						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
-						  increaseBusy, decreaseBusy, arrivingBusy);
+//						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
+						  increaseBusy, decreaseBusy, arrivingBusy,
+						  leftGood, rightGood);
 	input  logic clk, reset;          // Clock, reset signal
 	input  logic arriving, departing; // Arriving, departing signals
 	output logic arrivingOut, departingOut;
 	input  logic gateR, gateL;        // Open/close left and right gates
-	output logic gateROut, gateLOut;  
+	logic gateROut, gateLOut;  
 	
 	// Signals from lockSystem
-	input  logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
+	logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
 	// Location of the gondola LEDR indicator
 	output logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
 	// Increase/decrease signals
 	input  logic increaseEnable, decreaseEnable, arrivingEnable;
-	output logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
+	logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
 	input  logic increaseBusy, decreaseBusy, arrivingBusy;
 	
 	// Input buffer: ignore inputs if any busy flag is set, allow them otherwise.
@@ -38,6 +39,8 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	// not filtered, such as: gondInL, R, Chamber.
 	logic arrivingBuffer, departingBuffer, gateRBuffer, gateLBuffer;
 	logic increaseEnableBuffer, decreaseEnableBuffer;
+	
+	output logic leftGood, rightGood;
 	
 //	assign arrivingBuffer = arriving;
 //	assign departingBuffer = departing;
@@ -68,9 +71,9 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	assign gateLOut = (gateLBuffer && ((arrivingBuffer && gondL) ||
                      (departingBuffer && gondCh)));
 	// Assign delayed output enables
-	assign increaseEnableOut = increaseEnableBuffer;
-	assign decreaseEnableOut = decreaseEnableBuffer;
-	assign arrivingEnableOut = arrivingBuffer;
+//	assign increaseEnableOut = increaseEnableBuffer;
+//	assign decreaseEnableOut = decreaseEnableBuffer;
+//	assign arrivingEnableOut = arrivingBuffer;
 	
 	
 //	logic [] inputBuffer;
@@ -81,7 +84,8 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	                    .increase(increaseEnableOut), .decrease(decreaseEnableOut),
                	     .gateR(gateROut), .gateL(gateLOut),
                        .gondInL(gondL), .gondInChamber(gondCh), .gondInR(gondR),
-						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]));
+						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]),
+							  .leftGo(leftGood), .rightGo(rightGood));
 //							  .gateRClosed(), .gateLClosed);
 	
 //	// Combinational Logic
@@ -138,79 +142,79 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	
 endmodule
 
-module inputModule_testbench();
-	logic clk, reset;          // Clock, reset signal
-	logic arriving, departing; // Arriving, departing signals
-	logic arrivingOut, departingOut;
-	logic gateR, gateL;        // Open/close left and right gates
-	logic gateROut, gateLOut;  
-	
-	// Signals from lockSystem
-	logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
-	// Location of the gondola LEDR indicator
-	logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
-	// Increase/decrease signals
-	logic increaseEnable, decreaseEnable, arrivingEnable;
-	logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
-	logic increaseBusy, decreaseBusy, arrivingBusy;
-	
-	inputModule dut (clk, reset, arriving, departing, arrivingOut, departingOut,
-                    gateR, gateL, gateROut, gateLOut, gondInRIn, gondInLIn, gondInChamberIn,
-						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
-						  increaseEnable, decreaseEnable, arrivingEnable,
-						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
-						  increaseBusy, decreaseBusy, arrivingBusy);
-	
-	// Set up the clock.
-	parameter CLOCK_PERIOD=100;
-	initial begin
-		clk <= 0;
-		forever #(CLOCK_PERIOD/2) clk <= ~clk;
-	end
-	
-	// Set up the inputs to the design. Each line is a clock cycle.
-	initial begin
-								  @(posedge clk);
-	reset <= 1; 			  @(posedge clk);
-								  @(posedge clk);
-	reset <= 0;            @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	arriving <= 1;         @(posedge clk);
-								  @(posedge clk);
-	gateR <= 1;            @(posedge clk);
-//	decreaseEnable <= 1;   @(posedge clk);
-//	decreaseEnable <= 0;   @(posedge clk);
-								  @(posedge clk);
+//module inputModule_testbench();
+//	logic clk, reset;          // Clock, reset signal
+//	logic arriving, departing; // Arriving, departing signals
+//	logic arrivingOut, departingOut;
+//	logic gateR, gateL;        // Open/close left and right gates
+//	logic gateROut, gateLOut;  
+//	
+//	// Signals from lockSystem
+//	logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
+//	// Location of the gondola LEDR indicator
+//	logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
+//	// Increase/decrease signals
+//	logic increaseEnable, decreaseEnable, arrivingEnable;
+//	logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
+//	logic increaseBusy, decreaseBusy, arrivingBusy;
+//	
+//	inputModule dut (clk, reset, arriving, departing, arrivingOut, departingOut,
+//                    gateR, gateL, gateROut, gateLOut, gondInRIn, gondInLIn, gondInChamberIn,
+//						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
+//						  increaseEnable, decreaseEnable, arrivingEnable,
+//						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
+//						  increaseBusy, decreaseBusy, arrivingBusy);
+//	
+//	// Set up the clock.
+//	parameter CLOCK_PERIOD=100;
+//	initial begin
+//		clk <= 0;
+//		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//	end
+//	
+//	// Set up the inputs to the design. Each line is a clock cycle.
+//	initial begin
+//								  @(posedge clk);
+//	reset <= 1; 			  @(posedge clk);
+//								  @(posedge clk);
+//	reset <= 0;            @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	arriving <= 1;         @(posedge clk);
+//								  @(posedge clk);
 //	gateR <= 1;            @(posedge clk);
-//	gateR <= 0;            @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	$stop; // End the simulation.
-	end
-endmodule
+////	decreaseEnable <= 1;   @(posedge clk);
+////	decreaseEnable <= 0;   @(posedge clk);
+//								  @(posedge clk);
+////	gateR <= 1;            @(posedge clk);
+////	gateR <= 0;            @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	$stop; // End the simulation.
+//	end
+//endmodule

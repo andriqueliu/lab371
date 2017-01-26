@@ -21,11 +21,11 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	// try... setting keys to MS version, also
 	// comment out main module's clk div and put it inside the testbench
 	
-//	// Turn unused hex displays off
-//	assign HEX1[6:0] = ~(7'b0000000);
-//	assign HEX2[6:0] = ~(7'b0000000);
-//	assign HEX3[6:0] = ~(7'b0000000);
-//	assign HEX4[6:0] = ~(7'b0000000);
+	// Turn unused hex displays off
+	assign HEX1[6:0] = ~(7'b0000000);
+	assign HEX2[6:0] = ~(7'b0000000);
+	assign HEX3[6:0] = ~(7'b0000000);
+	assign HEX4[6:0] = ~(7'b0000000);
 	
 	// Declare reset, logic 
 	logic reset;
@@ -35,8 +35,6 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	
 	assign arriving  = SW[0];
 	assign departing = SW[1];
-	
-	assign LEDR[]
 	
 	// NEGATION: negate for board, don't negate for MS!!!
 	
@@ -53,11 +51,11 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	
 	inputModule (.clk(clk[whichClock]), .reset, .arriving, .departing,
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
-                .gateR, .gateL, .gateROut, .gateLOut, .gondInRIn, .gondInLIn, .gondInChamberIn,
-					 .gondInRLEDR, .gondInLLEDR, .gondInChamberLEDR,
-					 .increaseEnable, .decreaseEnable, .arrivingEnable,
-					 .increaseEnableOut, .decreaseEnableOut, .arrivingEnableOut,
-					 .increaseBusy, .decreaseBusy, .arrivingBusy);
+                .gateR, .gateL,
+					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
+					 .increaseEnable(increase), .decreaseEnable(decrease), .arrivingEnable(arriving),
+					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
 	
 	// MS Version
 //	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
