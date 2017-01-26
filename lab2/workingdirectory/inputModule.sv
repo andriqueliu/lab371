@@ -17,8 +17,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 						  increaseEnable, decreaseEnable, arrivingEnable,
 //						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
 						  increaseBusy, decreaseBusy, arrivingBusy,
-						  leftGood, rightGood,
-						  gateLClosed, gateRClosed);
+						  leftGood, rightGood);
 	input  logic clk, reset;          // Clock, reset signal
 	input  logic arriving, departing; // Arriving, departing signals
 	output logic arrivingOut, departingOut;
@@ -42,8 +41,6 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	logic increaseEnableBuffer, decreaseEnableBuffer;
 	
 	output logic leftGood, rightGood;
-	
-	output logic gateRClosed, gateLClosed;
 	
 //	assign arrivingBuffer = arriving;
 //	assign departingBuffer = departing;
@@ -88,8 +85,8 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
                	     .gateR(gateROut), .gateL(gateLOut),
                        .gondInL(gondL), .gondInChamber(gondCh), .gondInR(gondR),
 						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]),
-							  .leftGo(leftGood), .rightGo(rightGood),
-							  .gateRClosed, .gateLClosed);
+							  .leftGo(leftGood), .rightGo(rightGood));
+//							  .gateRClosed(), .gateLClosed);
 	
 //	// Combinational Logic
 //	always_comb begin

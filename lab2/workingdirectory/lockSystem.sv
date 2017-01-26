@@ -43,8 +43,8 @@ module lockSystem (clk, reset, increase, decrease, gateR, gateL,
 	                    .gondInChamber(inChamber), .gondInWater(inLeft));
 	rightWater riWater (.clk, .reset, .gateR, .waterLevelsGood(rightGood),
 	                    .gondInChamber(inChamber), .gondInWater(inRight));
-	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
-	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
+//	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
+//	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
 	
 endmodule
 
