@@ -30,7 +30,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	// Increase/decrease signals
 	input  logic increaseEnable, decreaseEnable, arrivingEnable;
 	output logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
-	input  logic increaseBusy, decreaseBusy, arrivingBusy;	
+	input  logic increaseBusy, decreaseBusy, arrivingBusy;
 	
 	// Input buffer: ignore inputs if any busy flag is set, allow them otherwise.
 	// Note: reset is NOT filtered; propagates throughout entire design if it has to.
@@ -139,17 +139,27 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 endmodule
 
 module inputModule_testbench();
-	logic clk, reset;         // Clock, reset
-	logic increase, decrease; // Increase/decrease water levels
-	logic gateR, gateL;       // Open/close left and right gates
-	// Output to LEDRs; indicate where gondola is
-	logic gondInL, gondInChamber, gondInR;
-	// Output to LEDRs; indicate whether gates are open or closed
-	logic gateRClosed, gateLClosed;
+	logic clk, reset;          // Clock, reset signal
+	logic arriving, departing; // Arriving, departing signals
+	logic arrivingOut, departingOut;
+	logic gateR, gateL;        // Open/close left and right gates
+	logic gateROut, gateLOut;  
 	
-	inputModule dut (clk, reset, increase, decrease, gateR, gateL,
-                   gondInL, gondInChamber, gondInR,
-						 gateRClosed, gateLClosed);
+	// Signals from lockSystem
+	logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
+	// Location of the gondola LEDR indicator
+	logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
+	// Increase/decrease signals
+	logic increaseEnable, decreaseEnable, arrivingEnable;
+	logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
+	logic increaseBusy, decreaseBusy, arrivingBusy;
+	
+	inputModule dut (clk, reset, arriving, departing, arrivingOut, departingOut,
+                    gateR, gateL, gateROut, gateLOut, gondInRIn, gondInLIn, gondInChamberIn,
+						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
+						  increaseEnable, decreaseEnable, arrivingEnable,
+						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
+						  increaseBusy, decreaseBusy, arrivingBusy);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
@@ -166,18 +176,8 @@ module inputModule_testbench();
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
 //	gateR <= 1;            @(posedge clk);
-	decrease <= 1;         @(posedge clk);
-	decrease <= 0;         @(posedge clk);
-	decrease <= 1;         @(posedge clk);
-	decrease <= 0;         @(posedge clk);
-	decrease <= 1;         @(posedge clk);
-	decrease <= 0;         @(posedge clk);
-	decrease <= 1;         @(posedge clk);
-	decrease <= 0;         @(posedge clk);
-	decrease <= 1;         @(posedge clk);
-	decrease <= 0;         @(posedge clk);
-	decrease <= 1;         @(posedge clk); // 6
-	decrease <= 0;         @(posedge clk);
+	decreaseEnable <= 1;   @(posedge clk);
+	decreaseEnable <= 0;   @(posedge clk);
 								  @(posedge clk);
 	gateR <= 1;            @(posedge clk);
 	gateR <= 0;            @(posedge clk);
