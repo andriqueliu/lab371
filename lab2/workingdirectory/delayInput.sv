@@ -68,3 +68,41 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
 	end
 	
 endmodule
+
+module delayInput_testbench();
+	logic clk, reset; // Clock, reset signals
+	logic start;
+	logic enable;
+	
+	delayInput dut (clk, reset, start, enable);
+	
+	// Set up the clock.
+	parameter CLOCK_PERIOD=100;
+	initial begin
+		clk <= 0;
+		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+	end
+	
+	// Set up the inputs to the design. Each line is a clock cycle.
+	initial begin
+								  @(posedge clk);
+	reset <= 1; 			  @(posedge clk);
+								  @(posedge clk);
+	reset <= 0;            @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  repeat (25000) @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	$stop; // End the simulation.
+	end
+endmodule
