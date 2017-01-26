@@ -1,22 +1,12 @@
 /*
 EE 371 Lab 2 Project
-Nikhil Grover, Andrique Liu, Emraj Sidhu
+Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-gate functions as a gate in the Pound Lock system.
-
-gate's output indicates whether the gate is open or closed; an active
-gateClosed signal indicates the gate is open (gondola is free to pass),
-and a clear signal indicates the gate is closed.
-
-Note: In a higher level module, let this gateOpen signal strobe an LED low to
-indicate the gate has been opened.
-^ !!! We probably want to run at a slightly slower clock so that we can
-actually see the strobing... 
+delayInput serves to delay the user's input. The user's input to this module
+starts a timer, after which delayInput will output an enable signal.
 
 Note: A "minute" will count as half a second in real life.
-*/
 
-/*
 // This is an example of parameterized modules, just for reference
 module adder #(parameter WIDTH=5) (out, a, b);
 	output logic [WIDTH-1:0] out;
@@ -24,7 +14,7 @@ module adder #(parameter WIDTH=5) (out, a, b);
 	assign out = a + b;
 endmodule
 //
-// ...
+// 
 //
 // A 16-bit adder
 adder #(.WIDTH(16)) add1 (.out(o1), .a(a1), .b(b1));
@@ -32,6 +22,7 @@ adder #(.WIDTH(16)) add1 (.out(o1), .a(a1), .b(b1));
 // default.
 adder add2 (.out(o2), .a(a2), .b(b2));
 */
+
 //module delayInput #(parameter MINUTES = 1)
 //                  #(parameter CLOCK = 50000000) // 50 MHz default
 //                   (clk, reset, start, enable);
