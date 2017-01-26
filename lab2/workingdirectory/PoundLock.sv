@@ -60,7 +60,7 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	uinput ui5 (.clk(clk[whichClock]), .reset, .in(SW[2]), .out(gateR));
 	uinput ui6 (.clk(clk[whichClock]), .reset, .in(SW[3]), .out(gateL));
 	
-	inputModule (.clk(clk[whichClock]), .reset, .arriving(arriving), .departing,
+	inputModule inMod (.clk(clk[whichClock]), .reset, .arriving(arriving), .departing,
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
                 .gateR, .gateL,
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
