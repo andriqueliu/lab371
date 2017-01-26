@@ -48,7 +48,9 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	                     .enable(increaseEn), .busy(increaseBusy));
 	delayInput decDelay (.clk(clk[whichClock]), .reset, .start(decrease),
 	                     .enable(decreaseEn), .busy(decreaseBusy));
-	delayInput arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
+//	delayInput arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
+//	                     .enable(arrivalEn), .busy(arrivalBusy));
+	delayInputArrival arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
 	                     .enable(arrivalEn), .busy(arrivalBusy));
 	
 	// Board Version
@@ -66,7 +68,8 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
 					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(1'b0),
 					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
-					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4])
+					 .gateRClosed(LEDR[2]), .gateLClosed(LEDR[3]));
 	
 	// MS Version
 //	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
