@@ -12,19 +12,19 @@ Delayed input commands: arrival, increase, decrease
 
 */
 module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
-                    gateR, gateL, gateROut, gateLOut, gondInR, gondInL, gondInChamber,
+                    gateR, gateL, gateROut, gateLOut, gondInRIn, gondInLIn, gondInChamberIn,
 						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
 						  increaseEnable, decreaseEnable, arrivingEnable,
 						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
 						  increaseBusy, decreaseBusy, arrivingBusy);
-	input  logic clk, reset; // Clock, reset signal
+	input  logic clk, reset;          // Clock, reset signal
 	input  logic arriving, departing; // Arriving, departing signals
 	output logic arrivingOut, departingOut;
-	input  logic gateR, gateL; // Open/close left and right gates
-	output logic gateROut, gateLOut;
+	input  logic gateR, gateL;        // Open/close left and right gates
+	output logic gateROut, gateLOut;  
 	
 	// Signals from lockSystem
-	input  logic gondInR, gondInL, gondInChamber; // Location of the gondola
+	input  logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
 	// Location of the gondola LEDR indicator
 	output logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
 	// Increase/decrease signals
@@ -46,19 +46,27 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	assign increaseEnableBuffer = increaseEnable;
 	assign decreaseEnableBuffer = decreaseEnable;
 	
+	// !!!!!!!!!
+	logic gondL;
+	logic gondR;
+	logic gondCh;
+//	assign gondL = gondInLIn;
+//	assign gondR = gondInRIn;
+//	assign gondCh = gondInChamberIn;
+	
 	// Filter out and assign signals:
 	// Filter and assign arrival, departing indicators 
-	assign arrivingOut = (arrivingBuffer && gondInL || gondInR);
-	assign departingOut = (departingBuffer && gondInChamber);
+	assign arrivingOut = (arrivingBuffer && gondL || gondR);
+	assign departingOut = (departingBuffer && gondCh);
 	// Assign gondola LEDR indicators to their inputs
-	assign gondInRLEDR = gondInR;
-	assign gondInLLEDR = gondInL;
-	assign gondInChamberLEDR = gondInChamber;
+	assign gondInRLEDR = gondR;
+	assign gondInLLEDR = gondL;
+	assign gondInChamberLEDR = gondCh;
 	// Filter and assign gate open/close signals
-	assign gateROut = (gateRBuffer && ((arrivingBuffer && gondInR) ||
-                     (departingBuffer && gondInChamber)));
-	assign gateLOut = (gateLBuffer && ((arrivingBuffer && gondInL) ||
-                     (departingBuffer && gondInChamber)));
+	assign gateROut = (gateRBuffer && ((arrivingBuffer && gondR) ||
+                     (departingBuffer && gondCh)));
+	assign gateLOut = (gateLBuffer && ((arrivingBuffer && gondL) ||
+                     (departingBuffer && gondCh)));
 	// Assign delayed output enables
 	assign increaseEnableOut = increaseEnableBuffer;
 	assign decreaseEnableOut = decreaseEnableBuffer;
@@ -72,7 +80,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	lockSystem lockSys (.clk, .reset,
 	                    .increase(increaseEnableOut), .decrease(decreaseEnableOut),
                	     .gateR(gateROut), .gateL(gateLOut),
-                       .gondInL(gondInL), .gondInChamber, .gondInR,
+                       .gondInL(gondL), .gondInChamber(gondCh), .gondInR(gondR),
 						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]));
 //							  .gateRClosed(), .gateLClosed);
 	
