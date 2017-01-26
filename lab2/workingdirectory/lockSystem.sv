@@ -4,7 +4,7 @@
 module lockSystem (clk, reset, );
 	input  logic clk, reset;
 	input  logic increase, decrease;
-	input  logic gateR, gateL;
+	input  logic gateR, gateL; // Open/close left and right gates
 	output logic gondInL, gondInChamber, gondInR;
 	output logic gateRClosed, gateLClosed;
 	
@@ -17,7 +17,7 @@ module lockSystem (clk, reset, );
 	                    .gondInChamber, .gondInWater););
 	rightWater riWater (.clk, .reset, .gateR, .waterLevelsGood,
 	                    .gondInChamber, .gondInWater);
-	gate leGate ();
-	gate riGate ();
+	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
+	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
 	
 endmodule
