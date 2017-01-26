@@ -7,20 +7,25 @@ I/O of modules:
 module lockSystem (clk, reset, increase, decrease, gateR, gateL,
                    gondInL, gondInChamber, gondInR,
 						 gateRClosed, gateLClosed);
-	input  logic clk, reset;
-	input  logic increase, decrease;
-	input  logic gateR, gateL; // Open/close left and right gates
+	input  logic clk, reset;         // Clock, reset
+	input  logic increase, decrease; // Increase/decrease water levels
+	input  logic gateR, gateL;       // Open/close left and right gates
+	// Output to LEDRs; indicate where gondola is
 	output logic gondInL, gondInChamber, gondInR;
+	// Output to LEDRs; indicate whether gates are open or closed
 	output logic gateRClosed, gateLClosed;
 	
-	logic  rightGood, leftGood; // 
+	// Intermediate signals
+	// Connects chamberWater to water modules
+	logic  rightGood, leftGood;
+	// Connects water outputs to each other, as well as LEDR outputs
 	logic  inLeft, inChamber, inRight;
 	
+	// Assign output signals to intermediate signals
 	assign gondInL = inLeft;
 	assign gondInR = inRight;
 	assign gondInChamber = inChamber;
-	
-	// Outputs r and leftGood to r, lWater, and chamber
+
 	chamberWater chWater (.clk, .reset, .increase, .decrease,
 	                      .rightGood, .leftGood);
 	chamber ch (.clk, .reset, .gateR, .gateL,
