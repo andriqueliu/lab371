@@ -14,7 +14,7 @@ indicate the gate has been opened.
 actually see the strobing... 
 */
 
-module gate (clk, reset, openSignal, gateOpen);
+module gate (clk, reset, openSignal, gateClosed);
 	input  logic clk, reset; // Clock, reset signals
 	input  logic openSignal; // Signal to open the gate
 	output logic gateClosed; // Is the gate closed?
@@ -37,7 +37,7 @@ module gate (clk, reset, openSignal, gateOpen);
 			
 			OPEN: begin
 				ns = CLOSED;
-				gateClosed = 1
+				gateClosed = 1;
 			end
 		endcase
 	end
