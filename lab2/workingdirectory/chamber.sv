@@ -1,4 +1,3 @@
-// EE 371 Lab 2 Project
 // chamber acts as a high level module; chamber manages each body of water,
 // 
 
@@ -6,6 +5,8 @@
 // Left body of water is at +3 feet relative to chamber default
 // Right body of water is at -3 feet relative to chamber default
 /*
+EE 371 Lab 2 Project
+
 
 */
 module chamber (clk, reset, gateR, gateL,
