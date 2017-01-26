@@ -26,7 +26,10 @@ adder add2 (.out(o2), .a(a2), .b(b2));
 //module delayInput #(parameter MINUTES = 1)
 //                  #(parameter CLOCK = 50000000) // 50 MHz default
 //                   (clk, reset, start, enable);
-module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+// Using smaller tick requirements for testing
+module delayInput #(parameter MINUTES = 1, CLOCK = 20)
+//module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
                    (clk, reset, start, enable);
 	input  logic clk, reset; // Clock, reset signals
 	input  logic start;
@@ -90,10 +93,14 @@ module delayInput_testbench();
 								  @(posedge clk);
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
+	start <= 1;				  @(posedge clk);
+	start <= 0;				  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-								  repeat (25000) @(posedge clk);
+								  repeat (20) @(posedge clk);
+	start <= 1;            @(posedge clk);
 								  @(posedge clk);
+								  repeat (30) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
