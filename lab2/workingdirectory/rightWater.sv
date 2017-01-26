@@ -94,7 +94,7 @@ module rightWater_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-	gateR <= 0; waterLevelsGood <= 0; gondInAdjacent <= 0; @(posedge clk);
+	gateR <= 0; waterLevelsGood <= 0; gondInChamber <= 0; @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
