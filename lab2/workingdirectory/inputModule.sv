@@ -81,7 +81,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	logic [1:0] dummy;
 	
 	lockSystem lockSys (.clk, .reset,
-	                    .increase(increaseEnableOut), .decrease(decreaseEnableOut),
+	                    .increase(increaseEnableBuffer), .decrease(decreaseEnableBuffer),
                	     .gateR(gateROut), .gateL(gateLOut),
                        .gondInL(gondL), .gondInChamber(gondCh), .gondInR(gondR),
 						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]),
