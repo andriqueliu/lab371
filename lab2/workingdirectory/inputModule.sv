@@ -56,7 +56,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	
 	// Filter out and assign signals:
 	// Filter and assign arrival, departing indicators 
-	assign arrivingOut = (arrivingBuffer && gondL || gondR);
+	assign arrivingOut = (arrivingBuffer && (gondL || gondR));
 	assign departingOut = (departingBuffer && gondCh);
 	// Assign gondola LEDR indicators to their inputs
 	assign gondInRLEDR = gondR;
@@ -175,12 +175,14 @@ module inputModule_testbench();
 								  @(posedge clk);
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
-//	gateR <= 1;            @(posedge clk);
+								  @(posedge clk);
+	arriving <= 1;         @(posedge clk);
+								  @(posedge clk);
 	decreaseEnable <= 1;   @(posedge clk);
 	decreaseEnable <= 0;   @(posedge clk);
 								  @(posedge clk);
-	gateR <= 1;            @(posedge clk);
-	gateR <= 0;            @(posedge clk);
+//	gateR <= 1;            @(posedge clk);
+//	gateR <= 0;            @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
