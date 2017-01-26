@@ -48,7 +48,7 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	                     .enable(increaseEn), .busy(increaseBusy));
 	delayInput decDelay (.clk(clk[whichClock]), .reset, .start(decrease),
 	                     .enable(decreaseEn), .busy(decreaseBusy));
-	delayInput #(.MINUTES(5), CLOCK(25000000)) arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
+	delayInput #(.MINUTES(5), .CLOCK(25000000)) arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
 	                     .enable(arrivalEn), .busy(arrivalBusy));
 	
 	// Board Version
@@ -60,14 +60,13 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	uinput ui5 (.clk(clk[whichClock]), .reset, .in(SW[2]), .out(gateR));
 	uinput ui6 (.clk(clk[whichClock]), .reset, .in(SW[3]), .out(gateL));
 	
-	inputModule (.clk(clk[whichClock]), .reset, .arriving(arrivalEn), .departing,
+	inputModule (.clk(clk[whichClock]), .reset, .arriving(arriving), .departing,
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
                 .gateR, .gateL,
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
-					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(1'b0),
+					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(arriving),
 					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
-					 .leftGood(LEDR[5]), .rightGood(LEDR[4])
-					 .);
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
 	
 	// MS Version
 //	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
