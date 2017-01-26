@@ -5,6 +5,11 @@ Andrique Liu, Nikhil Grover, Emraj Sidhu
 delayInput serves to delay the user's input. The user's input to this module
 starts a timer, after which delayInput will output an enable signal.
 
+delayInput also uses a busy flag output to tell external modules whether a count
+process is currently active. That way, other tasks must be disregarded until the
+count process is complete. This avoids race conditions, signals catching up to
+each other, etc.
+
 Note: A "minute" will count as half a second in real life.
 
 // This is an example of parameterized modules, just for reference
@@ -30,10 +35,13 @@ adder add2 (.out(o2), .a(a2), .b(b2));
 // Using smaller tick requirements for testing
 module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 //module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
-                   (clk, reset, start, enable);
+                   (clk, reset, start, enable, busy);
 	input  logic clk, reset; // Clock, reset signals
-	input  logic start;
-	output logic enable;
+	input  logic start;      // Input signal; start timer to enable
+	output logic enable;     // Enable signal; set after specified ticks elapsed
+	// Tells external module whether count process is active. If count process
+	// is active, do not allow other inputs at the same time.
+	output logic busy;
 	
 	int count;
 	
@@ -43,12 +51,20 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 	
 	// Combinational Logic
 	// A "minute" in design time is a half second in real time
-	// Once count counts specified number of ticks, enable is sent
+	
 	always_comb begin
+		// Once count counts specified number of ticks, enable is sent
 		if (count == (CLOCK * MINUTES / 2)) begin
 			enable = 1;
 		end else begin
 			enable = 0;
+		end
+		
+		// If count is active, 
+		if (count >= 0) begin
+			busy = 1;
+		end else begin
+			busy = 0;
 		end
 	end
 	
@@ -76,8 +92,9 @@ module delayInput_testbench();
 	logic clk, reset; // Clock, reset signals
 	logic start;
 	logic enable;
+	logic busy;
 	
-	delayInput dut (clk, reset, start, enable);
+	delayInput dut (clk, reset, start, enable, busy);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
