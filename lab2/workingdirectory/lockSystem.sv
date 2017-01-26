@@ -25,20 +25,21 @@ module lockSystem (clk, reset, increase, decrease, gateR, gateL,
 	assign gondInL = inLeft;
 	assign gondInR = inRight;
 	assign gondInChamber = inChamber;
+	// Assign gate LEDs...
 	
 	// Hook up modules together
 	chamberWater chWater (.clk, .reset, .increase, .decrease,
-	                      .rightGood, .leftGood);
+	                      .rightGood(rightGood), .leftGood(leftGood));
 	chamber ch (.clk, .reset, .gateR, .gateL,
 					.gondInWater(inChamber), .gondInR(inRight), .gondInL(inLeft),
-					.rightGood, .leftGood);
+					.rightGood(rightGood), .leftGood(leftGood));
 					//
 	leftWater  leWater (.clk, .reset, .gateL, .waterLevelsGood(leftGood),
 	                    .gondInChamber(inChamber), .gondInWater(inLeft));
 	rightWater riWater (.clk, .reset, .gateR, .waterLevelsGood(rightGood),
 	                    .gondInChamber(inChamber), .gondInWater(inRight));
-	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
-	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
+//	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
+//	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
 	
 endmodule
 
@@ -69,8 +70,22 @@ module lockSystem_testbench();
 								  @(posedge clk);
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
+//	gateR <= 1;            @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk);
+	decrease <= 0;         @(posedge clk);
+	decrease <= 1;         @(posedge clk); // 6
+	decrease <= 0;         @(posedge clk);
 								  @(posedge clk);
-								  @(posedge clk);
+	gateR <= 1;            @(posedge clk);
+	gateR <= 0;            @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);

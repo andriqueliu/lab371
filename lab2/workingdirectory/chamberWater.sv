@@ -35,6 +35,7 @@ module chamberWater (clk, reset, increase, decrease, rightGood, leftGood);
 			leftGood  = 1;
 			rightGood = 0;
 		end else if (level == -6) begin
+//		end else if (level == 0) begin
 			leftGood  = 0;
 			rightGood = 1;
 		end else begin
