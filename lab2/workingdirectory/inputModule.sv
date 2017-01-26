@@ -71,7 +71,7 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	
 	lockSystem lockSys (.clk, .reset,
 	                    .increase(increaseEnableOut), .decrease(decreaseEnableOut),
-               	     .gateR(GateROut), .gateL(gateLOut),
+               	     .gateR(gateROut), .gateL(gateLOut),
                        .gondInL(gondInL), .gondInChamber, .gondInR,
 						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]));
 //							  .gateRClosed(), .gateLClosed);
@@ -99,22 +99,20 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
-		if (reset) begin
-			
-		end else if (increaseBusy || decreaseBusy || arrivingBusy) begin
-			arrivingBuffer = arrivingBuffer & 0;
-			departingBuffer = departingBuffer & 0;
-			gateRBuffer = gateRBuffer & 0;
-			gateLBuffer = gateLBuffer & 0;
-			increaseEnableBuffer = increaseEnableBuffer & 0;
-			decreaseEnableBuffer = decreaseEnableBuffer & 0;
+		if (increaseBusy || decreaseBusy || arrivingBusy) begin
+			arrivingBuffer = arrivingBuffer & 1'b0;
+			departingBuffer = departingBuffer & 1'b0;
+			gateRBuffer = gateRBuffer & 1'b0;
+			gateLBuffer = gateLBuffer & 1'b0;
+			increaseEnableBuffer = increaseEnableBuffer & 1'b0;
+			decreaseEnableBuffer = decreaseEnableBuffer & 1'b0;
 		end else begin
-			arrivingBuffer = arrivingBuffer & 1;
-			departingBuffer = departingBuffer & 1;
-			gateRBuffer = gateRBuffer & 1;
-			gateLBuffer = gateLBuffer & 1;
-			increaseEnableBuffer = increaseEnableBuffer & 1;
-			decreaseEnableBuffer = decreaseEnableBuffer & 1;
+			arrivingBuffer = arrivingBuffer & 1'b1;
+			departingBuffer = departingBuffer & 1'b1;
+			gateRBuffer = gateRBuffer & 1'b1;
+			gateLBuffer = gateLBuffer & 1'b1;
+			increaseEnableBuffer = increaseEnableBuffer & 1'b1;
+			decreaseEnableBuffer = decreaseEnableBuffer & 1'b1;
 		end
 	end
 	
