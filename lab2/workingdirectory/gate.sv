@@ -5,8 +5,8 @@ Nikhil Grover, Andrique Liu, Emraj Sidhu
 gate functions as a gate in the Pound Lock system.
 
 gate's output indicates whether the gate is open or closed; an active
-gateClosed signal indicates the gate is open (gondola is free to pass),
-and a clear signal indicates the gate is closed.
+gateClosed signal indicates the gate is closed, and a clear signal indicates
+the gate is open (gondola is free to pass).
 
 Note: In a higher level module, let this gateOpen signal strobe an LED low to
 indicate the gate has been opened.
@@ -17,7 +17,7 @@ actually see the strobing...
 module gate (clk, reset, openSignal, gateOpen);
 	input  logic clk, reset; // Clock, reset signals
 	input  logic openSignal; // Signal to open the gate
-	output logic gateOpen;   // Is the gate open?
+	output logic gateClosed; // Is the gate closed?
 	
 	// State variables
 	enum { OPEN, CLOSED } ps, ns;
@@ -28,16 +28,16 @@ module gate (clk, reset, openSignal, gateOpen);
 			CLOSED: begin
 				if (openSignal) begin
 					ns = OPEN;
-					gateOpen = 1;
+					gateClosed = 0;
 				end else begin
 					ns = CLOSED;
-					gateOpen = 0;
+					gateClosed = 1;
 				end
 			end
 			
 			OPEN: begin
 				ns = CLOSED;
-				gateOpen = 0;
+				gateClosed = 1
 			end
 		endcase
 	end
