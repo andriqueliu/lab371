@@ -33,7 +33,7 @@ adder add2 (.out(o2), .a(a2), .b(b2));
 //                   (clk, reset, start, enable);
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 // Using smaller tick requirements for testing
-module delayInput #(parameter MINUTES = 1, CLOCK = 20)
+module delayInput #(parameter MINUTES = 1, CLOCK = 25000000)
 //module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
                    (clk, reset, start, enable, busy);
 	input  logic clk, reset; // Clock, reset signals
