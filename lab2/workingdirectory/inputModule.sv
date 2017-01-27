@@ -36,20 +36,19 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	logic arrivingBuffer, departingBuffer, gateRBuffer, gateLBuffer;
 	logic increaseEnableBuffer, decreaseEnableBuffer;
 	
+	// Indicates whether the right and left gate have appropriate water differentials.
 	output logic leftGood, rightGood;
 	
-	// !!!!!!!!!
+	// Intermediate signals; connects gondola location indicators.
 	logic gondL;
 	logic gondR;
 	logic gondCh;
-//	assign gondL = gondInLIn;
-//	assign gondR = gondInRIn;
-//	assign gondCh = gondInChamberIn;
 	
 	// Filter out and assign signals:
 	// Filter and assign arrival, departing indicators 
 	assign arrivingOut = (arrivingBuffer && (gondL || gondR));
 	assign departingOut = (departingBuffer && gondCh);
+	
 	// Assign gondola LEDR indicators to their inputs
 	assign gondInRLEDR = gondR;
 	assign gondInLLEDR = gondL;
@@ -59,11 +58,6 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
                      (departingBuffer && gondCh)));
 	assign gateLOut = (gateLBuffer && ((arrivingBuffer && gondL) ||
                      (departingBuffer && gondCh)));
-	// Assign delayed output enables
-//	assign increaseEnableOut = increaseEnableBuffer;
-//	assign decreaseEnableOut = decreaseEnableBuffer;
-//	assign arrivingEnableOut = arrivingBuffer;
-	
 	
 //	logic [] inputBuffer;
 //	assign inputbuffer [] = ;
