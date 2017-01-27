@@ -33,7 +33,7 @@ adder add2 (.out(o2), .a(a2), .b(b2));
 //                   (clk, reset, start, enable);
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 // Using smaller tick requirements for testing
-module delayInput #(parameter MINUTES = 1, CLOCK = 20)
+module delayInput #(parameter MINUTES = 1, CLOCK = 25000000)
 //module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
                    (clk, reset, start, enable, busy);
 	input  logic clk, reset; // Clock, reset signals
@@ -47,6 +47,7 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 	
 	initial begin
 		count = -1;
+		busy = 0;
 	end
 	
 	// Combinational Logic
@@ -60,7 +61,7 @@ module delayInput #(parameter MINUTES = 1, CLOCK = 20)
 		end
 		
 		// If count is active, set busy flag. Else, clear busy flag.
-		if (count >= 0) begin
+		if (count > 0) begin
 			busy = 1;
 		end else begin
 			busy = 0;
