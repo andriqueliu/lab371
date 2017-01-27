@@ -4,11 +4,7 @@ Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 inputModule regulates the inputs to the system. For instance, this module filters out
 irrelevant commands (example: arrival signal cannot be sent while the gondola is in
-the chamber), and also ignores other commands while a delayed command is being executed.
-
-Delayed input commands: arrival, increase, decrease
-
-
+the chamber), and also ignores other commands while other inputs are being processed.
 
 */
 module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
@@ -41,13 +37,6 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	logic increaseEnableBuffer, decreaseEnableBuffer;
 	
 	output logic leftGood, rightGood;
-	
-//	assign arrivingBuffer = arriving;
-//	assign departingBuffer = departing;
-//	assign gateRBuffer = gateR;
-//	assign gateLBuffer = gateL;
-//	assign increaseEnableBuffer = increaseEnable;
-//	assign decreaseEnableBuffer = decreaseEnable;
 	
 	// !!!!!!!!!
 	logic gondL;

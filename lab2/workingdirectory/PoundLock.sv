@@ -62,14 +62,17 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	uinput ui5 (.clk(clk[whichClock]), .reset, .in(SW[2]), .out(gateR));
 	uinput ui6 (.clk(clk[whichClock]), .reset, .in(SW[3]), .out(gateL));
 	
+	assign LEDR[2] = gateR;
+	assign LEDR[3] = gateL;
+	
 	inputModule inMod (.clk(clk[whichClock]), .reset, .arriving(arriving), .departing,
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
                 .gateR, .gateL,
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
 					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(1'b0),
 					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
-					 .leftGood(LEDR[5]), .rightGood(LEDR[4])
-					 .gateRClosed(LEDR[2]), .gateLClosed(LEDR[3]));
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
+//					 .gateRClosed(LEDR[2]), .gateLClosed(LEDR[3]));
 	
 	// MS Version
 //	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
