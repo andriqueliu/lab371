@@ -13,7 +13,14 @@
 // Note: this module multiplies typical values by 2; "real" values like
 // floats are not supported in Quartus.
 /*
+EE 371 Lab 2 Project
+Andrique Liu, Nikhil Grover, Emraj Sidhu
 
+chamberWater tracks the chamber's water level. This module also 
+chamber operates the chamber between the two bodies of water. chamber tracks whether the
+gondola is inside the chamber or in the adjacent bodies of water.
+Left body of water is at +3 feet relative to chamber default.
+Right body of water is at -3 feet relative to chamber default.
 */
 module chamberWater (clk, reset, increase, decrease, rightGood, leftGood);
 	input  logic clk, reset;          // Clock and reset signals

@@ -1,10 +1,11 @@
-// EE 371 Lab 2 Project: Pound Lock System
-// Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
-// 
-// Highest-level module, manages all submodules in Pound Lock system.
-// Accomodates simultaneous button presses.
-// 
-// SW 9 is used to reset the game.
+/*
+EE 371 Lab 2 Project
+Andrique Liu, Nikhil Grover, Emraj Sidhu
+
+PoundLock is the highest level module in the system, and manages all modules in the
+design. PoundLock interfaces with board peripherals, routing signals into the system's
+modules.
+*/
 module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	input  logic 		 CLOCK_50; // 50MHz clock.
 	output logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
@@ -26,6 +27,8 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	assign HEX2[6:0] = ~(7'b0000000);
 	assign HEX3[6:0] = ~(7'b0000000);
 	assign HEX4[6:0] = ~(7'b0000000);
+	assign HEX5[6:0] = ~(7'b0000000);
+	assign HEX6[6:0] = ~(7'b0000000);
 	
 	// Declare reset, logic 
 	logic reset;
@@ -38,40 +41,35 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	
 	// NEGATION: negate for board, don't negate for MS!!!
 	
-	// Try without delay input first... 
-	
+	// Intermediate signals: busy flags and enables
 	logic increaseBusy, decreaseBusy, arrivalBusy;
 	logic increaseEn, decreaseEn, arrivalEn;
 	
-	
+	// Hook up delayed input modules
 	delayInput incDelay (.clk(clk[whichClock]), .reset, .start(increase),
 	                     .enable(increaseEn), .busy(increaseBusy));
 	delayInput decDelay (.clk(clk[whichClock]), .reset, .start(decrease),
 	                     .enable(decreaseEn), .busy(decreaseBusy));
 	
-	// Board Version
+	// Hook up user input modules (filter out metastability and also debounce)
 	uinput ui0 (.clk(clk[whichClock]), .reset, .in(~KEY[0]), .out(reset));
 	uinput ui1 (.clk(clk[whichClock]), .reset, .in(~KEY[1]), .out(increase));
 	uinput ui2 (.clk(clk[whichClock]), .reset, .in(~KEY[2]), .out(decrease));
 	uinput ui5 (.clk(clk[whichClock]), .reset, .in(SW[2]), .out(gateR));
 	uinput ui6 (.clk(clk[whichClock]), .reset, .in(SW[3]), .out(gateL));
 	
+	// Indicate gate status
 	assign LEDR[2] = gateR;
 	assign LEDR[3] = gateL;
 	
+	// Hook up input module to board peripherals and intermediate signals
 	inputModule inMod (.clk(clk[whichClock]), .reset, .arriving(arriving), .departing,
 	             .arrivingOut(LEDR[0]), .departingOut(LEDR[1]),
                 .gateR, .gateL,
 					 .gondInRLEDR(LEDR[7]), .gondInLLEDR(LEDR[9]), .gondInChamberLEDR(LEDR[8]),
 					 .increaseEnable(increaseEn), .decreaseEnable(decreaseEn), .arrivingEnable(1'b0),
 					 .increaseBusy(1'b0), .decreaseBusy(1'b0), .arrivingBusy(1'b0),
-					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));
-//					 .gateRClosed(LEDR[2]), .gateLClosed(LEDR[3]));
-	
-	// MS Version
-//	uinput ui2 (.clk(clk[whichClock]), .reset, .in(KEY[3]), .out(L));
-//	uinput ui1 (.clk(clk[whichClock]), .reset, .in(sw_g_lfsr), .out(R));
-	
+					 .leftGood(LEDR[5]), .rightGood(LEDR[4]));	
 	
 endmodule
 

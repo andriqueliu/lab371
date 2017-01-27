@@ -1,21 +1,15 @@
-// chamber acts as a high level module; chamber manages each body of water,
-// 
-
-
-// Left body of water is at +3 feet relative to chamber default
-// Right body of water is at -3 feet relative to chamber default
 /*
 EE 371 Lab 2 Project
+Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-
+chamber operates the chamber between the two bodies of water. chamber tracks whether the
+gondola is inside the chamber or in the adjacent bodies of water.
 */
 module chamber (clk, reset, gateR, gateL,
-//                increase, decrease,
 					 gondInWater, gondInR, gondInL,
 					 rightGood, leftGood);
 	input  logic clk, reset;         // Clock and reset signals
 	input  logic gateR, gateL;       // Open/close left and right gates
-//	input  logic increase, decrease; // Increase/decrease water level
 	output logic gondInWater;        // Is gondola in this body of water?
 	// Is the gondola in the right or left body of water?
 	input  logic gondInR, gondInL;
@@ -52,7 +46,6 @@ module chamber (clk, reset, gateR, gateL,
 		endcase
 	end
 	
-	// Potential solution for sequential logic block -Nikhil
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (reset) begin
