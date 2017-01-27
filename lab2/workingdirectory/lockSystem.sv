@@ -1,8 +1,10 @@
 /*
+EE 371 Lab 2 Project
+Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-I/O of modules:
-
-
+lockSystem operates at a level above the chamber, bodies of water, and chamber water
+modules. lockSystem controls the chamber system as a whole, instantiating the chamber, its
+water level, and both bodies of water. 
 */
 module lockSystem (clk, reset, increase, decrease, gateR, gateL,
                    gondInL, gondInChamber, gondInR,
@@ -15,7 +17,7 @@ module lockSystem (clk, reset, increase, decrease, gateR, gateL,
 	output logic gondInL, gondInChamber, gondInR;
 	// Output to LEDRs; indicate whether gates are open or closed
 	output logic gateRClosed, gateLClosed;
-	
+	// Output; indicates whether gates may be opened
 	output logic leftGo, rightGo;
 	assign leftGo = leftGood;
 	assign rightGo = rightGood;
@@ -43,8 +45,6 @@ module lockSystem (clk, reset, increase, decrease, gateR, gateL,
 	                    .gondInChamber(inChamber), .gondInWater(inLeft));
 	rightWater riWater (.clk, .reset, .gateR, .waterLevelsGood(rightGood),
 	                    .gondInChamber(inChamber), .gondInWater(inRight));
-//	gate leGate (.clk, .reset, .openSignal(gateL), .gateClosed(gateLClosed));
-//	gate riGate (.clk, .reset, .openSignal(gateR), .gateClosed(gateRClosed));
 	
 endmodule
 

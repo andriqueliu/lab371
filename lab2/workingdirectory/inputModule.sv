@@ -11,22 +11,22 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
                     gateR, gateL,
 						  gondInRLEDR, gondInLLEDR, gondInChamberLEDR,
 						  increaseEnable, decreaseEnable, arrivingEnable,
-//						  increaseEnableOut, decreaseEnableOut, arrivingEnableOut,
 						  increaseBusy, decreaseBusy, arrivingBusy,
 						  leftGood, rightGood);
-	input  logic clk, reset;          // Clock, reset signal
-	input  logic arriving, departing; // Arriving, departing signals
-	output logic arrivingOut, departingOut;
-	input  logic gateR, gateL;        // Open/close left and right gates
-	logic gateROut, gateLOut;  
+	input  logic clk, reset;                // Clock, reset signal
+	input  logic arriving, departing;       // Arriving, departing signals
+	output logic arrivingOut, departingOut; // Indicates whether gond. is arriving or departing
+	input  logic gateR, gateL;              // Open/close left and right gates
+	logic  gateROut, gateLOut;              // Intermediate signal; open/close signals
 	
-	// Signals from lockSystem
+	// Signals from lockSystem:
 	logic gondInRIn, gondInLIn, gondInChamberIn; // Location of the gondola
 	// Location of the gondola LEDR indicator
 	output logic gondInRLEDR, gondInLLEDR, gondInChamberLEDR;
 	// Increase/decrease signals
 	input  logic increaseEnable, decreaseEnable, arrivingEnable;
 	logic increaseEnableOut, decreaseEnableOut, arrivingEnableOut;
+	// Busy flags
 	input  logic increaseBusy, decreaseBusy, arrivingBusy;
 	
 	// Input buffer: ignore inputs if any busy flag is set, allow them otherwise.
@@ -59,48 +59,20 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 	assign gateLOut = (gateLBuffer && ((arrivingBuffer && gondL) ||
                      (departingBuffer && gondCh)));
 	
-//	logic [] inputBuffer;
-//	assign inputbuffer [] = ;
+	// Dummy signals; Placeholders
 	logic [1:0] dummy;
 	
+	// Hook up signals to lockSystem
 	lockSystem lockSys (.clk, .reset,
 	                    .increase(increaseEnableBuffer), .decrease(decreaseEnableBuffer),
                	     .gateR(gateROut), .gateL(gateLOut),
                        .gondInL(gondL), .gondInChamber(gondCh), .gondInR(gondR),
 						     .gateRClosed(dummy[0]), .gateLClosed(dummy[1]),
 							  .leftGo(leftGood), .rightGo(rightGood));
-//							  .gateRClosed(), .gateLClosed);
-	
-//	// Combinational Logic
-//	always_comb begin
-//		// If there is a set busy flag anywhere, all inputs are ignored
-//		if (increaseBusy || decreaseBusy || arrivingBusy) begin
-//			// Set intermediate logic variables (make new ones) all to 0
-//			arrivingBuffer = arrivingBuffer & 0;
-//			departingBuffer = departingBuffer & 0;
-//			gateRBuffer = gateRBuffer & 0;
-//			gateLBuffer = gateLBuffer & 0;
-//			increaseEnableBuffer = increaseEnableBuffer & 0;
-//			decreaseEnableBuffer = decreaseEnableBuffer & 0;
-//		end else begin // Else, if no busy flag, take inputs 
-//			arrivingBuffer = arrivingBuffer & 1;
-//			departingBuffer = departingBuffer & 1;
-//			gateRBuffer = gateRBuffer & 1;
-//			gateLBuffer = gateLBuffer & 1;
-//			increaseEnableBuffer = increaseEnableBuffer & 1;
-//			decreaseEnableBuffer = decreaseEnableBuffer & 1;
-//		end
-//	end
 	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (increaseBusy || decreaseBusy || arrivingBusy) begin
-//			arrivingBuffer = arrivingBuffer & 1'b0;
-//			departingBuffer = departingBuffer & 1'b0;
-//			gateRBuffer = gateRBuffer & 1'b0;
-//			gateLBuffer = gateLBuffer & 1'b0;
-//			increaseEnableBuffer = increaseEnableBuffer & 1'b0;
-//			decreaseEnableBuffer = decreaseEnableBuffer & 1'b0;
 			arrivingBuffer = 1'b0;
 			departingBuffer = 1'b0;
 			gateRBuffer = 1'b0;
@@ -108,12 +80,6 @@ module inputModule (clk, reset, arriving, departing, arrivingOut, departingOut,
 			increaseEnableBuffer = 1'b0;
 			decreaseEnableBuffer = 1'b0;
 		end else begin
-//			arrivingBuffer = arrivingBuffer & 1'b1;
-//			departingBuffer = departingBuffer & 1'b1;
-//			gateRBuffer = gateRBuffer & 1'b1;
-//			gateLBuffer = gateLBuffer & 1'b1;
-//			increaseEnableBuffer = increaseEnableBuffer & 1'b1;
-//			decreaseEnableBuffer = decreaseEnableBuffer & 1'b1;
 			arrivingBuffer = arriving;
 			departingBuffer = departing;
 			gateRBuffer = gateR;

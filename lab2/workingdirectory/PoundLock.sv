@@ -48,17 +48,11 @@ module PoundLock (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	                     .enable(increaseEn), .busy(increaseBusy));
 	delayInput decDelay (.clk(clk[whichClock]), .reset, .start(decrease),
 	                     .enable(decreaseEn), .busy(decreaseBusy));
-//	delayInput arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
-//	                     .enable(arrivalEn), .busy(arrivalBusy));
-	delayInputArrival arrDelay (.clk(clk[whichClock]), .reset, .start(arriving),
-	                     .enable(arrivalEn), .busy(arrivalBusy));
 	
 	// Board Version
 	uinput ui0 (.clk(clk[whichClock]), .reset, .in(~KEY[0]), .out(reset));
 	uinput ui1 (.clk(clk[whichClock]), .reset, .in(~KEY[1]), .out(increase));
 	uinput ui2 (.clk(clk[whichClock]), .reset, .in(~KEY[2]), .out(decrease));
-//	uinput ui3 (.clk(clk[whichClock]), .reset, .in(SW[0]), .out(arriving));
-//	uinput ui4 (.clk(clk[whichClock]), .reset, .in(SW[1]), .out(departing));
 	uinput ui5 (.clk(clk[whichClock]), .reset, .in(SW[2]), .out(gateR));
 	uinput ui6 (.clk(clk[whichClock]), .reset, .in(SW[3]), .out(gateL));
 	
