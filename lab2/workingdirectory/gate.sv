@@ -10,8 +10,6 @@ the gate is open (gondola is free to pass).
 
 Note: In a higher level module, let this gateOpen signal strobe an LED low to
 indicate the gate has been opened.
-^ !!! We probably want to run at a slightly slower clock so that we can
-actually see the strobing... 
 */
 
 module gate (clk, reset, openSignal, gateClosed);

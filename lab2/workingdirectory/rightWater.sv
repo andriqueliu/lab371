@@ -1,5 +1,6 @@
 /*
 EE 371 Lab 2 Project
+Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 rightWater acts as the body of water to the right of the chamber.
 rightWater keeps track of whether the gondola is inside or outside.
@@ -14,13 +15,6 @@ of water.
 
 Note: water level is at -3 relative to the default chamber level.
 */
-
-// !!! Note, have to account for delay later
-// !!! This module can't just take the gateR signal, because gateR has to be
-// checked for whether the departure/arrival signal was sent
-// So account for that later
-// ^ But, that can be fixed by messing with signals one level up
-
 module rightWater (clk, reset, gateR, waterLevelsGood, gondInChamber, gondInWater);
 	input  logic clk, reset;         // Clock and reset signals
 	input  logic gateR;              // Open/close right gates
@@ -30,8 +24,6 @@ module rightWater (clk, reset, gateR, waterLevelsGood, gondInChamber, gondInWate
 	// to send.
 	input  logic gondInChamber;     // Is the gondola in the pound chamber (adjacent)?
 	output logic gondInWater;        // Is gondola in this body of water?
-	// ...
-	// note: use a higher level module to determine where the gondola is 
 	
 	// State variables
 	// Is the gondola in, or is the gondola outside this body of water?

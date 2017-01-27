@@ -27,14 +27,7 @@ adder #(.WIDTH(16)) add1 (.out(o1), .a(a1), .b(b1));
 // default.
 adder add2 (.out(o2), .a(a2), .b(b2));
 */
-
-//module delayInput #(parameter MINUTES = 1)
-//                  #(parameter CLOCK = 50000000) // 50 MHz default
-//                   (clk, reset, start, enable);
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-// Using smaller tick requirements for testing
 module delayInput #(parameter MINUTES = 1, CLOCK = 25000000)
-//module delayInput #(parameter MINUTES = 1, CLOCK = 50000000)
                    (clk, reset, start, enable, busy);
 	input  logic clk, reset; // Clock, reset signals
 	input  logic start;      // Input signal; start timer to enable
