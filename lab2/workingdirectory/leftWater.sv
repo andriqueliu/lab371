@@ -71,7 +71,7 @@ module leftWater (clk, reset, gateL, waterLevelsGood, gondInChamber, gondInWater
 endmodule
 
 // Testbench not written for leftWater
-//module rightWater_testbench();
+//module leftWater_testbench();
 //	logic clk, reset;         // Clock and reset signals
 //	logic gateR;              // Open/close right gates
 //	logic waterLevelsGood;    // Are water levels even/can boat cross?

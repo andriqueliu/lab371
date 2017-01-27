@@ -85,14 +85,14 @@ endmodule
 
 // To simulate, you not only have to provide the inputs, but you also
 // have to specify the clock, hence the testbench
-module tow_testbench();
+module PoundLock_testbench();
 	logic 		CLOCK_50; // 50MHz clock.
 	logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 	logic [9:0] LEDR;
 	logic [3:0] KEY; // True when not pressed, False when pressed
 	logic [9:0] SW;
 	
-	tow dut (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
+	PoundLock dut (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
