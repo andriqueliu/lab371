@@ -16,12 +16,16 @@ Logic devices are placed with a trace of 0.1 in. connecting the output of
 one device to the input of the next device.
 */
 
+// Include standard library functions
 #include <stdio.h>
 #include <math.h>
 
+// Define "magic numbers"
+// Defines the delay constants required for the signal propagation
 #define LOGICDEVICEDELAY (5 * pow(10, -9)) // Delay per logic device
 #define PATHDELAY (180 * pow(10, -13))     // Delay per 0.1 inch
 
+// Forward declarations
 void printWelcome(void);
 int promptNumberDevices(void);
 double calculateDelay(int logicDevices);
