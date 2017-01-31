@@ -36,6 +36,9 @@ int main()
 	// Refer to variables through their pointers
 	result = ((*APtr - *BPtr) * (*CPtr + *DPtr)) / (*EPtr);
 
+	int * resultPtr = &result;
+	*resultPtr = (*resultPtr) * (*resultPtr);
+
 	// Print result
 	printf("Result: %i\n", result);
 
