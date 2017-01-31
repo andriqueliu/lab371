@@ -5,6 +5,7 @@ Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 FindDelay prompts the user for the total number of logic devices in a signal path
 and displays the total delay along that path.
+This program also prints out a graphical representation of the signal's path.
 
 For reference:
 Delay of signal propagating along a trace is 180 ps (10^-12 s) per inch.
