@@ -11,19 +11,16 @@ C = (F - 32 / 1.8)
 K = C + 273
 */
 
-
-
+// Include standard library functions
 #include <stdio.h>
 
-
+// Forward declarations
 void printWelcome(void);
 double askForValue(void);
 char askForScale(void);
 char askForFromScale(void);
-char askForToScale(void);   // 
-// 
+char askForToScale(void);
 double convertTemprature(double value, char fromScale, char toScale);
-
 
 int main()
 {
@@ -32,19 +29,21 @@ int main()
 	char toScale;
 
 	value = askForValue();
-	fromScale = askForScale();
+	fromScale = askForFromScale();
+	toScale = askForToScale();
 
 	return 0;
 }
 
-// 
+// printWelcomes prints out a short welcome message for the user, and also
+// gives instructions on how to quit the program.
 void printWelcome(void)
 {
 	printf("Welcome to the Temperature Program.\n");
 	printf("Press Ctrl + C at any time to quit program.\n");
 }
 
-//
+// askForValue prompts the user for the initial temperature value.
 double askForValue(void)
 {
 	double value;
@@ -56,6 +55,7 @@ double askForValue(void)
 	return value;
 }
 
+// askForScale is used to prompt the user for his or her desired scale.
 char askForScale(void)
 {
 	char scale, valid;
@@ -76,14 +76,14 @@ char askForScale(void)
 	}
 }
 
-// 
+// askForFromScale prompts the user for the desired FROM scale.
 char askForFromScale(void)
 {	
 	printf("Enter in desired FROM scale (C, F, K): ");
 	return askForScale();
 }
 
-// 
+// askForFromScale prompts the user for the desired TO scale.
 char askForToScale(void)
 {
 	printf("Enter in desired TO scale (C, F, K): ");
