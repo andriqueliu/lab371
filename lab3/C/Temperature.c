@@ -90,8 +90,26 @@ char askForToScale(void)
 	return askForScale();
 }
 
-// 
+// Converts temperature from one scale to another
 double convertTemperature(double value, char fromScale, char toScale)
 {
-
+	double result;
+	if(fromScale == 'C' && toScale == 'F') {
+		result = ((value * 9) / 5) + 32;
+	}
+	if(fromScale == 'C' && toScale == 'K') {
+		result = value + 273.15;
+	}
+	if(fromScale == 'F' && toScale == 'C') {
+		result = ((value - 32) * 5) / 9;
+	}
+	if(fromScale == 'F' && toScale == 'K') {
+		result = (((value - 32) * 5) / 9) + 273;
+	}
+	if(fromScale == 'K' && toScale == 'C') {
+		result = value - 273.15;
+	}
+	if(fromScale == 'K' && toScale == 'F') {
+		result = (((value - 273) * 9) / 5) + 32;
+	}
 }

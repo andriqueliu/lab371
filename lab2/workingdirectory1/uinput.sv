@@ -68,7 +68,7 @@ module uinput_testbench();
 								  @(posedge clk);		// !!! you wait for a posedge (and thus FSM)
 	reset <= 1; 			  @(posedge clk);		// moves to the next state) before applying
 	reset <= 0; in <= 0;   @(posedge clk);		// new inputs
-//reset <= 0;   @(posedge clk);
+	//reset <= 0;   @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
