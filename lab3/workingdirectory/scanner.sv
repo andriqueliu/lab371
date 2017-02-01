@@ -6,6 +6,8 @@
 //We may have too many or the completely wrong inputs. We need to talk about the databuffer module and
 //how the rest of the system will be designed.
 
+//Ideally, there should be one transfer signal for the whole system. But I used two for now out of convenience 
+// for each of the two buffers
 
 module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransferCmd, transComplete, flush, stateOut );
 	input  logic clk, reset;
@@ -23,6 +25,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	
 	parameter lowPower = 3'b000, standby = 3'b001, scanning = 3'b010, idle = 3'b011, transfer = 3'b100,
 				 flushing = 3'b101;
+	
 	// Present state to next state logic
 	always@(*) 
 		case(ps) 
@@ -41,13 +44,12 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 			flushing:  if (transComplete)     ns = lowPower;
 						  else                   ns = ps;
 			default:                          ns = 3'bxxx
-			
-	
-	
-	
 	  endcase
 	
 
+	//assign output
+	assign stateOut = ps;
+	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (reset) begin
