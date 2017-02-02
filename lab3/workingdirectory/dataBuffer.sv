@@ -16,8 +16,8 @@ module dataBuffer (clk, reset, beginScanning, level80, level90, level100);
 	
 	output logic level80, level90, level100;
 	
-	int count;
-	int bufferAmount;
+	integer count;
+	integer bufferAmount;
 	
 	initial begin
 		count = -1;
@@ -50,8 +50,10 @@ module dataBuffer (clk, reset, beginScanning, level80, level90, level100);
 	// 
 	always_ff @(posedge clk) begin
 		if (reset) begin
-			count <= 0;
+			count <= -1;
 			bufferAmount <= 0;
+		end else if ((count == -1) && beginScanning) begin
+			count <= 0;
 //		end else if ((count == (25000000 - 1)) && (bufferAmount <= 9)) begin
 		end else if ((count == (8 - 1)) && (bufferAmount <= 9)) begin
 			count <= 0;
