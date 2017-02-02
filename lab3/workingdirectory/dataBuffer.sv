@@ -58,7 +58,7 @@ module dataBuffer (clk, reset, beginScanning, level80, level90, level100);
 		end else if ((count == (8 - 1)) && (bufferAmount <= 9)) begin
 			count <= 0;
 			bufferAmount <= bufferAmount + 1;
-		end else begin
+		end else if (count >= 0) begin
 			count <= count + 1;
 		end
 	end
@@ -72,7 +72,7 @@ module dataBuffer_testbench();
 	
 	logic level80, level90, level100;
 	
-	dataBuffer dut (clk, reset, level80, level90, level100);
+	dataBuffer dut (clk, reset, beginScanning, level80, level90, level100);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
@@ -89,8 +89,9 @@ module dataBuffer_testbench();
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-								  
-	repeat (20) @(posedge clk);
+	beginScanning <= 1;    @(posedge clk);
+	beginScanning <= 0;    @(posedge clk);
+	repeat (100) @(posedge clk);
 	
 								  @(posedge clk);
 								  @(posedge clk);
