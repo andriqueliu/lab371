@@ -50,7 +50,7 @@ module dataBuffer (clk, reset, level80, level90, level100);
 		if (reset) begin
 			count <= 0;
 			bufferAmount <= 0;
-		end else if ((count == (25000000 - 1)) && (buffer <= 9)) begin
+		end else if ((count == (25000000 - 1)) && (bufferAmount <= 9)) begin
 			count <= 0;
 			bufferAmount <= bufferAmount + 1;
 		end else begin
