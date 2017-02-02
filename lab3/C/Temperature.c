@@ -4,7 +4,7 @@ Temperature.c
 Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 This program prompts the user for a temperature value, scale, and then converts the value
-to a desired temperature scale.
+to the desired temperature scale.
 
 Reference Formulas:
 C = (F - 32 / 1.8)
@@ -20,17 +20,20 @@ double askForValue(void);
 char askForScale(void);
 char askForFromScale(void);
 char askForToScale(void);
-double convertTemprature(double value, char fromScale, char toScale);
+double convertTemperature(double value, char fromScale, char toScale);
+void printConversion(double value, double finalValue, char fromScale, char toScale);
 
 int main()
 {
-	double value;
+	double value, finalValue;
 	char fromScale;
 	char toScale;
 
 	value = askForValue();
 	fromScale = askForFromScale();
 	toScale = askForToScale();
+	finalValue = convertTemperature(value, fromScale, toScale);
+	printConversion(value, finalValue, fromScale, toScale);
 
 	return 0;
 }
@@ -112,4 +115,12 @@ double convertTemperature(double value, char fromScale, char toScale)
 	if(fromScale == 'K' && toScale == 'F') {
 		result = (((value - 273) * 9) / 5) + 32;
 	}
+}
+
+// Prints the final conversion, including the initial value and scale,
+// followed by the final value and scale.
+void printConversion(double value, double finalValue, char fromScale, char toScale)
+{
+	printf("Temperature in %.3lf degrees %c is %.3lf degrees %c\n",
+		   value, fromScale, finalValue, toScale);
 }
