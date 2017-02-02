@@ -53,19 +53,22 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 		   STANDBY: begin
 				if (startActive) begin
 					ns = ACTIVE;
-					status = 'b
+					status = 'b01
 				end else begin
 					ns = STANDBY;
-					status = 'b
+					status = 'b01
 				end
 			end
-			ACTIVE:
+			ACTIVESUB80:
 				if (transferCmd)
 					ns = transfer; 
 				else if (!transferCmd)
 					ns = idle;
 				else
 					ns = ps;
+			ACTIVE80:
+			ACTIVE90:
+			ACTIVEFULL:
 			idle:
 				if (secondTransferCmd)
 					ns = transfer;
