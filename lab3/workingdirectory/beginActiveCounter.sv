@@ -1,8 +1,14 @@
 /*
+EE 371 Lab 3 Project
+Designing an Underwater Digital Scanning System
+Authors: Andrique Liu, Emraj Sidhu, Nikhil Grover
+
+beginActiveCounter provides the delay between the scanner's STANDBY
+and its ACTIVE states.
 
 
-
-
+Note: Required clock cycles are decreased during testing so ModelSim
+can handle the simulation.
 */
 module beginActiveCounter (clk, reset, startStandby, startActive);
 	input  logic clk, reset;   // Clock, Reset
@@ -73,9 +79,11 @@ module beginActiveCounter_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 	repeat (20) @(posedge clk);
-	startStandby <= 1;      @(posedge clk);
-	startStandby <= 0;      @(posedge clk);
+	startStandby <= 1;     @(posedge clk);
+	startStandby <= 0;     @(posedge clk);
 	repeat (10) @(posedge clk);
+	startStandby <= 1;     @(posedge clk);
+	startStandby <= 0;     @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
