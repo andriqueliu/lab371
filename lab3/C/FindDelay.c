@@ -74,7 +74,11 @@ double calculateDelay(int logicDevices)
 	double logicDelay, pathDelay, totalDelay;
 
 	logicDelay = logicDevices * LOGICDEVICEDELAY;
-	pathDelay = (logicDevices - 1) * PATHDELAY;
+	if (logicDevices > 0) {
+		pathDelay = (logicDevices - 1) * PATHDELAY;
+	} else {
+		pathDelay = 0;
+	}
 	totalDelay = logicDelay + pathDelay;
 
 	return totalDelay;
