@@ -19,12 +19,25 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	input  logic clk, reset;
 	input  logic standBySign, startScanning, transfer, secondTransferCmd, transComplete, flush;
 	
+	// Register that indicates state/activity status:
+	// Low Power, 
 	output logic [:0] status;
 	
-	
-	
-	
 	dataBuffer dataBuff (.clk, .reset, .level80(), .level90(), .level100());
+	beginActiveCounter activeCt(.clk, .reset, .startStandby(status[]), .startActive);
+	
+	integer  beginActive; // Flag that enables ACTIVE following delay after STANDBY
+	
+	// Initial Logic
+	// 
+	initial begin
+		beginActive = 0;
+	end
+	
+	
+	
+	
+	
 	
 	// State Variables
 	enum { LOWPOWER, STANDBY, ACTIVE, IDLE, TRANSFER, FLUSH } ps, ns;
@@ -33,11 +46,12 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	always_comb begin
 		case (ps) 
 			LOWPOWER:
-				if (standBySig)
-					ns = standby;
+				if (startScanning)
+					ns = STANDBY;
 				else
-					ns = ps;
-		   standby:
+					ns = LOWPOWER;
+					status = 'b10
+		   STANDBY:
 				if (startScanning)
 					ns = scanning;
 				else
@@ -77,6 +91,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= LOWPOWER;
+			beginActive <= 0;
 		end else begin
 			ps <= ns;
 		end
