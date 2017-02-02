@@ -19,6 +19,8 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	input  logic clk, reset;
 	input  logic standBySign, startScanning, transfer, secondTransferCmd, transComplete, flush;
 	
+	input  logic startActive; // Flag that indicates when STANDBY is complete
+	
 	// Register that indicates state/activity status:
 	// Low Power, 
 	output logic [:0] status;
@@ -26,13 +28,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	dataBuffer dataBuff (.clk, .reset, .level80(), .level90(), .level100());
 	beginActiveCounter activeCt(.clk, .reset, .startStandby(status[]), .startActive);
 	
-	integer  beginActive; // Flag that enables ACTIVE following delay after STANDBY
-	
-	// Initial Logic
-	// 
-	initial begin
-		beginActive = 0;
-	end
+
 	
 	
 	
@@ -45,18 +41,25 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	// Combinational Logic
 	always_comb begin
 		case (ps) 
-			LOWPOWER:
-				if (startScanning)
+			LOWPOWER: begin
+				if (startScanning) begin
 					ns = STANDBY;
-				else
+					status = 'b10
+				end else begin
 					ns = LOWPOWER;
 					status = 'b10
-		   STANDBY:
-				if (startScanning)
-					ns = scanning;
-				else
-					ns = ps;
-			scanning:
+				end
+			end
+		   STANDBY: begin
+				if (startActive) begin
+					ns = ACTIVE;
+					status = 'b
+				end else begin
+					ns = STANDBY;
+					status = 'b
+				end
+			end
+			ACTIVE:
 				if (transferCmd)
 					ns = transfer; 
 				else if (!transferCmd)
