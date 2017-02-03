@@ -13,7 +13,8 @@ Authors: Emraj Sidhu, Andrique Liu, Nikhil Grover
 Finite State Machine for the Scanner 
 
 
-
+Note: "Low Power" and "Standby" combined into one state, as there is no mention
+of a transition between the two states within the lab specification.
 */
 module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransferCmd, transComplete, flush, stateOut );
 	input  logic clk, reset;
@@ -21,9 +22,9 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	
 	input  logic level80, level90, level100;
 	
-	// Register that indicates state/activity status:
-	// Low Power, 
-	output logic [:0] status;
+	// Register that indicates state/activity statuses:
+	// Low Power, Scanning, Idle, Transferring, Flush
+	output logic [4:0] status;
 	output logic readyToTransfer; // 
 	output integer bufferAmount;  // 
 	
@@ -32,65 +33,62 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	
 	
 	// State Variables
+	// Low Power, Active below 80, Active above 80, Active above 90,
+	// Active full (100%), 
 	enum { LOWPOWER, ACTIVESUB80, ACTIVE80, ACTIVE90, ACTIVEFULL,
 	       IDLE, TRANSFER, FLUSH } ps, ns;
 	
-	// Combinational Logic
+	// Combinational/Next State Logic
 	// 
 	always_comb begin
 		case (ps) 
 			LOWPOWER: begin
 				if (startScanning) begin
 					ns = ACTIVESUB80;
-					status = 'b10;
+					status = 5'b10000;
 				end else begin
 					ns = LOWPOWER;
-					status = 'b10;
+					status = 5'b10000;
 				end
 			end
 			ACTIVESUB80: begin
 				if (level80) begin
 					ns = ACTIVE80;
-					status = 'b
+					status = 5'b01000;
 				end else begin
 					ns = ACTIVESUB80;
-					status = 'b
+					status = 5'b01000;
 				end
 			end
 			ACTIVE80: begin
 				if (level90) begin
 					ns = ACTIVE90;
-					status = 
+					status = 5'b01000;
 				end else begin
 					ns = ACTIVE80;
-					status = 
+					status = 5'b01000;
 				end
 			end
 			ACTIVE90: begin
 				if () begin
 					
+				end else begin
+					
 				end
 			end
 			ACTIVE100: begin
+				if () begin
 				
+				end
 			end
-			idle:
-				if (secondTransferCmd)
-					ns = transfer;
-				else if (flush)
-					ns = flushing;
-				else
-					ns = ps;
-			transfer:
-				if (transComplete)
-					ns = lowPower;
-			   else
-					ns = ps;
-			flushing:
-				if (transComplete)
-					ns = lowPower;
-				else
-					ns = ps;
+			IDLE: begin
+			
+			end
+			TRANSFER: begin
+			
+			end
+			FLUSH:
+				
 			default:
 				
 	  endcase
@@ -102,7 +100,6 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= LOWPOWER;
-			beginActive <= 0;
 		end else begin
 			ps <= ns;
 		end
