@@ -105,6 +105,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 		end else begin
 			beginTransfer = 0;
 		end
+		
 	end
 		
 
