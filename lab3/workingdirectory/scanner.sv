@@ -19,29 +19,27 @@ of a transition between the two states within the lab specification.
 module scanner (clk, reset, beginScanning, beginTransfer,
                 status, readyToTransfer, bufferAmount,
 					 startScanningOut);
+	
 	input  logic clk, reset;
-//	input  logic standBySign, startScanning, transfer, secondTransferCmd, transComplete, flush;
 	input  logic beginScanning, beginTransfer;
 	
 	// Register that indicates state/activity statuses:
 	// Low Power, Scanning, Idle, Transferring, Flush
 	output logic [4:0] status;
-	output logic readyToTransfer; // 
-	output integer bufferAmount;  // 
-	output logic startScanningOut;
+	output logic readyToTransfer;  // 
+	output integer bufferAmount;   // 
+	output logic startScanningOut; // 
 	
 	
 	
 	// 
-//	logic beginScanning, level80, level90, level100;
 	logic level80, level90, level100;
 	dataBuffer dataBuff (.clk, .reset, .beginScanning, .level80,
 	                     .level90, .level100, .bufferAmount);
 	
 	// 
-	logic  beginTransferTimer;
 	logic  transferComplete;
-	transferProcess trans (.clk, .reset, .timerStart(beginTransferTimer),
+	transferProcess trans (.clk, .reset, .timerStart(beginTransfer),
 	                       .timerComplete(transferComplete));
 	
 	
@@ -49,7 +47,7 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 	// Low Power, Active below 80, Active above 80, Active above 90,
 	// Active full (100%), 
 	enum { LOWPOWER, ACTIVESUB80, ACTIVE80, ACTIVE90,
-	       IDLE, TRANSFER, FLUSH } ps, ns;
+	       IDLE, TRANSFER } ps, ns;
 	
 	// Combinational/Next State Logic
 	// 
@@ -127,11 +125,6 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 		// Once the scanner becomes ACTIVE, initiate the data collection process.
 		
 		// Once the scanner is in the TRANSFER state, initiate transfer process.
-		if (ps == TRANSFER) begin
-			beginTransferTimer = 1;
-		end else begin
-			beginTransferTimer = 0;
-		end
 		
 		// Once the data buffer is 90% full, tells the other scanner to
 		// start scanning. 
@@ -157,7 +150,7 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 	
 endmodule
 
-// Test module
+// Test Module
 module scanner_testbench();
 	logic clk, reset;
 	logic beginScanning, beginTransfer;
@@ -188,7 +181,9 @@ module scanner_testbench();
 	reset <= 0;            @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-	repeat (20) @(posedge clk);
+	beginScanning <= 1;    @(posedge clk);
+	beginScanning <= 0;    @(posedge clk);
+	repeat (70) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
