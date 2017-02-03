@@ -10,7 +10,7 @@ Note: Assume we are using 25 MHz clock (whichClock = 0)
 
 
 */
-module dataBuffer (clk, reset, beginScanning, level80, level90, level100);
+module dataBuffer (clk, reset, beginScanning, level80, level90, level100, bufferAmount);
 	input  logic clk, reset;
 	input  logic beginScanning;
 	
@@ -72,8 +72,9 @@ module dataBuffer_testbench();
 	logic beginScanning;
 	
 	logic level80, level90, level100;
+	integer bufferAmount;
 	
-	dataBuffer dut (clk, reset, beginScanning, level80, level90, level100);
+	dataBuffer dut (clk, reset, beginScanning, level80, level90, level100, bufferAmount);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;

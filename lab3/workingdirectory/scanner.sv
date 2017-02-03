@@ -28,6 +28,8 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	output logic readyToTransfer; // 
 	output integer bufferAmount;  // 
 	
+	logic  beginTransfer; // 
+	
 	// 
 	dataBuffer dataBuff (.clk, .reset, .level80, .level90, .level100, .bufferAmount);
 	
@@ -35,7 +37,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	// State Variables
 	// Low Power, Active below 80, Active above 80, Active above 90,
 	// Active full (100%), 
-	enum { LOWPOWER, ACTIVESUB80, ACTIVE80, ACTIVE90, ACTIVEFULL,
+	enum { LOWPOWER, ACTIVESUB80, ACTIVE80, ACTIVE90,
 	       IDLE, TRANSFER, FLUSH } ps, ns;
 	
 	// Combinational/Next State Logic
@@ -70,28 +72,41 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 				end
 			end
 			ACTIVE90: begin
-				if () begin
-					
+				if (level100) begin
+					ns = IDLE;
+					status = 5'b01000;
 				end else begin
-					
-				end
-			end
-			ACTIVE100: begin
-				if () begin
-				
+					ns = ACTIVE90;
+					status = 5'b01000;
 				end
 			end
 			IDLE: begin
-			
+				if (transfer) begin
+					ns = TRANSFER;
+					status = 
+				end else begin
+					ns = IDLE;
+					status = 
+				end
 			end
 			TRANSFER: begin
-			
+				
 			end
-			FLUSH:
+			FLUSH: begin
 				
-			default:
+			end
+			default: begin
 				
-	  endcase
+			end
+		endcase
+		
+		if (ps = TRANSFER) begin
+			beginTransfer = 1;
+		end else begin
+			beginTransfer = 0;
+		end
+	end
+		
 
 	// Assign output
 	assign stateOut = ps;
