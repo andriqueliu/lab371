@@ -15,9 +15,10 @@ module dataBuffer (clk, reset, beginScanning, level80, level90, level100);
 	input  logic beginScanning;
 	
 	output logic level80, level90, level100;
+	output integer bufferAmount; // 
 	
 	integer count;
-	integer bufferAmount;
+//	integer bufferAmount;
 	
 	initial begin
 		count = -1;

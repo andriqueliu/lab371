@@ -19,56 +19,61 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	input  logic clk, reset;
 	input  logic standBySign, startScanning, transfer, secondTransferCmd, transComplete, flush;
 	
-	input  logic startActive; // Flag that indicates when STANDBY is complete
+	input  logic level80, level90, level100;
 	
 	// Register that indicates state/activity status:
 	// Low Power, 
 	output logic [:0] status;
+	output logic readyToTransfer; // 
+	output integer bufferAmount;  // 
 	
-	dataBuffer dataBuff (.clk, .reset, .level80(), .level90(), .level100());
-	beginActiveCounter activeCt(.clk, .reset, .startStandby(status[]), .startActive);
-	
-
-	
-	
-	
-	
+	// 
+	dataBuffer dataBuff (.clk, .reset, .level80, .level90, .level100, .bufferAmount);
 	
 	
 	// State Variables
-	enum { LOWPOWER, STANDBY, ACTIVE, IDLE, TRANSFER, FLUSH } ps, ns;
+	enum { LOWPOWER, ACTIVESUB80, ACTIVE80, ACTIVE90, ACTIVEFULL,
+	       IDLE, TRANSFER, FLUSH } ps, ns;
 	
 	// Combinational Logic
+	// 
 	always_comb begin
 		case (ps) 
 			LOWPOWER: begin
 				if (startScanning) begin
-					ns = STANDBY;
-					status = 'b10
+					ns = ACTIVESUB80;
+					status = 'b10;
 				end else begin
 					ns = LOWPOWER;
-					status = 'b10
+					status = 'b10;
 				end
 			end
-		   STANDBY: begin
-				if (startActive) begin
-					ns = ACTIVE;
-					status = 'b01
+			ACTIVESUB80: begin
+				if (level80) begin
+					ns = ACTIVE80;
+					status = 'b
 				end else begin
-					ns = STANDBY;
-					status = 'b01
+					ns = ACTIVESUB80;
+					status = 'b
 				end
 			end
-			ACTIVESUB80:
-				if (transferCmd)
-					ns = transfer; 
-				else if (!transferCmd)
-					ns = idle;
-				else
-					ns = ps;
-			ACTIVE80:
-			ACTIVE90:
-			ACTIVEFULL:
+			ACTIVE80: begin
+				if (level90) begin
+					ns = ACTIVE90;
+					status = 
+				end else begin
+					ns = ACTIVE80;
+					status = 
+				end
+			end
+			ACTIVE90: begin
+				if () begin
+					
+				end
+			end
+			ACTIVE100: begin
+				
+			end
 			idle:
 				if (secondTransferCmd)
 					ns = transfer;
