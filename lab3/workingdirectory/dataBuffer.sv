@@ -92,11 +92,14 @@ module dataBuffer_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 	beginScanning <= 1;    @(posedge clk);
-	beginScanning <= 0;    @(posedge clk);
+//	beginScanning <= 0;    @(posedge clk);
 	repeat (100) @(posedge clk);
 	
 								  @(posedge clk);
 								  @(posedge clk);
+//	beginScanning <= 1;    @(posedge clk);
+//	beginScanning <= 0;    @(posedge clk);
+//	repeat (100) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
