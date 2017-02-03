@@ -10,9 +10,11 @@ Note: Assume we are using 25 MHz clock (whichClock = 0)
 
 
 */
-module dataBuffer (clk, reset, beginScanning, level80, level90, level100, bufferAmount);
+module dataBuffer (clk, reset, beginScanning, bufferCleared,
+                   level80, level90, level100, bufferAmount);
 	input  logic clk, reset;
 	input  logic beginScanning;
+	input  logic bufferCleared;
 	
 	output logic level80, level90, level100;
 	output integer bufferAmount; // 
@@ -50,7 +52,7 @@ module dataBuffer (clk, reset, beginScanning, level80, level90, level100, buffer
 	// Sequential Logic
 	// 
 	always_ff @(posedge clk) begin
-		if (reset) begin
+		if (reset || bufferCleared) begin // ??? Can these conditions be paired?
 			count <= -1;
 			bufferAmount <= 0;
 		end else if ((count == -1) && beginScanning) begin
@@ -70,11 +72,13 @@ endmodule
 module dataBuffer_testbench();
 	logic clk, reset;
 	logic beginScanning;
+	logic bufferCleared;
 	
 	logic level80, level90, level100;
 	integer bufferAmount;
 	
-	dataBuffer dut (clk, reset, beginScanning, level80, level90, level100, bufferAmount);
+	dataBuffer dut (clk, reset, beginScanning, bufferCleared,
+	                level80, level90, level100, bufferAmount);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;

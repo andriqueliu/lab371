@@ -10,7 +10,8 @@ EE 371 Winter 2017
 Lab 3 Project
 Authors: Emraj Sidhu, Andrique Liu, Nikhil Grover
 
-Finite State Machine for the Scanner 
+Finite State Machine for the Scanner
+
 
 
 Note: "Low Power" and "Standby" combined into one state, as there is no mention
@@ -34,11 +35,14 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 	
 	// 
 	logic level80, level90, level100;
-	dataBuffer dataBuff (.clk, .reset, .beginScanning, .level80,
-	                     .level90, .level100, .bufferAmount);
 	
 	// 
 	logic  transferComplete;
+	
+	//
+	dataBuffer dataBuff (.clk, .reset, .beginScanning, .bufferCleared(transferComplete),
+	                     .level80, .level90, .level100, .bufferAmount);
+	
 	transferProcess trans (.clk, .reset, .timerStart(beginTransfer),
 	                       .timerComplete(transferComplete));
 	
@@ -126,9 +130,9 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 		
 		// Once the scanner is in the TRANSFER state, initiate transfer process.
 		
-		// Once the data buffer is 90% full, tells the other scanner to
+		// Once the data buffer is 90% full, tells the other scanner(s) to
 		// start scanning. 
-		if (ps == ACTIVE90) begin // ??? 
+		if ((ps == ACTIVE80) && (ns == ACTIVE90)) begin
 			startScanningOut = 1;
 		end else begin
 			startScanningOut = 0;
@@ -190,9 +194,11 @@ module scanner_testbench();
 	beginTransfer <= 0;    @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
+	repeat (10) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
+	beginScanning <= 1;
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
