@@ -16,16 +16,19 @@ Finite State Machine for the Scanner
 Note: "Low Power" and "Standby" combined into one state, as there is no mention
 of a transition between the two states within the lab specification.
 */
-module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransferCmd, transComplete, flush, stateOut );
+module scanner (clk, reset, beginScanning, beginTransfer,
+                status, readyToTransfer, bufferAmount,
+					 startScanningOut);
 	input  logic clk, reset;
 //	input  logic standBySign, startScanning, transfer, secondTransferCmd, transComplete, flush;
-	input  logic beginScanning;
+	input  logic beginScanning, beginTransfer;
 	
 	// Register that indicates state/activity statuses:
 	// Low Power, Scanning, Idle, Transferring, Flush
 	output logic [4:0] status;
 	output logic readyToTransfer; // 
 	output integer bufferAmount;  // 
+	output logic startScanningOut;
 	
 	
 	
@@ -36,16 +39,11 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	                     .level90, .level100, .bufferAmount);
 	
 	// 
-	logic  beginTransfer;
+	logic  beginTransferTimer;
 	logic  transferComplete;
-	transferProcess trans (.clk, .reset, .timerStart(beginTransfer),
+	transferProcess trans (.clk, .reset, .timerStart(beginTransferTimer),
 	                       .timerComplete(transferComplete));
 	
-	// 
-	initial begin
-		beginScanning = 0;
-		beginTransfer = 0;
-	end
 	
 	// State Variables
 	// Low Power, Active below 80, Active above 80, Active above 90,
@@ -58,7 +56,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	always_comb begin
 		case (ps) 
 			LOWPOWER: begin
-				if (startScanning) begin
+				if (beginScanning) begin
 					ns = ACTIVESUB80;
 					status = 5'b10000;
 				end else begin
@@ -94,7 +92,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 				end
 			end
 			IDLE: begin
-				if (initiateTransfer) begin
+				if (beginTransfer) begin
 					ns = TRANSFER;
 					status = 5'b00100;
 				end else begin
@@ -121,7 +119,7 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 //				end
 //			end
 			default: begin
-				ns = LOWPOWER
+				ns = LOWPOWER;
 				status = 5'bX;
 			end
 		endcase
@@ -130,9 +128,9 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 		
 		// Once the scanner is in the TRANSFER state, initiate transfer process.
 		if (ps == TRANSFER) begin
-			beginTransfer = 1;
+			beginTransferTimer = 1;
 		end else begin
-			beginTransfer = 0;
+			beginTransferTimer = 0;
 		end
 		
 		// Once the data buffer is 90% full, tells the other scanner to
@@ -157,4 +155,67 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 		end
 	end
 	
+endmodule
+
+// Test module
+module scanner_testbench();
+	logic clk, reset;
+	logic beginScanning, beginTransfer;
+	
+	// Register that indicates state/activity statuses:
+	// Low Power, Scanning, Idle, Transferring, Flush
+	logic [4:0] status;
+	logic readyToTransfer; // 
+	integer bufferAmount;  // 
+	logic startScanningOut;
+	
+	scanner dut (clk, reset, beginScanning, beginTransfer,
+                status, readyToTransfer, bufferAmount,
+					 startScanningOut);
+	
+	// Set up the clock.
+	parameter CLOCK_PERIOD=100;
+	initial begin
+		clk <= 0;
+		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+	end
+	
+	// Set up the inputs to the design. Each line is a clock cycle.
+	initial begin
+								  @(posedge clk);
+	reset <= 1; 			  @(posedge clk);
+								  @(posedge clk);
+	reset <= 0;            @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	repeat (20) @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	$stop; // End the simulation.
+	end
 endmodule
