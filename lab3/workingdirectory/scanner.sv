@@ -28,11 +28,21 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 	output logic readyToTransfer; // 
 	output integer bufferAmount;  // 
 	
-	logic  beginTransfer; // 
+	// 
+	logic  beginTransfer;
+	logic  transferComplete;
 	
 	// 
 	dataBuffer dataBuff (.clk, .reset, .level80, .level90, .level100, .bufferAmount);
 	
+	// 
+	transferProcess trans (.clk, .reset, .timerStart(beginTransfer),
+	                       .timerComplete(transferComplete));
+	
+	// 
+	initial begin
+		beginTransfer = 0;
+	end
 	
 	// State Variables
 	// Low Power, Active below 80, Active above 80, Active above 90,
@@ -90,13 +100,26 @@ module scanner (clk, reset, standBySig, startScanning, transferCmd, secondTransf
 				end
 			end
 			TRANSFER: begin
-				
+				if (transferComplete) begin
+					ns = LOWPOWER;
+					status = 
+				end else begin
+					ns = TRANSFER;
+					status = 
+				end
 			end
 			FLUSH: begin
-				
+				if () begin
+					
+					
+				end else begin
+					
+					
+				end
 			end
 			default: begin
-				
+				ns = LOWPOWER
+				status = X; // ??? 
 			end
 		endcase
 		
