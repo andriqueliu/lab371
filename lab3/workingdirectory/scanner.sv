@@ -40,10 +40,10 @@ module scanner (clk, reset, beginScanning, beginTransfer,
 	logic  transferComplete;
 	
 	//
-	dataBuffer dataBuff (.clk, .reset, .beginScanning, .bufferCleared(transferComplete),
+	dataBuffer #(.DELAY(8)) dataBuff (.clk, .reset, .beginScanning, .bufferCleared(transferComplete),
 	                     .level80, .level90, .level100, .bufferAmount);
 	
-	transferProcess trans (.clk, .reset, .timerStart(beginTransfer),
+	transferProcess #(.DELAY(8)) trans (.clk, .reset, .timerStart(beginTransfer),
 	                       .timerComplete(transferComplete));
 	
 	

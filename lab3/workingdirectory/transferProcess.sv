@@ -5,7 +5,7 @@
 Note: Transfer and Flush processes should take half as long as it takes to 
 fill the buffer. 
 */
-module transferProcess (clk, reset, timerStart, timerComplete);
+module transferProcess #(parameter DELAY=(25000000*3)) (clk, reset, timerStart, timerComplete);
 	input  logic clk, reset;
 	input  logic timerStart;
 	
@@ -22,7 +22,7 @@ module transferProcess (clk, reset, timerStart, timerComplete);
 	// Combinational Logic
 	// 
 	always_comb begin
-		if (count == (8 - 1)) begin
+		if (count == (DELAY - 1)) begin
 			timerComplete = 1;
 		end else begin
 			timerComplete = 0;
@@ -32,11 +32,11 @@ module transferProcess (clk, reset, timerStart, timerComplete);
 	// Sequential Logic
 	// 
 	always_ff @(posedge clk) begin
-		if (reset || (count == (8 - 1))) begin
+		if (reset || (count == (DELAY - 1))) begin
 			count <= -1;
 		end else if ((count == -1) && timerStart) begin
 			count <= 0;
-		end else if ((count >= 0) && (count < (8 - 1))) begin
+		end else if ((count >= 0) && (count < (DELAY - 1))) begin
 			count <= count + 1;
 		end
 	end
@@ -50,7 +50,7 @@ module transferProcess_testbench();
 	
 	logic timerComplete;
 	
-	transferProcess dut (clk, reset, timerStart, timerComplete);
+	transferProcess #(.DELAY(8)) dut (clk, reset, timerStart, timerComplete);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;

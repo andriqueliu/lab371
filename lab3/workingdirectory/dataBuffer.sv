@@ -10,7 +10,7 @@ Note: Assume we are using 25 MHz clock (whichClock = 0)
 
 
 */
-module dataBuffer (clk, reset, beginScanning, bufferCleared,
+module dataBuffer #(parameter DELAY=25000000) (clk, reset, beginScanning, bufferCleared,
                    level80, level90, level100, bufferAmount);
 	input  logic clk, reset;
 	input  logic beginScanning;
@@ -57,8 +57,7 @@ module dataBuffer (clk, reset, beginScanning, bufferCleared,
 			bufferAmount <= 0;
 		end else if ((count == -1) && beginScanning) begin
 			count <= 0;
-//		end else if ((count == (25000000 - 1)) && (bufferAmount <= 9)) begin
-		end else if ((count == (8 - 1)) && (bufferAmount <= 9)) begin
+		end else if ((count == (DELAY - 1)) && (bufferAmount <= 9)) begin
 			count <= 0;
 			bufferAmount <= bufferAmount + 1;
 		end else if (count >= 0) begin
@@ -77,8 +76,9 @@ module dataBuffer_testbench();
 	logic level80, level90, level100;
 	integer bufferAmount;
 	
-	dataBuffer dut (clk, reset, beginScanning, bufferCleared,
-	                level80, level90, level100, bufferAmount);
+	// Called with shorter delay for ease of testing
+	dataBuffer #(.DELAY(8)) dut (clk, reset, beginScanning, bufferCleared,
+	                             level80, level90, level100, bufferAmount);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
