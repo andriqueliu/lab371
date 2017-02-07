@@ -1,7 +1,7 @@
 //Display module for scanner
 
-module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
-	output reg [7:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+module display(HEX0, HEX1, HEX2, HEX3, HEX4, status)
+	output reg [6:0] HEX0, HEX1, HEX2, HEX3, HEX4;
 	input [4:0] status;
 	reg [6:0] nil, A, d, E, h, I, L, o, n, P,  S, t, U, r, c, F;
 
@@ -26,7 +26,6 @@ module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
 		case(status)
 			5'b01000 : begin
 							//IDLE state
-							HEX5 = nil;
 							HEX4 = nil;
 							HEX3 = I;
 							HEX2 = d;
@@ -35,7 +34,6 @@ module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
 						end
 			5'b10000 : begin
 							//SCAN
-							HEX5 = nil;
 							HEX4 = nil;
 							HEX3 = S;
 							HEX2 = c;
@@ -44,7 +42,6 @@ module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
 						end
 			5'b00100 : begin
 							//Transfer
-							HEX5 = nil;
 							HEX4 = t;
 							HEX3 = r;
 							HEX2 = A;
@@ -53,7 +50,6 @@ module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
 						end
 			5'b00001 : begin
 							//FLUSH
-							HEX5 = nil;
 							HEX4 = F;
 							HEX3 = L;
 							HEX2 = U;
@@ -61,7 +57,6 @@ module display(HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, SW)
 							HEX0 = h;
 						end
 			default : begin
-							HEX5 = nil;
 							HEX4 = nil;
 							HEX3 = nil;
 							HEX2 = nil;
