@@ -15,7 +15,7 @@ the memory, and then reads them out, displaying them on the LEDs.
 
 
 */
-module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
+module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut);
    input  logic  clk, reset;            // Clock, Reset signals
 	inout  [7:0] data;          // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -39,6 +39,7 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 	
 	
 	output logic transferBit;
+	output logic clkOut;
 	
 	// Assign signals
 	assign clkLight = clk;
@@ -77,6 +78,13 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 	// If 0, IO port gets data_out (Read) ??? Not sure if these are inverted, check later
 	assign data[7:0] = !(!out_en && active && RW) ? MDR : 7'bZ; // !!! Negation
 	
+	// 
+	assign clkOut = startRead ? clk : 1'bX;
+	// 
+	assign transferBit = startRead ? data[i] : 1'bX;
+	
+	
+	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (reset) begin
@@ -105,13 +113,24 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 				address <= 0;
 			end
 		end else if (startRead && readReady) begin
-			if (address < 9) begin
+			if (i < 7) begin
+				i <= i + 1;
+			end else if ((i == 7) && address < 9) begin
+				i <= 0;
 				address <= address + 1;
 			end else begin
 				readReady <= 0;
-				
-				
 			end
+			
+			
+			
+//			if (address < 9) begin
+//				address <= address + 1;
+//			end else begin
+//				readReady <= 0;
+//				
+//				
+//			end
 		end
 	end
 	
@@ -123,8 +142,10 @@ module dataCollectTop_testbench();
 	wire [7:0] data;          // Bidirectional 32-bit I/O port
 	logic startWrite, startRead;
 	logic clkLight;
+	logic transferBit;
+	logic clkOut;
 	
-	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight);
+	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
@@ -143,9 +164,9 @@ module dataCollectTop_testbench();
 	@(posedge clk);
 	@(posedge clk);
 	startWrite <= 1;
-						repeat (20) @(posedge clk);
+						repeat (25) @(posedge clk);
 	startRead <= 1;
-						repeat (20) @(posedge clk);
+						repeat (50) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
