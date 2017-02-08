@@ -6,18 +6,20 @@ Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 
 */
-module dataCollectTop (clk, reset, startScanning, displayData);
+//module dataCollectTop (clk, reset, startScanning, displayData);
+module dataCollectTop (clk, reset, startScanning);
 	input  logic clk, reset; 
 	input  logic startScanning;
 	
-	output logic [7:0] displayData; // Display data being collected
+//	output logic [7:0] displayData; // Display data being collected
 	
 	// 8-bit data buffer with a depth of 
 	// Depth of 
-	logic  [7:0] dataBuffer [100];
+	logic  [7:0] dataBuffer [10]; // Depth of 10 for testing purposes
 	// 8-bit data that represents scanned data to be inserted into
 	// the data buffer
-	logic  [7:0] data;
+	logic  [7:0] scannedData;
+	integer address;
 	// scanningActive acts as a boolean; if true, scanner is active and is
 	// collecting data. Else, data collection stops.
 	logic scanningActive;
@@ -26,25 +28,22 @@ module dataCollectTop (clk, reset, startScanning, displayData);
 	
 	integer ctr;
 	
-	// 
-	logic enableSecond;
-	
-	// 
-	timerEnabled #(.DELAY(8)) tmrEnblTest (.clk, .reset, .beginTimer(startScanning),
-	                                       .enable(enableSecond));
-	
 	// Initial Logic
 	// 
 	initial begin
-		ctr  = -1;
-		data = {8{1'b0}};
+//		ctr  = -1;
+		address = 0;
+		scannedData = {8{1'b0}};
 	end
 	
 	// Combinational Logic
 	// Display data being collected
 	always_comb begin
-		displayData = data;
+//		displayData = data;
 	end
+	
+	assign data[7:0] = !(!out_en && active && RW) ? scannedData : 8'bZ;
+	
 	
 	// Sequential Logic
 	// If reset, reset local variables to initial state
