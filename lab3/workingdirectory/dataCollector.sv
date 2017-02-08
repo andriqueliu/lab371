@@ -44,7 +44,8 @@ module dataCollector (clk, reset, startScanning, displayData);
 	// Combinational Logic
 	// Display data being collected
 	always_comb begin
-		displayData = data;
+//		displayData = data;
+		displayData = dataBuffer[ctr];
 	end
 	
 	// Sequential Logic
@@ -57,11 +58,8 @@ module dataCollector (clk, reset, startScanning, displayData);
 			data <= {8{1'b0}};
 		end else if ((ctr == -1) && startScanning) begin
 			ctr <= ctr + 1;
-//			dataBuffer[ctr + 1] <= data;
-//			data <= data + 4'b0001;
 		end else if (ctr >= 0 && enableSecond) begin
 			ctr <= ctr + 1;
-//			dataBuffer[ctr + 1] <= data;
 			dataBuffer[ctr] <= data;
 			data <= data + 4'b0001;
 		end
