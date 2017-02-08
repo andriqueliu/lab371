@@ -78,11 +78,14 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 				RW <= 1;
 				out_en <= 0;
 //				chip_s <= 1; // ??? Do we wanna disable RW after write?
+				
+//				active <= 0;
+				
 				// Prepare address for reading
 				address <= 0;
 			end
 		end else if (startRead && readReady) begin
-			if (address < 127) begin
+			if (address < 9) begin
 				address <= address + 1;
 			end else begin
 				readReady <= 0;
