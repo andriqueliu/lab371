@@ -6,7 +6,7 @@ Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
 
 */
-module dataCollector (clk, reset, startScanning, displayData);
+module dataCollectTop (clk, reset, startScanning, displayData);
 	input  logic clk, reset; 
 	input  logic startScanning;
 	

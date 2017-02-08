@@ -1,78 +1,96 @@
 /*
-EE 371 Winter 2017
-Lab 3 Project
-Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
+memory functions as a static RAM, with 2K (2048) x 16-bit memory locations.
+From an external view, memory functionally has 1K (1024) x 32-bit memory locations.
+This means that addresses entered into this module are assumed to range from 0 to 1023.
 
+memory supports RW operations, executing these operations using a 32-bit I/O port.
 
+To operate memory, clear chip_select to select the device and enable R/W operations. 
+Reading: Clear output enable, enter address into MAR, set RW
+Writing: Set output enable, enter address and write data in MDR, and clear RW
 
+Note: Signals in memory propagate after delay (example: when reading, it will take
+a propagation delay after entering an address to display memory's data).
+
+Note: Reset operation is NOT supported in memory module, as it is too costly
+to wipe the memory module.
 */
-module dataCollect (clk, reset, startScanning, displayData);
-	input  logic clk, reset; 
-	input  logic startScanning;
+module dataCollect (clk, reset, data, address, out_en, active, RW);
+   input  logic clk, reset;     // Clock, Reset signals
+	inout  [7:0] data;          // Bidirectional 32-bit I/O port
+	// 11-bit address input- see Note.
+	// Note: From an external view, system interprets memory as having 32-bits/word per
+	// location. This way, the memory is functionally word-addressable, with
+	// 1024 functional 32-bit memory blocks.
+	// Note: Within the memory, each location has 16-bits, for a total of 2048 16-bit
+	// memory blocks.
+	input  integer address;
+	// Output enable: 1 to write to data, 0 to read from data
+   input  logic out_en;
+	// Chip select: 1 to disable R/W, 0 to enable R/W
+	input  logic active;
+   // Read/Write: 1 to read, 0 to write to memory
+	// Assume write takes place on posedge of RW (if RW is strobed for one cycle)
+	// Note: If write is held low for more than one cycle, data is simply written until
+	// one cycle after RW goes high.
+	input  logic RW;
 	
-	output logic [7:0] displayData; // Display data being collected
+	// Memory Data Registers: higher bits and lower bits
+	logic  [7:0] MDR;
 	
-	// 8-bit data buffer with a depth of 
-	// Depth of 
-	logic  [7:0] dataBuffer [100];
-	// 8-bit data that represents scanned data to be inserted into
-	// the data buffer
-	logic  [7:0] data;
-	// scanningActive acts as a boolean; if true, scanner is active and is
-	// collecting data. Else, data collection stops.
-	logic scanningActive;
-	
-	// ctr keeps count; 
-	
-	integer ctr;
-	
-	// 
-	logic enableSecond;
-	
-	// 
-	timerEnabled #(.DELAY(8)) tmrEnblTest (.clk, .reset, .beginTimer(startScanning),
-	                                       .enable(enableSecond));
-	
-	// Initial Logic
-	// 
-	initial begin
-		ctr  = -1;
-		data = {8{1'b0}};
-	end
+	// 16-bit values with a depth of 
+   logic  [7:0] stored_memory [255:0];
 	
 	// Combinational Logic
-	// Display data being collected
-	always_comb begin
-		displayData = data;
-	end
+	// Output enable behavior:
+	// If 1, IO port gets high Z (Write)
+	// If 0, IO port gets data_out (Read)
+	assign data = (!out_en && active && RW) ? MDR : 8'bZ;
 	
 	// Sequential Logic
-	// If reset, reset local variables to initial state
-	// Else if module inactive (ctr == -1) and startScanning goes high
-	// Else if ctr is >= 0, continue counting and adding data
 	always_ff @(posedge clk) begin
-		if (reset) begin
-			ctr <= -1;
-			data <= {8{1'b0}};
-		end else if ((ctr == -1) && startScanning) begin
-			ctr <= ctr + 1;
-		end else if (ctr >= 0 && enableSecond) begin
-			ctr <= ctr + 1;
-			dataBuffer[ctr] <= data;
-			data <= data + 4'b0001;
+		if (RW && !out_en && active) begin            // Read from memory
+			MDR <= stored_memory[address];
+		end else if (!RW && out_en && active) begin   // Write to memory
+			stored_memory[address] <= data;
+		end else begin                                // Default: Unknown values
+			MDR <= 8'bX;
 		end
 	end
 	
 endmodule
 
 // Tester Module
-module dataCollector_testbench();
-	logic clk, reset; 
-	logic startScanning;
+module dataCollect_testbench();
+	logic clk, reset;     // Clock, Reset signals
+	wire [7:0] data;          // Bidirectional 32-bit I/O port
+	// 11-bit address input- see Note.
+	// Note: From an external view, system interprets memory as having 32-bits/word per
+	// location. This way, the memory is functionally word-addressable, with
+	// 1024 functional 32-bit memory blocks.
+	// Note: Within the memory, each location has 16-bits, for a total of 2048 16-bit
+	// memory blocks.
+	integer address;
+	// Output enable: 1 to write to data, 0 to read from data
+   logic out_en;
+	// Chip select: 1 to disable R/W, 0 to enable R/W
+	logic active;
+   // Read/Write: 1 to read, 0 to write to memory
+	// Assume write takes place on posedge of RW (if RW is strobed for one cycle)
+	// Note: If write is held low for more than one cycle, data is simply written until
+	// one cycle after RW goes high.
+	logic RW;
 	
-	logic [7:0] displayData; // Display data being collected
+	logic [7:0] data1;
 	
-	dataCollector dut (clk, reset, startScanning, displayData);
+	dataCollect dut (clk, reset, data, address, out_en, active, RW);
+	
+	// Note: when ACCESSING memory, output enable logic is inverted
+	// (depending which way you define it)
+	// ...
+	// Need to add chip select, all those other signals...
+//	assign data = (out_en) ? data1 : 16'bz;
+	assign data[7:0] = (out_en) ? data1 : 8'bZ;
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
@@ -82,26 +100,71 @@ module dataCollector_testbench();
 	end
 	
 	// Set up the inputs to the design. Each line is a clock cycle.
+	// Test... set direction to pass data in
+	// Then clear direction to read data
 	initial begin
 								  @(posedge clk);
-	reset <= 1; 			  @(posedge clk);
+	active <= 1; 	        @(posedge clk);
 								  @(posedge clk);
-	reset <= 0;            @(posedge clk);
+	RW <= 1;               @(posedge clk);
 								  @(posedge clk);
-	startScanning <= 1;    @(posedge clk);
-	startScanning <= 0;    @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  repeat (100) @(posedge clk);
+	out_en <= 1; address <= 0; data1 <= 3; @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
+	RW <= 0;               @(posedge clk);
+	RW <= 1;               @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	address <= 2; data1 <= 5; @(posedge clk);
+								  @(posedge clk);
+	RW <= 0;               @(posedge clk);
+	RW <= 1;               @(posedge clk);
+	address <= 5; data1 <= 2; @(posedge clk);
+								  @(posedge clk);
+	RW <= 0;               @(posedge clk);
+	RW <= 1;               @(posedge clk);
+								  @(posedge clk);
+								  @(posedge clk);
+	out_en <= 0; address <= 5; @(posedge clk);
+								  @(posedge clk);
+	address <= 2;     @(posedge clk);
+	address <= 0;  @(posedge clk);
+
+
+
+////	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b1}}; @(posedge clk);
+//	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b0}}; @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	RW <= 0;               @(posedge clk);
+//	RW <= 1;               @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	address <= 11'b01; data1 <= {16{1'b0}}; data2 <= {16{1'b0}}; @(posedge clk);
+//								  @(posedge clk);
+//	RW <= 0;               @(posedge clk);
+//	RW <= 1;               @(posedge clk);
+//	address <= 11'b01000; data1 <= 16'b0000111100001111; data2 <= 16'b0000111100001111; @(posedge clk);
+//								  @(posedge clk);
+//	RW <= 0;               @(posedge clk);
+//	RW <= 1;               @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	out_en <= 0; address <= 11'b010; @(posedge clk);
+//								  @(posedge clk);
+//	address <= 11'b01;     @(posedge clk);
+//	address <= 11'b01000;  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
+//	out_en <= 1; address <= 4'b0111; data1 <= 4'b0000; @(posedge clk);
+//	RW <= 0;               @(posedge clk);
+//	RW <= 1;               @(posedge clk);
+//	out_en <= 0;           @(posedge clk);
+//	address <= 4'b0110;    @(posedge clk);
+//								  @(posedge clk);
+//	address <= 4'b0000;    @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 	$stop; // End the simulation.
