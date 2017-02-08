@@ -14,7 +14,7 @@ module dataCollector (clk, reset, startScanning, displayData);
 	
 	// 8-bit data buffer with a depth of 1000
 	// Depth of 
-	logic  [999:0][7:0] dataBuffer;
+	logic  [7:0] dataBuffer [1000];
 	// 8-bit data that represents scanned data to be inserted into
 	// the data buffer
 	logic  [7:0] data;
@@ -45,7 +45,7 @@ module dataCollector (clk, reset, startScanning, displayData);
 	// Display data being collected
 	always_comb begin
 //		displayData = data;
-		displayData[7:0] = dataBuffer[ctr][7:0];
+		displayData = dataBuffer[ctr];
 	end
 	
 	// Sequential Logic
@@ -60,7 +60,7 @@ module dataCollector (clk, reset, startScanning, displayData);
 			ctr <= ctr + 1;
 		end else if (ctr >= 0 && enableSecond) begin
 			ctr <= ctr + 1;
-			dataBuffer[ctr][7:0] <= data;
+			dataBuffer[ctr] <= data;
 			data <= data + 4'b0001;
 		end
 	end
