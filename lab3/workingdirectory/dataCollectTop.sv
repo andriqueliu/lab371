@@ -1,3 +1,12 @@
+// !!!
+// This module's processes can probably be written as a state machine.
+// States determine variables such as out en, etc., whereas sequential logic
+// can deal with latches such as address <= address + 1, etc.
+
+
+
+
+
 /*
 memoryTester is used to test the SRAM module; memoryTester first writes data into
 the memory, and then reads them out, displaying them on the LEDs.
@@ -28,6 +37,9 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 	input  logic startWrite, startRead;
 	output logic clkLight;
 	
+	
+	output logic transferBit;
+	
 	// Assign signals
 	assign clkLight = clk;
 	
@@ -42,6 +54,10 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 	logic  out_en, active, RW;
 	
 	// 
+	integer i;
+	
+	
+	// 
 	dataCollect collector (.clk, .reset, .data, .address, .out_en, .active, .RW);
 	
 	// Initialize variables
@@ -50,12 +66,15 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 		MDR = {7{1'b0}};
 		writeReady = 1;
 		readReady  = 1;
+		
+		
+		i = 0;
 	end
 	
 	// Combinational Logic
 	// Output enable behavior:
 	// If 1, IO port gets high Z (Write)
-	// If 0, IO port gets data_out (Read)
+	// If 0, IO port gets data_out (Read) ??? Not sure if these are inverted, check later
 	assign data[7:0] = !(!out_en && active && RW) ? MDR : 7'bZ; // !!! Negation
 	
 	// Sequential Logic
@@ -68,18 +87,19 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight);
 			RW <= 0;
 			out_en <= 1;
 			active <= 1;
+			
+			i = 0;
 		end else if (startWrite && writeReady) begin
 			if (address < 9) begin // Currently writing
 				address <= address + 1;
 				MDR <= MDR + 1;
-			end else begin        // Writing complete
-				writeReady <= 0;   // Clear writeReady
+			end else begin         // Writing complete
+				writeReady <= 0;    // Clear writeReady
 				
 				RW <= 1;
 				out_en <= 0;
-//				chip_s <= 1; // ??? Do we wanna disable RW after write?
-				
-//				active <= 0;
+
+//				active <= 0; // Disable after write???
 				
 				// Prepare address for reading
 				address <= 0;
