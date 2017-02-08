@@ -113,27 +113,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				address <= 0;
 			end
 		end else if (startRead && readReady) begin
-//			if (i < 7) begin
-//				i <= i + 1;
-//			end else if ((i == 7) && address < 9) begin
-//				address <= address + 1;
-//				i <= 0;
-////				address <= address + 1;
-//			end else begin
-//				readReady <= 0;
-//			end
-
-//			if (i < 6) begin
-//				i <= i + 1;
-//			end else if (i == 6) begin
-//				i <= 7;
-//			end else if ((i == 7) && (address < 9)) begin
-//				i <= 0;
-//				address <= address + 1;
-//			end else begin
-//				readReady <= 0;
-//			end
-
 			if (i < 6) begin
 				i <= i + 1;
 			end else if ((i == 6) && (address < 9)) begin
@@ -145,15 +124,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				readReady <= 0;
 			end
 			
-			
-			
-//			if (address < 9) begin
-//				address <= address + 1;
-//			end else begin
-//				readReady <= 0;
-//				
-//				
-//			end
 		end
 	end
 	
