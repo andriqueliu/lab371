@@ -106,8 +106,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				
 				RW <= 1;
 				out_en <= 0;
-
-//				active <= 0; // Disable after write???
 				
 				// Prepare address for reading
 				address <= 0;
