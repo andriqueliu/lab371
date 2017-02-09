@@ -86,6 +86,11 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	
 	
 	// Sequential Logic
+	// Reset: reset variables to initial variables
+	// Else, if receive startWrite command and write is ready, begin
+	// scanning/writing into memory.
+	// Else, if receive startRead command and read is ready, begin
+	// sending out serial data (transferring scanned data)
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			address <= 0;
