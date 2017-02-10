@@ -132,19 +132,45 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				// i??? Or just use another iterator?
 			end
 		end else if (startRead && readReady) begin
-			if (i < 6) begin
-				i <= i + 1;
-			end else if ((i == 6) && (address < 9)) begin
-				i <= 7;
-				address <= address + 1;
-			end else if (i == 7) begin
-				i <= 0;
+//			if (i < 6) begin
+//				i <= i + 1;
+//			end else if ((i == 6) && (address < 9)) begin
+//				i <= 7;
+//				address <= address + 1;
+//			end else if (i == 7) begin
+//				i <= 0;
+//			end else begin
+//				readReady <= 0;
+//				
+//				address <= -1;
+//				
+//			end
+			if (address < 10) begin
+				if (i < 6) begin
+					i <= i + 1;
+				end else if (i == 6) begin
+					i <= i + 1;
+					address <= address + 1;
+				end else if (i == 7) begin
+					i <= 0;
+				end
 			end else begin
 				readReady <= 0;
-				
 				address <= -1;
-				
 			end
+//			if (i < 6) begin
+//				i <= i + 1;
+//			end else if ((i == 6) && (address < 9)) begin
+//				i <= 7;
+//				address <= address + 1;
+//			end else if (i == 7) begin
+//				i <= 0;
+//			end else begin
+//				readReady <= 0;
+//				
+//				address <= -1;
+//				
+//			end
 			
 		end
 	end
