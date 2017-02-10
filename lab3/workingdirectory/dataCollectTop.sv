@@ -114,16 +114,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			
 			i = 0;
 		end else if (startWrite && writeReady) begin
-			// Try delaying by 3 clock cycles
-//			if (delayItr < 2) begin
-//				delayItr <= delayItr + 1;
-//			end else if ((delayItr == 2) && (address < 9)) begin
-//				delayItr <= 3;
-//				MDR <= MDR + 1;
-//				address <= address + 1;
-//			end else if (delayItr == 3) begin
-//				delayItr <= 0;
-//			
 			if (address < 9) begin
 				if (delayItr < 14) begin
 					delayItr <= delayItr + 1;
@@ -151,6 +141,9 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				i <= 0;
 			end else begin
 				readReady <= 0;
+				
+				address <= -1;
+				
 			end
 			
 		end
