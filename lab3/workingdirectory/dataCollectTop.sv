@@ -115,14 +115,25 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			i = 0;
 		end else if (startWrite && writeReady) begin
 			// Try delaying by 3 clock cycles
-			if (delayItr < 2) begin
-				delayItr <= delayItr + 1;
-			end else if ((delayItr == 2) && (address < 9)) begin
-				delayItr <= 3;
-				MDR <= MDR + 1;
-				address <= address + 1;
-			end else if (delayItr == 3) begin
-				delayItr <= 0;
+//			if (delayItr < 2) begin
+//				delayItr <= delayItr + 1;
+//			end else if ((delayItr == 2) && (address < 9)) begin
+//				delayItr <= 3;
+//				MDR <= MDR + 1;
+//				address <= address + 1;
+//			end else if (delayItr == 3) begin
+//				delayItr <= 0;
+//			
+			if (address < 9) begin
+				if (delayItr < 14) begin
+					delayItr <= delayItr + 1;
+				end else if (delayItr == 14) begin
+					delayItr <= delayItr + 1;
+					MDR <= MDR + 1;
+					address <= address + 1;
+				end else if (delayItr == 15) begin
+					delayItr <= 0;
+				end
 			end else begin
 				writeReady <= 0;
 				RW <= 1;
@@ -175,7 +186,7 @@ module dataCollectTop_testbench();
 	@(posedge clk);
 	@(posedge clk);
 	startWrite <= 1;
-						repeat (80) @(posedge clk);
+						repeat (150) @(posedge clk);
 	startRead <= 1;
 						repeat (50) @(posedge clk);
 								  @(posedge clk);
