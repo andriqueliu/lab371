@@ -129,7 +129,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				RW <= 1;
 				out_en <= 0;
 				address <= 0;
-				// i??? Or just use another iterator?
 			end
 		end else if (startRead && readReady) begin
 			if (address < 10) begin
