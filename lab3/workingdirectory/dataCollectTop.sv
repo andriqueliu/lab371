@@ -172,7 +172,7 @@ endmodule
 // Tester Module
 module dataCollectTop_testbench();
 	logic  clk, reset;            // Clock, Reset signals
-	wire [7:0] data;          // Bidirectional 32-bit I/O port
+	wire [7:0] data;              // Bidirectional 32-bit I/O port
 	logic startWrite, startRead;
 	logic clkLight;
 	logic transferBit;
