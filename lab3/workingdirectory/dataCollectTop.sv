@@ -15,7 +15,7 @@ the memory, and then reads them out, displaying them on the LEDs.
 
 
 */
-module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut);
+module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
    input  logic  clk, reset;            // Clock, Reset signals
 	inout  [7:0] data;          // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -40,6 +40,10 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	
 	output logic transferBit;
 	output logic clkOut;
+	
+	output logic [7:0] lights;
+	
+	assign lights = data;
 	
 	// Assign signals
 	assign clkLight = clk;

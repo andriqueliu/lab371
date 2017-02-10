@@ -17,7 +17,7 @@ to wipe the memory module.
 */
 module dataCollect (clk, reset, data, address, out_en, active, RW);
    input  logic clk, reset;     // Clock, Reset signals
-	inout  [7:0] data;          // Bidirectional 32-bit I/O port
+	inout  [7:0] data;           // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
 	// Note: From an external view, system interprets memory as having 32-bits/word per
 	// location. This way, the memory is functionally word-addressable, with
