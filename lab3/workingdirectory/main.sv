@@ -11,8 +11,8 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
 //	output logic [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
-//	inout  [35:0] GPIO_0;
-	output logic [35:0] GPIO_0;   // Test as OUTPUTS first
+	inout  [35:0] GPIO_0;
+//	output logic [35:0] GPIO_0;   // Test as OUTPUTS first
 	
 	// 
 	logic [31:0] clk;
