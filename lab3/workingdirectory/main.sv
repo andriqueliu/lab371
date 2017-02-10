@@ -16,7 +16,8 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	// 
 	logic [31:0] clk;
-	parameter whichClock = 20;   // Roughly 12 Hz
+//	parameter whichClock = 17;   // Roughly 
+	parameter whichClock = 5;
 	clock_divider cdiv (CLOCK_50, clk);
 	
 	
@@ -33,15 +34,19 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	assign LEDR[9] = clk[whichClock];
 	
-	logic  testSerial;
+	logic  testSerial, testClkOut;
 	
-	assign GPIO_0[35] = testSerial;
-	assign LEDR[8] = testSerial;
+	assign GPIO_0[35] = testSerial; // For some reason GPIO35 is working, but not 34?
+	                                // Trying 34 by hooking clkout to a logic first, then
+											  // assigning that logic to the GPIO???
+//	assign LEDR[8] = testSerial;
+	assign LEDR[8] = testClkOut;
+	assign GPIO_0[34] = testClkOut;
 	
 //	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead, .clkLight( ),
-										.transferBit(testSerial), .clkOut(GPIO_0[34]),
+										.transferBit(testSerial), .clkOut(testClkOut),
 										.lights(LEDR[7:0]));
 	
 //	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
