@@ -2,40 +2,111 @@
 // Andrique Liu, Emraj Sidhu, Nikhil Grover
 // The Transfer station
 
-// Will in take clk from the scanner. Other inputs will be the reset and the 8 bit
-// input from the scanner. The output will be an 8 bit signal
-// The ready signal still needs to be implemented
+// Will in take clk from the scanner. Other input will be the bit
+// data from the scanner.
 
-module transfer(clk, reset, data_scanner, out_data, ready);
+//Reset is included but not needed
+
+// When testing, the first positive clock edge will occur at i = 1 instead of i = 0.
+// Because of this, the iterator goes i = 8 instead of i = 7 since 
+// we will read 8 bits at a time.
+
+
+module transfer(clk, reset, data_scanner, ready);
 	input logic clk, reset;
-	input logic data_scanner; // Will take one bit input at a time
-	//output logic [7:0] out_data;
-	output logic [1:0] ready;
+	input logic data_scanner; 
+	output reg ready;
 	
 	reg [7:0] bits1; //Will be used to count each bit at every positive clock edge
+	
+	integer i;
+	
+	initial begin
+		i = 0;
+	end
 	
 	
 	// This will look at every bit passed in and will continue going until 8 bits have been 
 	// input. 
 	always @(posedge clk) begin
-		if (reset)
+		if ( i >= 0 && i < 8) 
 			begin
-				bits1 <= 8'b00000000;
-		   end
-		else 
+				bits1[i] <= data_scanner;
+				i <= i + 1;
+				ready <= 1;
+			end
+		else if ( i >= 7) 
 			begin
-				bits1[0] <= data_scanner;
-				bits1[1] <= bits1[0];
-				bits1[2] <= bits1[1];
-				bits1[3] <= bits1[2];
-				bits1[4] <= bits1[3];
-				bits1[5] <= bits1[4];
-				bits1[6] <= bits1[5];
-				bits1[7] <= bits1[6];
+				i <= 0;
+				ready <= 0;
+				bits1 <= 8'bxxxxxxxx;
 			end
 	end
 	
 
-		//assign out_data = bits1; //assign the output to the 8 bit signal
+
+		
+endmodule 
+
+module transfer_testbench();
+	logic clk, reset;
+   logic data_scanner;
+	logic ready;
+
+	transfer dut(.clk, .reset, .data_scanner, .ready);
+	
+	// Set up the clock.
+	parameter CLOCK_PERIOD=100;
+	initial begin
+		clk <= 0;
+		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+	end
+	
+	
+	// Set up the inputs to the design. Each line is a clock cycle.
+	initial begin	
+				 data_scanner <= 1;	   @(posedge clk); 
+             data_scanner <= 0;		@(posedge clk); 
+             data_scanner <= 1;     @(posedge clk);
+      		 data_scanner <= 0; 		@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+				 data_scanner <= 1;		@(posedge clk);
+             					         @(posedge clk);
+ 												@(posedge clk); 
+												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+            					         @(posedge clk);
+				data_scanner <= 0;	   @(posedge clk); 
+				data_scanner <= 1;	   @(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+                     					@(posedge clk);
+												@(posedge clk); 
+												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+            								@(posedge clk); 
+                                 	@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk); 
+                     					@(posedge clk);
+                     					@(posedge clk);
+												@(posedge clk);
+ 												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk); 
+												@(posedge clk);
+												@(posedge clk);
+												@(posedge clk);
+ $stop; // End the simulation.
+												
+											
+	end
 
 endmodule
+
+
