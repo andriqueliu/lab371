@@ -47,4 +47,72 @@ module GPIO_input(clk, rst, clkIN, serIN, readyOUT, data, load);
 endmodule
 
 module GPIO_inputTest;
+	reg clk, rst;
+	reg serIN, clkIN;
+	wire readyOUT;
+	wire [7:0] data;
+	wire load;
+
+	GPIO_input dut(clk, rst, serIN, readyOUT, data, load);
+
+	//test
+	integer i;
+	reg [7:0] testData;
+	initial begin
+		{clk, clkIN, serIN, rst} = 0;
+
+		clk = 1; #2;
+		clk = 0; #2;
+		rst = 1;
+		clk = 1; #2;
+		clk = 0; #2;
+		rst = 0;
+		clk = 1; #2;
+		clk = 0; #2;
+
+		// get some random data
+		testData = 8'b10010111;
+		for (i = 0; i < 8; i = i + 1) begin
+			serIN = testData[7 - i];
+			clk = 1; clkIN = 1; #2;
+			clk = 0; clkIN = 0; #2;
+		end
+
+		for (i = 0; i < 8; i = i + 1) begin
+			clk = 1; #2;
+			clk = 0; #2;
+		end
+
+		// get all 0's
+		testData = 8'b00000000;
+		for (i = 0; i < 8; i = i + 1) begin
+			serIN = testData[7 - i];
+			clk = 1; clkIN = 1; #2;
+			clk = 0; clkIN = 0; #2;
+		end
+
+		for (i = 0; i < 8; i = i + 1) begin
+			clk = 1; #2;
+			clk = 0; #2;
+		end
+
+		// get all 1's
+		testData = 8'b11111111;
+		for (i = 0; i < 8; i = i + 1) begin
+			serIN = testData[7 - i];
+			clk = 1; clkIN = 1; #2;
+			clk = 0; clkIN = 0; #2;
+		end
+
+		for (i = 0; i < 8; i = i + 1) begin
+			clk = 1; #2;
+			clk = 0; #2;
+		end
+
+		// slightly off clk cycles
+		// TODO test for lab 5
+
+		$finish;
+	end 
 	
+endmodule
