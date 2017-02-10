@@ -15,7 +15,7 @@ a propagation delay after entering an address to display memory's data).
 Note: Reset operation is NOT supported in memory module, as it is too costly
 to wipe the memory module.
 */
-module dataCollect (clk, reset, data, address, out_en, active, RW);
+module dataCollect (clk, reset, data, address, out_en, active, RW, stateHEX, pctgHEX);
    input  logic clk, reset;     // Clock, Reset signals
 	inout  [7:0] data;           // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -35,19 +35,28 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	// one cycle after RW goes high.
 	input  logic RW;
 	
+	output logic [6:0] stateHEX, pctgHEX;
+	
+	
 	// Memory Data Registers: higher bits and lower bits
 	logic  [7:0] MDR;
 	
 	// 16-bit values with a depth of 
    logic  [7:0] stored_memory [750];
 	
+	logic  [9:0] pctgReg;
+	
+	// 
+	display stateDisplay (.HEX(stateHEX), .status);
+	// 
+	percentageDisplay pctgDisplay (.HEX5(pctgHEX), .percent(pctgReg));
+	
+	
 	// Combinational Logic
 	// Output enable behavior:
 	// If 1, IO port gets high Z (Write)
 	// If 0, IO port gets data_out (Read)
 	assign data = (!out_en && active && RW) ? MDR : 8'bZ;
-	
-	
 	
 	
 	
@@ -64,113 +73,113 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	
 endmodule
 
-// Tester Module
-module dataCollect_testbench();
-	logic clk, reset;     // Clock, Reset signals
-	wire [7:0] data;          // Bidirectional 32-bit I/O port
-	// 11-bit address input- see Note.
-	// Note: From an external view, system interprets memory as having 32-bits/word per
-	// location. This way, the memory is functionally word-addressable, with
-	// 1024 functional 32-bit memory blocks.
-	// Note: Within the memory, each location has 16-bits, for a total of 2048 16-bit
-	// memory blocks.
-	integer address;
-	// Output enable: 1 to write to data, 0 to read from data
-   logic out_en;
-	// Chip select: 1 to disable R/W, 0 to enable R/W
-	logic active;
-   // Read/Write: 1 to read, 0 to write to memory
-	// Assume write takes place on posedge of RW (if RW is strobed for one cycle)
-	// Note: If write is held low for more than one cycle, data is simply written until
-	// one cycle after RW goes high.
-	logic RW;
-	
-	logic [7:0] data1;
-	
-	dataCollect dut (clk, reset, data, address, out_en, active, RW);
-	
-	// Note: when ACCESSING memory, output enable logic is inverted
-	// (depending which way you define it)
-	// ...
-	// Need to add chip select, all those other signals...
-//	assign data = (out_en) ? data1 : 16'bz;
-	assign data[7:0] = (out_en) ? data1 : 8'bZ;
-	
-	// Set up the clock.
-	parameter CLOCK_PERIOD=100;
-	initial begin
-		clk <= 0;
-		forever #(CLOCK_PERIOD/2) clk <= ~clk;
-	end
-	
-	// Set up the inputs to the design. Each line is a clock cycle.
-	// Test... set direction to pass data in
-	// Then clear direction to read data
-	initial begin
-								  @(posedge clk);
-	active <= 1; 	        @(posedge clk);
-								  @(posedge clk);
-	RW <= 1;               @(posedge clk);
-								  @(posedge clk);
-	out_en <= 1; address <= 0; data1 <= 3; @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	RW <= 0;               @(posedge clk);
-	RW <= 1;               @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	address <= 2; data1 <= 5; @(posedge clk);
-								  @(posedge clk);
-	RW <= 0;               @(posedge clk);
-	RW <= 1;               @(posedge clk);
-	address <= 5; data1 <= 2; @(posedge clk);
-								  @(posedge clk);
-	RW <= 0;               @(posedge clk);
-	RW <= 1;               @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	out_en <= 0; address <= 5; @(posedge clk);
-								  @(posedge clk);
-	address <= 2;     @(posedge clk);
-	address <= 0;  @(posedge clk);
-
-
-
-////	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b1}}; @(posedge clk);
-//	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b0}}; @(posedge clk);
+//// Tester Module
+//module dataCollect_testbench();
+//	logic clk, reset;     // Clock, Reset signals
+//	wire [7:0] data;          // Bidirectional 32-bit I/O port
+//	// 11-bit address input- see Note.
+//	// Note: From an external view, system interprets memory as having 32-bits/word per
+//	// location. This way, the memory is functionally word-addressable, with
+//	// 1024 functional 32-bit memory blocks.
+//	// Note: Within the memory, each location has 16-bits, for a total of 2048 16-bit
+//	// memory blocks.
+//	integer address;
+//	// Output enable: 1 to write to data, 0 to read from data
+//   logic out_en;
+//	// Chip select: 1 to disable R/W, 0 to enable R/W
+//	logic active;
+//   // Read/Write: 1 to read, 0 to write to memory
+//	// Assume write takes place on posedge of RW (if RW is strobed for one cycle)
+//	// Note: If write is held low for more than one cycle, data is simply written until
+//	// one cycle after RW goes high.
+//	logic RW;
+//	
+//	logic [7:0] data1;
+//	
+//	dataCollect dut (clk, reset, data, address, out_en, active, RW);
+//	
+//	// Note: when ACCESSING memory, output enable logic is inverted
+//	// (depending which way you define it)
+//	// ...
+//	// Need to add chip select, all those other signals...
+////	assign data = (out_en) ? data1 : 16'bz;
+//	assign data[7:0] = (out_en) ? data1 : 8'bZ;
+//	
+//	// Set up the clock.
+//	parameter CLOCK_PERIOD=100;
+//	initial begin
+//		clk <= 0;
+//		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//	end
+//	
+//	// Set up the inputs to the design. Each line is a clock cycle.
+//	// Test... set direction to pass data in
+//	// Then clear direction to read data
+//	initial begin
+//								  @(posedge clk);
+//	active <= 1; 	        @(posedge clk);
+//								  @(posedge clk);
+//	RW <= 1;               @(posedge clk);
+//								  @(posedge clk);
+//	out_en <= 1; address <= 0; data1 <= 3; @(posedge clk);
 //								  @(posedge clk);
 //								  @(posedge clk);
 //	RW <= 0;               @(posedge clk);
 //	RW <= 1;               @(posedge clk);
 //								  @(posedge clk);
 //								  @(posedge clk);
-//	address <= 11'b01; data1 <= {16{1'b0}}; data2 <= {16{1'b0}}; @(posedge clk);
+//	address <= 2; data1 <= 5; @(posedge clk);
 //								  @(posedge clk);
 //	RW <= 0;               @(posedge clk);
 //	RW <= 1;               @(posedge clk);
-//	address <= 11'b01000; data1 <= 16'b0000111100001111; data2 <= 16'b0000111100001111; @(posedge clk);
+//	address <= 5; data1 <= 2; @(posedge clk);
 //								  @(posedge clk);
 //	RW <= 0;               @(posedge clk);
 //	RW <= 1;               @(posedge clk);
 //								  @(posedge clk);
 //								  @(posedge clk);
-//	out_en <= 0; address <= 11'b010; @(posedge clk);
+//	out_en <= 0; address <= 5; @(posedge clk);
 //								  @(posedge clk);
-//	address <= 11'b01;     @(posedge clk);
-//	address <= 11'b01000;  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-//	out_en <= 1; address <= 4'b0111; data1 <= 4'b0000; @(posedge clk);
-//	RW <= 0;               @(posedge clk);
-//	RW <= 1;               @(posedge clk);
-//	out_en <= 0;           @(posedge clk);
-//	address <= 4'b0110;    @(posedge clk);
+//	address <= 2;     @(posedge clk);
+//	address <= 0;  @(posedge clk);
+//
+//
+//
+//////	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b1}}; @(posedge clk);
+////	out_en <= 1; address <= 11'b00; data1 <= {16{1'b1}}; data2 <= {16{1'b0}}; @(posedge clk);
+////								  @(posedge clk);
+////								  @(posedge clk);
+////	RW <= 0;               @(posedge clk);
+////	RW <= 1;               @(posedge clk);
+////								  @(posedge clk);
+////								  @(posedge clk);
+////	address <= 11'b01; data1 <= {16{1'b0}}; data2 <= {16{1'b0}}; @(posedge clk);
+////								  @(posedge clk);
+////	RW <= 0;               @(posedge clk);
+////	RW <= 1;               @(posedge clk);
+////	address <= 11'b01000; data1 <= 16'b0000111100001111; data2 <= 16'b0000111100001111; @(posedge clk);
+////								  @(posedge clk);
+////	RW <= 0;               @(posedge clk);
+////	RW <= 1;               @(posedge clk);
+////								  @(posedge clk);
+////								  @(posedge clk);
+////	out_en <= 0; address <= 11'b010; @(posedge clk);
+////								  @(posedge clk);
+////	address <= 11'b01;     @(posedge clk);
+////	address <= 11'b01000;  @(posedge clk);
 //								  @(posedge clk);
-//	address <= 4'b0000;    @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	$stop; // End the simulation.
-	end
-endmodule
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+////	out_en <= 1; address <= 4'b0111; data1 <= 4'b0000; @(posedge clk);
+////	RW <= 0;               @(posedge clk);
+////	RW <= 1;               @(posedge clk);
+////	out_en <= 0;           @(posedge clk);
+////	address <= 4'b0110;    @(posedge clk);
+////								  @(posedge clk);
+////	address <= 4'b0000;    @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	$stop; // End the simulation.
+//	end
+//endmodule

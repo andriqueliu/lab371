@@ -1,6 +1,6 @@
-//Display module for scanner
+// Display module for scanner
 
-module display(HEX, status)
+module display (HEX, status);
 	output reg [6:0] HEX;
 	input [4:0] status;
 	reg [6:0] nil, A, d, E, h, I, L, o, n, P,  S, t, U, r, c, F;
@@ -13,11 +13,11 @@ module display(HEX, status)
 
 	always@(*)
 		case(status)
-			5'b01000 : begin
+			5'b10000 : begin
 							//IDLE state
 							HEX = I;
 						end
-			5'b10000 : begin
+			5'b01000 : begin
 							//SCAN
 							HEX = S;
 						end
