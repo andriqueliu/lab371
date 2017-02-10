@@ -62,9 +62,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// Output enable, chip select, RW
 	logic  out_en, active, RW;
 	
-//	// 
-//	logic  [7:0] localData;
-	
 	
 	// 
 	integer i;
