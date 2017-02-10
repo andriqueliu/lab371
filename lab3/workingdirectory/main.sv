@@ -10,21 +10,15 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	output logic  [9:0] LEDR;
 	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
-//	output logic [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
-	inout  [35:0] GPIO_0;
-//	output logic [35:0] GPIO_0;   // Test as OUTPUTS first
+	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
 	
 	// 
 	logic [31:0] clk;
-//	parameter whichClock = 17;   // Roughly 
-	parameter whichClock = 5;
+	parameter whichClock = 15;   // Roughly 768 Hz
+//	parameter whichClock = 5;
 	clock_divider cdiv (CLOCK_50, clk);
 	
-	
-//	logic  [7:0] lights;
-//	
-//	assign LEDR[7:0] = lights;
-	
+	// 
 	logic  reset, startWrite, startRead;
 	assign reset = ~KEY[3];
 	assign startWrite = SW[9];
@@ -41,21 +35,13 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 
 //	assign LEDR[8] = testClkOut;
 //	assign GPIO_0[34] = testClkOut;
-
-//	always_comb begin
-//		if (startRead) begin
-//			GPIO_0[33] = clk[whichClock];
-//		end else begin
-//			GPIO_0[33] = 1'b0;
-//		end
-//	end
 	
 	always_comb begin
 		if (startRead) begin
-			GPIO_0[33] = clk[whichClock];
+			GPIO_0[34] = clk[whichClock];
 			LEDR[8] = clk[whichClock];
 		end else begin
-			GPIO_0[33] = 1'b0;
+			GPIO_0[34] = 1'b0;
 			LEDR[8] = 1'b0;
 		end
 	end

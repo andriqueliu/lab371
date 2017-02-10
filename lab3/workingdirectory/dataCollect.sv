@@ -47,6 +47,10 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	// If 0, IO port gets data_out (Read)
 	assign data = (!out_en && active && RW) ? MDR : 8'bZ;
 	
+	
+	
+	
+	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (RW && !out_en && active) begin            // Read from memory

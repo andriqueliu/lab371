@@ -134,7 +134,7 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			
 			i = 0;
 		end else if (startWrite && writeReady) begin
-			if (address < 9) begin
+			if (address < 749) begin
 				if (delayItr < 14) begin
 					delayItr <= delayItr + 1;
 				end else if (delayItr == 14) begin
@@ -151,7 +151,7 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				address <= 0;
 			end
 		end else if (startRead && readReady) begin
-			if (address < 10) begin
+			if (address < 750) begin
 				if (i < 6) begin
 					i <= i + 1;
 				end else if (i == 6) begin
