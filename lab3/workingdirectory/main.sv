@@ -39,7 +39,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
 										.lights(LEDR[7:0]));
 	
-	
+	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
 	
 	
 	
