@@ -161,8 +161,9 @@ module dataCollectTop_testbench();
 	logic clkLight;
 	logic transferBit;
 	logic clkOut;
+	logic [7:0] lights;
 	
-	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut);
+	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
