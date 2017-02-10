@@ -27,8 +27,6 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	logic  reset, startWrite, startRead;
 	assign reset = ~KEY[3];
-//	assign LEDR[7:0] = lights[6:0];
-//	assign LEDR[9] = lights[9];     // !!! This LEDR is used as a reference clock.
 	assign startWrite = SW[9];
 	assign startRead  = SW[8];
 	
@@ -40,8 +38,27 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	                                // Trying 34 by hooking clkout to a logic first, then
 											  // assigning that logic to the GPIO???
 //	assign LEDR[8] = testSerial;
-	assign LEDR[8] = testClkOut;
-	assign GPIO_0[34] = testClkOut;
+
+//	assign LEDR[8] = testClkOut;
+//	assign GPIO_0[34] = testClkOut;
+
+//	always_comb begin
+//		if (startRead) begin
+//			GPIO_0[33] = clk[whichClock];
+//		end else begin
+//			GPIO_0[33] = 1'b0;
+//		end
+//	end
+	
+	always_comb begin
+		if (startRead) begin
+			GPIO_0[33] = clk[whichClock];
+			LEDR[8] = clk[whichClock];
+		end else begin
+			GPIO_0[33] = 1'b0;
+			LEDR[8] = 1'b0;
+		end
+	end
 	
 //	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
