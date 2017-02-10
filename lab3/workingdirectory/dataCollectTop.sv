@@ -54,8 +54,17 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// Output enable, chip select, RW
 	logic  out_en, active, RW;
 	
+//	// 
+//	logic  [7:0] localData;
+	
+	
 	// 
 	integer i;
+	
+	// Delay iterator; 
+	integer delayItr;
+	
+	
 	
 	
 	// 
@@ -103,17 +112,31 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			
 			i = 0;
 		end else if (startWrite && writeReady) begin
-			if (address < 9) begin // Currently writing
-				address <= address + 1;
-				MDR <= MDR + 1;
-			end else begin         // Writing complete
-				writeReady <= 0;    // Clear writeReady
-				
+//			if (address < 9) begin // Currently writing
+//				address <= address + 1;
+//				MDR <= MDR + 1;
+//			end else begin         // Writing complete
+//				writeReady <= 0;    // Clear writeReady
+//				
+//				RW <= 1;
+//				out_en <= 0;
+//				
+//				// Prepare address for reading
+//				address <= 0;
+//			end
+			
+
+			
+			
+			
+			
+			
+			end else begin
+				writeReady <= 0;
 				RW <= 1;
 				out_en <= 0;
-				
-				// Prepare address for reading
 				address <= 0;
+				// i??? Or just use another iterator?
 			end
 		end else if (startRead && readReady) begin
 			if (i < 6) begin
