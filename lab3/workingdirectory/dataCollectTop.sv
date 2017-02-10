@@ -148,15 +148,15 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				writeReady <= 0;
 				RW <= 1;
 				out_en <= 0;
-				address <= 0;
+				address <= 749;
 			end
 		end else if (startRead && readReady) begin
-			if (address < 750) begin
+			if (address > -1) begin
 				if (i < 6) begin
 					i <= i + 1;
 				end else if (i == 6) begin
 					i <= i + 1;
-					address <= address + 1;
+					address <= address - 1;
 				end else if (i == 7) begin
 					i <= 0;
 				end
@@ -198,9 +198,9 @@ module dataCollectTop_testbench();
 	@(posedge clk);
 	@(posedge clk);
 	startWrite <= 1;
-						repeat (250) @(posedge clk);
+						repeat (1000) @(posedge clk);
 	startRead <= 1;
-						repeat (80) @(posedge clk);
+						repeat (1000) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
