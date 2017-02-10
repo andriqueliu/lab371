@@ -12,7 +12,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	input  logic  [9:0] SW;
 //	output logic [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
 //	inout  [35:0] GPIO_0;
-	output logic [35:0] GPIO_0;
+	output logic [35:0] GPIO_0;   // Test as OUTPUTS first
 	
 	// 
 	logic [31:0] clk;
@@ -33,13 +33,18 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	assign LEDR[9] = clk[whichClock];
 	
+	logic  testSerial;
+	
+	assign GPIO_0[35] = testSerial;
+	assign LEDR[8] = testSerial;
+	
 //	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead, .clkLight( ),
-										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
+										.transferBit(testSerial), .clkOut(GPIO_0[34]),
 										.lights(LEDR[7:0]));
 	
-	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
+//	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
 	
 	
 	
