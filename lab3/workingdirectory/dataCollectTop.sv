@@ -15,7 +15,8 @@ the memory, and then reads them out, displaying them on the LEDs.
 
 
 */
-module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
+module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights,
+                       stateHEX, pctgHEX);
    input  logic  clk, reset;            // Clock, Reset signals
 	inout  [7:0] data;          // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -42,6 +43,9 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	output logic clkOut;
 	
 	output logic [7:0] lights;
+	
+	
+	output logic [6:0] stateHEX, pctgHEX;
 	
 	assign lights = data;
 	
@@ -74,6 +78,11 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// 
 	dataCollect collector (.clk, .reset, .data, .address, .out_en, .active, .RW);
 	
+	
+	// 
+	pctgDisplay pHEX (.HEX5(pctgHEX), .address);
+	
+	
 	// Initialize variables
 	initial begin
 		address = 0;;
@@ -103,6 +112,8 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 //	assign clkOut = startRead ? clk : 1'b0;
 //	// 
 //	assign transferBit = startRead ? data[i] : 1'b0;
+	
+	
 	
 	always_comb begin
 		if (startRead) begin
@@ -134,8 +145,8 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			
 			i = 0;
 		end else if (startWrite && writeReady) begin
-//			if (address < 749) begin
-			if (address < 14) begin
+			if (address < 749) begin
+//			if (address < 14) begin
 				if (delayItr < 14) begin
 					delayItr <= delayItr + 1;
 				end else if (delayItr == 14) begin
@@ -149,8 +160,8 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				writeReady <= 0;
 				RW <= 1;
 				out_en <= 0;
-//				address <= 749;
-				address <= 14;
+				address <= 749;
+//				address <= 14;
 			end
 		end else if (startRead && readReady) begin
 			if (address > -1) begin

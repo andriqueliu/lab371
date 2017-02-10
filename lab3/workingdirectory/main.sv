@@ -50,7 +50,9 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead, .clkLight( ),
 										.transferBit(testSerial), .clkOut(testClkOut),
-										.lights(LEDR[7:0]));
+										.lights(LEDR[7:0]),
+										.stateHEX( ),
+										.pctgHEX(HEX5));
 	
 //	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
 	
