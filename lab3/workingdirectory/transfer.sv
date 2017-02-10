@@ -39,7 +39,7 @@ module transfer(clk, reset, data_scanner, ready);
 			begin
 				i <= 0;
 				ready <= 0;
-				bits1 <= 8'bxxxxxxxx;
+				bits1 <= 8'bXXXXXXXX;
 			end
 	end
 	
