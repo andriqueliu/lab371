@@ -15,7 +15,6 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	// 
 	logic [31:0] clk;
 	parameter whichClock = 15;   // Roughly 768 Hz
-//	parameter whichClock = 5;
 	clock_divider cdiv (CLOCK_50, clk);
 	
 	// 
@@ -31,22 +30,8 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 //	assign GPIO_0[35] = testSerial; // For some reason GPIO35 is working, but not 34?
 	                                // Trying 34 by hooking clkout to a logic first, then
 											  // assigning that logic to the GPIO???
-//	assign LEDR[8] = testSerial;
-
-//	assign LEDR[8] = testClkOut;
-//	assign GPIO_0[34] = testClkOut;
 	
-//	always_comb begin
-//		if (GPIO_0[33]) begin
-//			GPIO_0[34] = clk[whichClock];
-//			LEDR[8] = clk[whichClock];
-//		end else begin
-//			GPIO_0[34] = 1'b0;
-//			LEDR[8] = 1'b0;
-//		end
-//	end
-	
-//	// !!! this module also has to have an 
+	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead(GPIO_0[33]), .clkLight( ),
 										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),

@@ -3,15 +3,9 @@
 // States determine variables such as out en, etc., whereas sequential logic
 // can deal with latches such as address <= address + 1, etc.
 
-
-
-
-
 /*
 memoryTester is used to test the SRAM module; memoryTester first writes data into
 the memory, and then reads them out, displaying them on the LEDs.
-
-
 
 
 */

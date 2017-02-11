@@ -35,30 +35,17 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	// one cycle after RW goes high.
 	input  logic RW;
 	
-//	output logic [6:0] stateHEX, pctgHEX;
-	
-	
 	// Memory Data Registers: higher bits and lower bits
 	logic  [7:0] MDR;
 	
 	// 16-bit values with a depth of 
-   logic  [7:0] stored_memory [750];
-	
-//	logic  [9:0] pctgReg;
-//	
-//	// 
-//	display stateDisplay (.HEX(stateHEX), .status);
-//	// 
-//	percentageDisplay pctgDisplay (.HEX5(pctgHEX), .percent(pctgReg));
-	
+   logic  [7:0] stored_memory [750];	
 	
 	// Combinational Logic
 	// Output enable behavior:
 	// If 1, IO port gets high Z (Write)
 	// If 0, IO port gets data_out (Read)
 	assign data = (!out_en && active && RW) ? MDR : 8'bZ;
-	
-	
 	
 	// Sequential Logic
 	always_ff @(posedge clk) begin
