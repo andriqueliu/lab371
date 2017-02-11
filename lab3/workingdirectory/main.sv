@@ -54,6 +54,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 										.stateHEX(HEX4),
 										.pctgHEX(HEX5));
 	
+	// 
 	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scanner(GPIO_0[29]),
 	                     .readyIn(readySwitch), .readyOut(GPIO_0[27]));
 	
