@@ -4,7 +4,7 @@ module display (HEX, status);
 	output reg [6:0] HEX;
 	input [4:0] status;
 	reg [6:0] nil, A, d, E, h, I, L, o, n, P,  S, t, U, r, c, F;
-
+	
 	assign nil = 7'b1111111;
 	assign I = 7'b1111001;
 	assign S = 7'b0010010;

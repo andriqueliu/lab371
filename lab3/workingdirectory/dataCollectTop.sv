@@ -79,6 +79,9 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// 
 	pctgDisplay pHEX (.HEX5(pctgHEX), .address);
 	
+	// 
+	stateDisplay sHEX (.clk, .reset, .startScanning(startWrite),
+	                   .startTransfer(startRead), .address, .HEX(stateHEX));
 	
 	// Initialize variables
 	initial begin
