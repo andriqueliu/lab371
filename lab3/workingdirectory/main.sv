@@ -10,36 +10,40 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	output logic  [9:0] LEDR;
 	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
-//	output logic [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
-//	inout  [35:0] GPIO_0;
-	output logic [35:0] GPIO_0;
+	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
 	
 	// 
 	logic [31:0] clk;
-	parameter whichClock = 20;   // Roughly 12 Hz
+	parameter whichClock = 15;   // Roughly 768 Hz
 	clock_divider cdiv (CLOCK_50, clk);
 	
-	
-//	logic  [7:0] lights;
-//	
-//	assign LEDR[7:0] = lights;
-	
-	logic  reset, startWrite, startRead;
+	// 
+	logic  reset, startWrite, readySwitch;
 	assign reset = ~KEY[3];
-//	assign LEDR[7:0] = lights[6:0];
-//	assign LEDR[9] = lights[9];     // !!! This LEDR is used as a reference clock.
 	assign startWrite = SW[9];
-	assign startRead  = SW[8];
+	assign readySwitch  = SW[8];
 	
 	assign LEDR[9] = clk[whichClock];
 	
-//	// !!! this module also has to have an 
-	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
-	                           .startWrite, .startRead, .clkLight( ),
-										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
-										.lights(LEDR[7:0]));
+	logic  testSerial, testClkOut;
 	
-	transfer transferTop(.clk(clk[whichClock]), .reset, .data_scanner(GPIO_0[35]), .ready); //Check where the "ready" needs to map to
+//	assign GPIO_0[35] = testSerial; // For some reason GPIO35 is working, but not 34?
+	                                // Trying 34 by hooking clkout to a logic first, then
+											  // assigning that logic to the GPIO???
+	
+	// !!! this module also has to have an 
+	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
+	                           .startWrite, .startRead(GPIO_0[33]), .clkLight( ),
+										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
+										.lights(LEDR[7:0]),
+										.stateHEX(HEX4),
+										.pctgHEX(HEX5));
+	
+	// 
+	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scanner(GPIO_0[29]),
+	                     .readyIn(readySwitch), .readyOut(GPIO_0[27]));
+	
+	//Check where the "ready" needs to map to
 	
 	
 	

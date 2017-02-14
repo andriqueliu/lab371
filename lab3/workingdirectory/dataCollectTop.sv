@@ -3,19 +3,14 @@
 // States determine variables such as out en, etc., whereas sequential logic
 // can deal with latches such as address <= address + 1, etc.
 
-
-
-
-
 /*
 memoryTester is used to test the SRAM module; memoryTester first writes data into
 the memory, and then reads them out, displaying them on the LEDs.
 
 
-
-
 */
-module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
+module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights,
+                       stateHEX, pctgHEX);
    input  logic  clk, reset;            // Clock, Reset signals
 	inout  [7:0] data;          // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -43,6 +38,9 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	
 	output logic [7:0] lights;
 	
+	
+	output logic [6:0] stateHEX, pctgHEX;
+	
 	assign lights = data;
 	
 	// Assign signals
@@ -58,9 +56,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// Output enable, chip select, RW
 	logic  out_en, active, RW;
 	
-//	// 
-//	logic  [7:0] localData;
-	
 	
 	// 
 	integer i;
@@ -73,6 +68,14 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	
 	// 
 	dataCollect collector (.clk, .reset, .data, .address, .out_en, .active, .RW);
+	
+	
+	// 
+	pctgDisplay pHEX (.HEX5(pctgHEX), .address);
+	
+	// 
+	stateDisplay sHEX (.clk, .reset, .startScanning(startWrite),
+	                   .startTransfer(startRead), .address, .HEX(stateHEX));
 	
 	// Initialize variables
 	initial begin
@@ -93,10 +96,28 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// If 0, IO port gets data_out (Read) ??? Not sure if these are inverted, check later
 	assign data[7:0] = !(!out_en && active && RW) ? MDR : 7'bZ; // !!! Negation
 	
+//	// 
+//	assign clkOut = startRead ? clk : 1'bX;
+//	// 
+//	assign transferBit = startRead ? data[i] : 1'bX;
+	
+	// ??? What if it shouldn't be high X, what if it should be known? Like 0?
 	// 
-	assign clkOut = startRead ? clk : 1'bX;
-	// 
-	assign transferBit = startRead ? data[i] : 1'bX;
+//	assign clkOut = startRead ? clk : 1'b0;
+//	// 
+//	assign transferBit = startRead ? data[i] : 1'b0;
+	
+	
+	
+	always_comb begin
+		if (startRead) begin
+			clkOut = clk;
+			transferBit = data[i];
+		end else begin
+			clkOut = 1'b0;
+			transferBit = 1'b0;
+		end
+	end
 	
 	
 	
@@ -118,7 +139,8 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			
 			i = 0;
 		end else if (startWrite && writeReady) begin
-			if (address < 9) begin
+			if (address < 749) begin
+//			if (address < 14) begin
 				if (delayItr < 14) begin
 					delayItr <= delayItr + 1;
 				end else if (delayItr == 14) begin
@@ -132,15 +154,16 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 				writeReady <= 0;
 				RW <= 1;
 				out_en <= 0;
-				address <= 0;
+				address <= 749;
+//				address <= 14;
 			end
 		end else if (startRead && readReady) begin
-			if (address < 10) begin
+			if (address > -1) begin
 				if (i < 6) begin
 					i <= i + 1;
 				end else if (i == 6) begin
 					i <= i + 1;
-					address <= address + 1;
+					address <= address - 1;
 				end else if (i == 7) begin
 					i <= 0;
 				end
@@ -156,7 +179,7 @@ endmodule
 // Tester Module
 module dataCollectTop_testbench();
 	logic  clk, reset;            // Clock, Reset signals
-	wire [7:0] data;          // Bidirectional 32-bit I/O port
+	wire [7:0] data;              // Bidirectional 32-bit I/O port
 	logic startWrite, startRead;
 	logic clkLight;
 	logic transferBit;
@@ -182,9 +205,9 @@ module dataCollectTop_testbench();
 	@(posedge clk);
 	@(posedge clk);
 	startWrite <= 1;
-						repeat (250) @(posedge clk);
+						repeat (300) @(posedge clk);
 	startRead <= 1;
-						repeat (80) @(posedge clk);
+						repeat (300) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);

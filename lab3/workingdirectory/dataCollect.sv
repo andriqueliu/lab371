@@ -39,7 +39,7 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	logic  [7:0] MDR;
 	
 	// 16-bit values with a depth of 
-   logic  [7:0] stored_memory [10];
+   logic  [7:0] stored_memory [750];	
 	
 	// Combinational Logic
 	// Output enable behavior:
