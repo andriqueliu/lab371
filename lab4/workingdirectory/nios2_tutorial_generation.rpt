@@ -1,0 +1,27 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: ip-generate --project-directory=C:\EE371\lab371\lab4\workingdirectory --output-directory=C:\EE371\lab371\lab4\workingdirectory --report-file=bsf:C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.bsf --system-info=DEVICE_FAMILY="Cyclone V" --system-info=DEVICE=5CGXFC7C7F23C8 --system-info=DEVICE_SPEEDGRADE=8_H7 --component-file=C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.qsys
+Progress: Loading workingdirectory/nios2_tutorial.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 14.0]
+Progress: Parameterizing module clk_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: ip-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: ip-generate --project-directory=C:\EE371\lab371\lab4\workingdirectory --output-directory=C:\EE371\lab371\lab4\workingdirectory\synthesis --file-set=QUARTUS_SYNTH --report-file=html:C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.html --report-file=sopcinfo:C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.sopcinfo --report-file=cmp:C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.cmp --report-file=qip:C:\EE371\lab371\lab4\workingdirectory\synthesis\nios2_tutorial.qip --report-file=svd:C:\EE371\lab371\lab4\workingdirectory\synthesis\nios2_tutorial.svd --report-file=regmap:C:\EE371\lab371\lab4\workingdirectory\synthesis\nios2_tutorial.regmap --report-file=xml:C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.xml --report-file=debuginfo:C:\EE371\lab371\lab4\workingdirectory\synthesis\nios2_tutorial.debuginfo --system-info=DEVICE_FAMILY="Cyclone V" --system-info=DEVICE=5CGXFC7C7F23C8 --system-info=DEVICE_SPEEDGRADE=8_H7 --component-file=C:\EE371\lab371\lab4\workingdirectory\nios2_tutorial.qsys --language=VERILOG
+Progress: Loading workingdirectory/nios2_tutorial.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 14.0]
+Progress: Parameterizing module clk_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: nios2_tutorial: Generating nios2_tutorial "nios2_tutorial" for QUARTUS_SYNTH
+Info: nios2_tutorial: Done "nios2_tutorial" with 1 modules, 1 files
+Info: ip-generate succeeded.
+Info: Finished: Create HDL design files for synthesis
