@@ -4,12 +4,12 @@
  kind="nios2_tutorial"
  version="1.0"
  fabric="QSYS">
- <!-- Format version 16.0 211 (Future versions may contain additional information.) -->
- <!-- 2017.02.14.18:32:45 -->
+ <!-- Format version 14.0 200 (Future versions may contain additional information.) -->
+ <!-- 2017.02.15.15:15:38 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1487125965</value>
+  <value>1487200538</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -42,15 +42,6 @@
   <visible>false</visible>
   <valid>true</valid>
   <sysinfo_type>DEVICE</sysinfo_type>
- </parameter>
- <parameter name="AUTO_DEVICE_SPEEDGRADE">
-  <type>java.lang.String</type>
-  <value>8_H7</value>
-  <derived>false</derived>
-  <enabled>true</enabled>
-  <visible>false</visible>
-  <valid>true</valid>
-  <sysinfo_type>DEVICE_SPEEDGRADE</sysinfo_type>
  </parameter>
  <parameter name="AUTO_CLK_CLOCK_RATE">
   <type>java.lang.Long</type>
@@ -99,7 +90,7 @@
   <visible>true</visible>
   <valid>true</valid>
  </parameter>
- <module name="clk_0" kind="clock_source" version="16.0" path="clk_0">
+ <module name="clk_0" kind="clock_source" version="14.0" path="clk_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="clockFrequency">
@@ -152,7 +143,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="clk_in" kind="clock_sink" version="16.0">
+  <interface name="clk_in" kind="clock_sink" version="14.0">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -217,7 +208,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="clk_in_reset" kind="reset_sink" version="16.0">
+  <interface name="clk_in_reset" kind="reset_sink" version="14.0">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -266,7 +257,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset_n</role>
    </port>
   </interface>
-  <interface name="clk" kind="clock_source" version="16.0">
+  <interface name="clk" kind="clock_source" version="14.0">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -335,7 +326,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="clk_reset" kind="reset_source" version="16.0">
+  <interface name="clk_reset" kind="reset_source" version="14.0">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -403,7 +394,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Clock Source</displayName>
-  <version>16.0</version>
+  <version>14.0</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -411,7 +402,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Input</displayName>
-  <version>16.0</version>
+  <version>14.0</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -419,7 +410,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Reset Input</displayName>
-  <version>16.0</version>
+  <version>14.0</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -427,7 +418,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Output</displayName>
-  <version>16.0</version>
+  <version>14.0</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -435,8 +426,8 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Reset Output</displayName>
-  <version>16.0</version>
+  <version>14.0</version>
  </plugin>
- <reportVersion>16.0 211</reportVersion>
+ <reportVersion>14.0 200</reportVersion>
  <uniqueIdentifier></uniqueIdentifier>
 </EnsembleReport>
