@@ -1,7 +1,7 @@
 // Percentage LED display
 
 module pctgDisplay(HEX5, address);
-	output [6:0] HEX5;
+	output logic [6:0] HEX5;
 	input  integer address;
 	
 	// 
