@@ -54,7 +54,9 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	//Check where the "ready" needs to map to
 	
-	
+	// Turn off unused hex displays
+	assign HEX2[6:0] = ~(7'b0000000);
+	assign HEX3[6:0] = ~(7'b0000000);
 	
 	
 	
