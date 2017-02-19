@@ -38,8 +38,8 @@ module dataCollect (clk, reset, data, address, out_en, active, RW);
 	// Memory Data Registers: higher bits and lower bits
 	logic  [7:0] MDR;
 	
-	// 16-bit values with a depth of 
-   logic  [7:0] stored_memory [750];	
+	// 10 entry, 8-bit wide data buffer
+   logic  [7:0] stored_memory [10];
 	
 	// Combinational Logic
 	// Output enable behavior:

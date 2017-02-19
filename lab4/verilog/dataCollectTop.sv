@@ -32,12 +32,10 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	input  logic startWrite, startRead;
 	output logic clkLight;
 	
-	
 	output logic transferBit;
 	output logic clkOut;
 	
 	output logic [7:0] lights;
-	
 	
 	output logic [6:0] stateHEX, pctgHEX;
 	
@@ -56,19 +54,14 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// Output enable, chip select, RW
 	logic  out_en, active, RW;
 	
-	
-	// 
+	// Iterator integer
 	integer i;
 	
 	// Delay iterator; 
 	integer delayItr;
 	
-	
-	
-	
-	// 
+	// Instantiate scanner/data collector module
 	dataCollect collector (.clk, .reset, .data, .address, .out_en, .active, .RW);
-	
 	
 	// 
 	pctgDisplay pHEX (.HEX5(pctgHEX), .address);
@@ -84,7 +77,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 		writeReady = 1;
 		readReady  = 1;
 		
-		
 		i = 0;
 		
 		delayItr = 0;
@@ -96,19 +88,7 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	// If 0, IO port gets data_out (Read) ??? Not sure if these are inverted, check later
 	assign data[7:0] = !(!out_en && active && RW) ? MDR : 7'bZ; // !!! Negation
 	
-//	// 
-//	assign clkOut = startRead ? clk : 1'bX;
-//	// 
-//	assign transferBit = startRead ? data[i] : 1'bX;
-	
-	// ??? What if it shouldn't be high X, what if it should be known? Like 0?
 	// 
-//	assign clkOut = startRead ? clk : 1'b0;
-//	// 
-//	assign transferBit = startRead ? data[i] : 1'b0;
-	
-	
-	
 	always_comb begin
 		if (startRead) begin
 			clkOut = clk;
@@ -118,8 +98,6 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			transferBit = 1'b0;
 		end
 	end
-	
-	
 	
 	// Sequential Logic
 	// Reset: reset variables to initial variables
