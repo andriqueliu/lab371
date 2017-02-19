@@ -34,12 +34,17 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	                                // Trying 34 by hooking clkout to a logic first, then
 											  // assigning that logic to the GPIO???
 	
+	// 
+	logic  [3:0] hexLSBInput, hexMSBInput;
+	hexDriver hexDriveLSB (.value(hexLSBInput), .leds(HEX0));
+	hexDriver hexDriveMSB (.value(hexMSBInput), .leds(HEX1));
+	
 	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead(GPIO_0[33]), .clkLight( ),
 										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
 //										.lights(LEDR[7:0]),
-                              .lights({  }),
+                              .lights({ hexMSBInput, hexLSBInput }),
 										.stateHEX(HEX4),
 										.pctgHEX(HEX5));
 	
