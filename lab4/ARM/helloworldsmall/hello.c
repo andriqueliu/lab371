@@ -1,5 +1,6 @@
 /*
-
+EE 371 Lab 4 Project
+Building and Working with a Simple Microprocessor
 
 
 
