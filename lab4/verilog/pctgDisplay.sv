@@ -1,10 +1,11 @@
-// Percentage LED display
+/*
 
+*/
 module pctgDisplay(HEX5, address);
 	output logic [6:0] HEX5;
 	input  integer address;
 	
-	// 
+	// Determines the proper percentage to display on a hex display
 	always_comb begin
 		if (address < 75) begin // Zero percent
 			HEX5 = ~(7'b0111111);
