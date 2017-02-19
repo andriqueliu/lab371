@@ -29,13 +29,14 @@ volatile int * KEY_ptr = (int *) 0xFF200050; // pushbutton KEY address
 // Forward Declarations
 void printWelcome(void);
 int confirmScan(void);
+int confirmReadyTransfer(void);
 
 int main()
 {
 	char userInput = '\0';
 	
 	printWelcome();
-	
+	// Keep prompting user to send the StartScanning signal
 	while (!confirmScan()) {
 		
 	}
@@ -52,7 +53,7 @@ void printWelcome(void)
 	printf("And also takes the ReadyToTransfer command.\n");
 }
 
-// Prompts the user to start the scanning process
+// confirmScan prompts the user to start the scanning process
 // Returns boolean
 int confirmScan(void)
 {
@@ -62,10 +63,19 @@ int confirmScan(void)
 	scanf("%c", &input);
 	if (input == 'S') {
 	getchar();
-		// Send out the StartScan
+		// Send out the StartScan signal
 		printf("Scanning!\n");
 		return TRUE;
 	} else {
 		return FALSE;
 	}
 }
+
+// confirmReadyTransfer confirms whether the scanner is ready to transfer its data
+// Returns boolean
+int confirmReadyTransfer(void)
+{
+	return ();
+}
+
+
