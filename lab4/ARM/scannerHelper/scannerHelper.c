@@ -68,6 +68,8 @@ int confirmScan(void)
 	if (input == 'S') {
 		// Send out the StartScan signal
 		printf("Scanning!\n");
+		*(LED_ptr) |= 0x01;         // Turn on led 0
+		*(SW_switch_ptr) |= 0x0200; // Turn on switch
 		return TRUE;
 	} else {
 		printf("Invalid input.\n");
