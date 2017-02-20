@@ -12,10 +12,33 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	input  logic  [9:0] SW;
 	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
 	
+	logic  [35:0] out_en, GPIO_0_in;
+	
+	integer i;
+	always_comb begin
+		// Set out_en so that something can be read from (output)
+		// Clear out_en so that something can be written into (input)
+		for (i = 0; i < 36; i++) begin
+			GPIO_0[i] = (out_en[i]) ? GPIO_0_in[i] : 1'bZ;
+		end
+	end
+	
+	// Configure outputs
+	// GPIOs 35, 34, 27 are outputs
+	assign out_en[35] = 1'b1;
+	assign out_en[34] = 1'b1;
+	assign out_en[27] = 1'b1;
+	
+	// Configure inputs
+	// GPIOs 33, 29, 28 are inputs
+	assign out_en[33] = 1'b0;
+	assign out_en[29] = 1'b0;
+	assign out_en[28] = 1'b0;
+	
 	// 
 	logic [31:0] clk;
-//	parameter whichClock = 15;   // Roughly 768 Hz
-	parameter whichClock = 20; // 1.5 Hz
+	parameter whichClock = 15;   // Roughly 768 Hz
+//	parameter whichClock = 20; //  Hz
 	clock_divider cdiv (CLOCK_50, clk);
 	
 	// 
@@ -24,7 +47,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	assign startWrite = SW[9];
 	assign readySwitch  = SW[8];
 	
-	
+	// Assign reference clock for debugging and probing
 	assign LEDR[9] = clk[whichClock];
 	
 	logic  testSerial, testClkOut;
@@ -41,7 +64,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	// !!! this module also has to have an 
 	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
 	                           .startWrite, .startRead(GPIO_0[33]), .clkLight( ),
-										.transferBit(GPIO_0[35]), .clkOut(GPIO_0[34]),
+										.transferBit(GPIO_0_in[35]), .clkOut(GPIO_0_in[34]),
 //										.lights(LEDR[7:0]),
                               .lights({ hexMSBInput, hexLSBInput }),
 										.stateHEX(HEX4),
@@ -49,9 +72,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	// 
 	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scanner(GPIO_0[29]),
-	                     .readyIn(readySwitch), .readyOut(GPIO_0[27]));
-	
-	//Check where the "ready" needs to map to
+	                     .readyIn(readySwitch), .readyOut(GPIO_0_in[27]));
 	
 	// Turn off unused hex displays
 	assign HEX2[6:0] = ~(7'b0000000);
