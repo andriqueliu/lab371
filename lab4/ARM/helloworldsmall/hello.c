@@ -1,3 +1,11 @@
+/*
+EE 371 Lab 4 Project
+Building and Working with a Simple Microprocessor
+
+
+
+*/
+
 #include <stdio.h> // Standard I/O
 
 /* Declare volatile pointers to I/O registers (volatile means that the locations will not be cached,
