@@ -1,20 +1,143 @@
+Info: Starting: Create simulation model
+Info: ip-generate --project-directory=C:\EE371\lab371\lab4\NIOSII --output-directory=C:\EE371\lab371\lab4\NIOSII\proj_qsys\simulation --file-set=SIM_VERILOG --report-file=html:C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.html --report-file=sopcinfo:C:\EE371\lab371\lab4\NIOSII\proj_qsys.sopcinfo --report-file=csv:C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.csv --report-file=spd:C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.spd --report-file=cmp:C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.cmp --report-file=sip:C:\EE371\lab371\lab4\NIOSII\proj_qsys\simulation\proj_qsys.sip --system-info=DEVICE_FAMILY="Cyclone V" --system-info=DEVICE=5CGXFC7C7F23C8 --system-info=DEVICE_SPEEDGRADE=8_H7 --component-file=C:\EE371\lab371\lab4\NIOSII\proj_qsys.qsys
+Progress: Loading NIOSII/proj_qsys.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 14.0]
+Progress: Parameterizing module clk_0
+Progress: Adding cpu [altera_nios2_qsys 14.0]
+Progress: Parameterizing module cpu
+Progress: Adding onchip_mem [altera_avalon_onchip_memory2 14.0]
+Progress: Parameterizing module onchip_mem
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 14.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sys_clk_timer [altera_avalon_timer 14.0]
+Progress: Parameterizing module sys_clk_timer
+Progress: Adding sysid [altera_avalon_sysid_qsys 14.0]
+Progress: Parameterizing module sysid
+Progress: Adding led_pio [altera_avalon_pio 14.0]
+Progress: Parameterizing module led_pio
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: proj_qsys.cpu: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
+Info: proj_qsys.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: proj_qsys.sysid: Time stamp will be automatically updated when this component is generated.
+Info: proj_qsys: Generating proj_qsys "proj_qsys" for SIM_VERILOG
+Info: cpu: Starting RTL generation for module 'proj_qsys_cpu'
+Info: cpu:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=proj_qsys_cpu --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0001_cpu_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0001_cpu_gen//proj_qsys_cpu_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0001_cpu_gen/  ]
+Info: cpu: # 2017.02.20 20:43:29 (*) Starting Nios II generation
+Info: cpu: # 2017.02.20 20:43:29 (*)   Checking for plaintext license.
+Info: cpu: # 2017.02.20 20:43:31 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: cpu: # 2017.02.20 20:43:31 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2017.02.20 20:43:31 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2017.02.20 20:43:31 (*)   Plaintext license not found.
+Info: cpu: # 2017.02.20 20:43:31 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.02.20 20:43:32 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: cpu: # 2017.02.20 20:43:32 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2017.02.20 20:43:32 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2017.02.20 20:43:32 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
+Info: cpu: # 2017.02.20 20:43:32 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.02.20 20:43:32 (*)   Creating all objects for CPU
+Info: cpu: # 2017.02.20 20:43:33 (*)     Pipeline frontend
+Info: cpu: # 2017.02.20 20:43:34 (*)   Creating 'C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0001_cpu_gen//proj_qsys_cpu_nios2_waves.do'
+Info: cpu: # 2017.02.20 20:43:35 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.02.20 20:43:36 (*)   Creating encrypted RTL
+Info: cpu: # 2017.02.20 20:43:37 (*)   Creating IP functional simulation model
+Info: cpu: # 2017.02.20 20:43:48 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'proj_qsys_cpu'
+Info: cpu: "proj_qsys" instantiated altera_nios2_qsys "cpu"
+Info: onchip_mem: Starting RTL generation for module 'proj_qsys_onchip_mem'
+Info: onchip_mem:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=proj_qsys_onchip_mem --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0002_onchip_mem_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0002_onchip_mem_gen//proj_qsys_onchip_mem_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0002_onchip_mem_gen/  ]
+Info: onchip_mem: Done RTL generation for module 'proj_qsys_onchip_mem'
+Info: onchip_mem: "proj_qsys" instantiated altera_avalon_onchip_memory2 "onchip_mem"
+Info: jtag_uart: Starting RTL generation for module 'proj_qsys_jtag_uart'
+Info: jtag_uart:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=proj_qsys_jtag_uart --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0003_jtag_uart_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0003_jtag_uart_gen//proj_qsys_jtag_uart_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0003_jtag_uart_gen/  ]
+Info: jtag_uart: Done RTL generation for module 'proj_qsys_jtag_uart'
+Info: jtag_uart: "proj_qsys" instantiated altera_avalon_jtag_uart "jtag_uart"
+Info: sys_clk_timer: Starting RTL generation for module 'proj_qsys_sys_clk_timer'
+Info: sys_clk_timer:   Generation command is [exec C:/altera/14.0/quartus/bin64//perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64//perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=proj_qsys_sys_clk_timer --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0004_sys_clk_timer_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0004_sys_clk_timer_gen//proj_qsys_sys_clk_timer_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0004_sys_clk_timer_gen/  ]
+Info: sys_clk_timer: Done RTL generation for module 'proj_qsys_sys_clk_timer'
+Info: sys_clk_timer: "proj_qsys" instantiated altera_avalon_timer "sys_clk_timer"
+Info: sysid: Generating Verilog simulation model
+Info: sysid: Generated simulation model proj_qsys_sysid.vo
+Info: sysid: "proj_qsys" instantiated altera_avalon_sysid_qsys "sysid"
+Info: led_pio: Starting RTL generation for module 'proj_qsys_led_pio'
+Info: led_pio:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=proj_qsys_led_pio --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0008_led_pio_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0008_led_pio_gen//proj_qsys_led_pio_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0008_led_pio_gen/  ]
+Info: led_pio: Done RTL generation for module 'proj_qsys_led_pio'
+Info: led_pio: "proj_qsys" instantiated altera_avalon_pio "led_pio"
+Info: mm_interconnect_0: "proj_qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: irq_mapper: "proj_qsys" instantiated altera_irq_mapper "irq_mapper"
+Info: rst_controller: "proj_qsys" instantiated altera_reset_controller "rst_controller"
+Info: cpu_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "cpu_data_master_translator"
+Info: onchip_mem_s1_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "onchip_mem_s1_translator"
+Info: cpu_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "cpu_data_master_agent"
+Info: onchip_mem_s1_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "onchip_mem_s1_agent"
+Info: onchip_mem_s1_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "onchip_mem_s1_agent_rsp_fifo"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
+Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
+Info: cpu_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "cpu_instruction_master_limiter"
+Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/submodules/altera_avalon_sc_fifo.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
+Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/submodules/altera_merlin_arbitrator.sv
+Info: proj_qsys: Done "proj_qsys" with 29 modules, 56 files
+Info: ip-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.spd --output-directory=C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/
+Info: Doing: ip-make-simscript --spd=C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.spd --output-directory=C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/
+Info: Generating the following file(s) for MODELSIM simulator in C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Generating the following file(s) for VCS simulator in C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/ directory:
+Info: 	synopsys/vcs/vcs_setup.sh
+Info: Generating the following file(s) for VCSMX simulator in C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	28 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/EE371/lab371/lab4/NIOSII/proj_qsys/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: Finished: Create Modelsim Project.
 Info: Starting: Create block symbol file (.bsf)
 Info: ip-generate --project-directory=C:\EE371\lab371\lab4\NIOSII --output-directory=C:\EE371\lab371\lab4\NIOSII\proj_qsys --report-file=bsf:C:\EE371\lab371\lab4\NIOSII\proj_qsys\proj_qsys.bsf --system-info=DEVICE_FAMILY="Cyclone V" --system-info=DEVICE=5CGXFC7C7F23C8 --system-info=DEVICE_SPEEDGRADE=8_H7 --component-file=C:\EE371\lab371\lab4\NIOSII\proj_qsys.qsys
 Progress: Loading NIOSII/proj_qsys.qsys
 Progress: Reading input file
 Progress: Adding clk_0 [clock_source 14.0]
 Progress: Parameterizing module clk_0
-Progress: Adding nios2_gen2_0 [altera_nios2_gen2 14.0]
-Progress: Parameterizing module nios2_gen2_0
-Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 14.0]
-Progress: Parameterizing module onchip_memory2_0
-Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 14.0]
-Progress: Parameterizing module jtag_uart_0
+Progress: Adding cpu [altera_nios2_qsys 14.0]
+Progress: Parameterizing module cpu
+Progress: Adding onchip_mem [altera_avalon_onchip_memory2 14.0]
+Progress: Parameterizing module onchip_mem
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 14.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sys_clk_timer [altera_avalon_timer 14.0]
+Progress: Parameterizing module sys_clk_timer
+Progress: Adding sysid [altera_avalon_sysid_qsys 14.0]
+Progress: Parameterizing module sysid
+Progress: Adding led_pio [altera_avalon_pio 14.0]
+Progress: Parameterizing module led_pio
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
-Warning: proj_qsys.jtag_uart_0: Interrupt sender jtag_uart_0.irq is not connected to an interrupt receiver
+Info: proj_qsys.cpu: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
+Info: proj_qsys.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: proj_qsys.sysid: Time stamp will be automatically updated when this component is generated.
 Info: ip-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -24,64 +147,90 @@ Progress: Loading NIOSII/proj_qsys.qsys
 Progress: Reading input file
 Progress: Adding clk_0 [clock_source 14.0]
 Progress: Parameterizing module clk_0
-Progress: Adding nios2_gen2_0 [altera_nios2_gen2 14.0]
-Progress: Parameterizing module nios2_gen2_0
-Progress: Adding onchip_memory2_0 [altera_avalon_onchip_memory2 14.0]
-Progress: Parameterizing module onchip_memory2_0
-Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 14.0]
-Progress: Parameterizing module jtag_uart_0
+Progress: Adding cpu [altera_nios2_qsys 14.0]
+Progress: Parameterizing module cpu
+Progress: Adding onchip_mem [altera_avalon_onchip_memory2 14.0]
+Progress: Parameterizing module onchip_mem
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 14.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding sys_clk_timer [altera_avalon_timer 14.0]
+Progress: Parameterizing module sys_clk_timer
+Progress: Adding sysid [altera_avalon_sysid_qsys 14.0]
+Progress: Parameterizing module sysid
+Progress: Adding led_pio [altera_avalon_pio 14.0]
+Progress: Parameterizing module led_pio
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
 Progress: Done reading input file
-Warning: proj_qsys.jtag_uart_0: Interrupt sender jtag_uart_0.irq is not connected to an interrupt receiver
+Info: proj_qsys.cpu: Please note that for early evaluation, preview versions of new Nios II Gen2 Processors are available with this release.
+Info: proj_qsys.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: proj_qsys.sysid: Time stamp will be automatically updated when this component is generated.
 Info: proj_qsys: Generating proj_qsys "proj_qsys" for QUARTUS_SYNTH
-Info: nios2_gen2_0: Starting RTL generation for module 'proj_qsys_nios2_gen2_0'
-Info: nios2_gen2_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=proj_qsys_nios2_gen2_0 --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0001_nios2_gen2_0_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0001_nios2_gen2_0_gen//proj_qsys_nios2_gen2_0_processor_configuration.pl  --do_build_sim=0  ]
-Info: nios2_gen2_0: # 2017.02.15 23:36:39 (*) Starting Nios II generation
-Info: nios2_gen2_0: # 2017.02.15 23:36:39 (*)   Checking for plaintext license.
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   LM_LICENSE_FILE environment variable is empty
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   Plaintext license not found.
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   No license required to generate encrypted Nios II/e.
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   Elaborating CPU configuration settings
-Info: nios2_gen2_0: # 2017.02.15 23:36:41 (*)   Creating all objects for CPU
-Info: nios2_gen2_0: # 2017.02.15 23:36:42 (*)   Generating RTL from CPU objects
-Info: nios2_gen2_0: # 2017.02.15 23:36:42 (*)   Creating plain-text RTL
-Info: nios2_gen2_0: # 2017.02.15 23:36:44 (*) Done Nios II generation
-Info: nios2_gen2_0: Done RTL generation for module 'proj_qsys_nios2_gen2_0'
-Info: nios2_gen2_0: "proj_qsys" instantiated altera_nios2_gen2 "nios2_gen2_0"
-Info: onchip_memory2_0: Starting RTL generation for module 'proj_qsys_onchip_memory2_0'
-Info: onchip_memory2_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=proj_qsys_onchip_memory2_0 --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0002_onchip_memory2_0_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0002_onchip_memory2_0_gen//proj_qsys_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
-Info: onchip_memory2_0: Done RTL generation for module 'proj_qsys_onchip_memory2_0'
-Info: onchip_memory2_0: "proj_qsys" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
-Info: jtag_uart_0: Starting RTL generation for module 'proj_qsys_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=proj_qsys_jtag_uart_0 --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0003_jtag_uart_0_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7213_3329515254958928500.dir/0003_jtag_uart_0_gen//proj_qsys_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
-Info: jtag_uart_0: Done RTL generation for module 'proj_qsys_jtag_uart_0'
-Info: jtag_uart_0: "proj_qsys" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: cpu: Starting RTL generation for module 'proj_qsys_cpu'
+Info: cpu:   Generation command is [exec C:/altera/14.0/quartus/bin64/eperlcmd.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/14.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=proj_qsys_cpu --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0030_cpu_gen/ --quartus_bindir=C:/altera/14.0/quartus/bin64 --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0030_cpu_gen//proj_qsys_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2017.02.20 20:44:03 (*) Starting Nios II generation
+Info: cpu: # 2017.02.20 20:44:03 (*)   Checking for plaintext license.
+Info: cpu: # 2017.02.20 20:44:05 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: cpu: # 2017.02.20 20:44:05 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2017.02.20 20:44:05 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2017.02.20 20:44:05 (*)   Plaintext license not found.
+Info: cpu: # 2017.02.20 20:44:05 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.02.20 20:44:06 (*)   Couldn't query license setup in Quartus directory C:/altera/14.0/quartus/bin64
+Info: cpu: # 2017.02.20 20:44:06 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2017.02.20 20:44:06 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2017.02.20 20:44:06 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
+Info: cpu: # 2017.02.20 20:44:06 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.02.20 20:44:06 (*)   Creating all objects for CPU
+Info: cpu: # 2017.02.20 20:44:07 (*)     Pipeline frontend
+Info: cpu: # 2017.02.20 20:44:08 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.02.20 20:44:10 (*)   Creating encrypted RTL
+Info: cpu: # 2017.02.20 20:44:11 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'proj_qsys_cpu'
+Info: cpu: "proj_qsys" instantiated altera_nios2_qsys "cpu"
+Info: onchip_mem: Starting RTL generation for module 'proj_qsys_onchip_mem'
+Info: onchip_mem:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=proj_qsys_onchip_mem --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0031_onchip_mem_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0031_onchip_mem_gen//proj_qsys_onchip_mem_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_mem: Done RTL generation for module 'proj_qsys_onchip_mem'
+Info: onchip_mem: "proj_qsys" instantiated altera_avalon_onchip_memory2 "onchip_mem"
+Info: jtag_uart: Starting RTL generation for module 'proj_qsys_jtag_uart'
+Info: jtag_uart:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=proj_qsys_jtag_uart --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0032_jtag_uart_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0032_jtag_uart_gen//proj_qsys_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart: Done RTL generation for module 'proj_qsys_jtag_uart'
+Info: jtag_uart: "proj_qsys" instantiated altera_avalon_jtag_uart "jtag_uart"
+Info: sys_clk_timer: Starting RTL generation for module 'proj_qsys_sys_clk_timer'
+Info: sys_clk_timer:   Generation command is [exec C:/altera/14.0/quartus/bin64//perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64//perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=proj_qsys_sys_clk_timer --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0033_sys_clk_timer_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0033_sys_clk_timer_gen//proj_qsys_sys_clk_timer_component_configuration.pl  --do_build_sim=0  ]
+Info: sys_clk_timer: Done RTL generation for module 'proj_qsys_sys_clk_timer'
+Info: sys_clk_timer: "proj_qsys" instantiated altera_avalon_timer "sys_clk_timer"
+Info: sysid: "proj_qsys" instantiated altera_avalon_sysid_qsys "sysid"
+Info: led_pio: Starting RTL generation for module 'proj_qsys_led_pio'
+Info: led_pio:   Generation command is [exec C:/altera/14.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/14.0/quartus/bin64/perl/lib -I C:/altera/14.0/quartus/sopc_builder/bin/europa -I C:/altera/14.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/14.0/quartus/sopc_builder/bin -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/14.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=proj_qsys_led_pio --dir=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0035_led_pio_gen/ --quartus_dir=C:/altera/14.0/quartus --verilog --config=C:/Users/Nikhil/AppData/Local/Temp/alt7218_663953013413781488.dir/0035_led_pio_gen//proj_qsys_led_pio_component_configuration.pl  --do_build_sim=0  ]
+Info: led_pio: Done RTL generation for module 'proj_qsys_led_pio'
+Info: led_pio: "proj_qsys" instantiated altera_avalon_pio "led_pio"
 Info: mm_interconnect_0: "proj_qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: irq_mapper: "proj_qsys" instantiated altera_irq_mapper "irq_mapper"
 Info: rst_controller: "proj_qsys" instantiated altera_reset_controller "rst_controller"
-Info: nios2_gen2_0_instruction_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_gen2_0_instruction_master_translator"
-Info: nios2_gen2_0_debug_mem_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "nios2_gen2_0_debug_mem_slave_translator"
-Info: nios2_gen2_0_instruction_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_gen2_0_instruction_master_agent"
-Info: nios2_gen2_0_debug_mem_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "nios2_gen2_0_debug_mem_slave_agent"
-Info: nios2_gen2_0_debug_mem_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "nios2_gen2_0_debug_mem_slave_agent_rsp_fifo"
+Info: cpu_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "cpu_data_master_translator"
+Info: onchip_mem_s1_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "onchip_mem_s1_translator"
+Info: cpu_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "cpu_data_master_agent"
+Info: onchip_mem_s1_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "onchip_mem_s1_agent"
+Info: onchip_mem_s1_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "onchip_mem_s1_agent_rsp_fifo"
 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
-Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
+Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
+Info: cpu_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "cpu_instruction_master_limiter"
+Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/synthesis/submodules/altera_avalon_sc_fifo.v
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
+Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
 Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: rsp_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_002"
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
 Info: Reusing file C:/EE371/lab371/lab4/NIOSII/proj_qsys/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: proj_qsys: Done "proj_qsys" with 23 modules, 37 files
+Info: proj_qsys: Done "proj_qsys" with 29 modules, 47 files
 Info: ip-generate succeeded.
 Info: Finished: Create HDL design files for synthesis
