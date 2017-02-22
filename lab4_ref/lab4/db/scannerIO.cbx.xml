@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="scannerIO">
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_jtag_uart_0:jtag_uart_0|nios2_jtag_uart_0_scfifo_w:the_nios2_jtag_uart_0_scfifo_w|scfifo:wfifo" CBX_FILE_NAME="scfifo_4291.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_nios2:nios2|nios2_nios2_register_bank_a_module:nios2_nios2_register_bank_a|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_v8m1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_jtag_uart_0:jtag_uart_0|nios2_jtag_uart_0_scfifo_r:the_nios2_jtag_uart_0_scfifo_r|scfifo:rfifo" CBX_FILE_NAME="scfifo_4291.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_nios2:nios2|nios2_nios2_register_bank_b_module:nios2_nios2_register_bank_b|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_09m1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_nios2:nios2|nios2_nios2_nios2_oci:the_nios2_nios2_nios2_oci|nios2_nios2_nios2_ocimem:the_nios2_nios2_nios2_ocimem|nios2_nios2_ociram_sp_ram_module:nios2_nios2_ociram_sp_ram|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_ife1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|scannerIO|nios2:processor|nios2_onchip_mem:onchip_mem|altsyncram:the_altsyncram" CBX_FILE_NAME="altsyncram_fgi1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

@@ -1,0 +1,35 @@
+17:01:13 **** Incremental Build of configuration Nios II for project scannerToProcessor ****
+make all 
+Info: Building ../scannerToProcessor_bsp/
+C:/altera/16.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../scannerToProcessor_bsp/
+[BSP build complete]
+Info: Compiling hello_world_small.c to obj/default/hello_world_small.o
+nios2-elf-gcc -xc -MP -MMD -c -I../scannerToProcessor_bsp//HAL/inc -I../scannerToProcessor_bsp/ -I../scannerToProcessor_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_CLEAN_EXIT -D'exit(a)=_exit(a)' -DALT_NO_EXIT -DALT_USE_DIRECT_DRIVERS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/hello_world_small.o hello_world_small.c
+hello_world_small.c: In function 'main':
+hello_world_small.c:27:15: warning: passing argument 1 of 'alt_putstr' makes pointer from integer without a cast [-Wint-conversion]
+    alt_putstr(*readyToTransfer);
+               ^
+In file included from hello_world_small.c:1:0:
+../scannerToProcessor_bsp//HAL/inc/sys/alt_stdio.h:55:5: note: expected 'const char *' but argument is of type 'char'
+ int alt_putstr(const char* str);
+     ^
+Info: Linking scannerToProcessor.elf
+nios2-elf-g++  -T'../scannerToProcessor_bsp//linker.x' -msys-crt0='../scannerToProcessor_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../scannerToProcessor_bsp/  -msmallc  -Wl,-Map=scannerToProcessor.map   -Os -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o scannerToProcessor.elf obj/default/hello_world_small.o -lm -msys-lib=m
+nios2-elf-insert scannerToProcessor.elf --thread_model hal --cpu_name nios2 --qsys true --simulation_enabled false --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios2 --quartus_project_dir "C:/lab4" --jdi ../..//output_files/scannerIO.jdi --sopcinfo C:/lab4/software/scannerToProcessor_bsp/../../nios2.sopcinfo
+Info: (scannerToProcessor.elf) 1776 Bytes program size (code + initialized data).
+Info:                          6304 Bytes free for stack + heap.
+Info: Creating scannerToProcessor.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source scannerToProcessor.elf >scannerToProcessor.objdump
+[scannerToProcessor build complete]
+17:01:20 **** Build of configuration Nios II for project scannerToProcessor ****
+make all 
+Info: Building ../scannerToProcessor_bsp/
+C:/altera/16.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../scannerToProcessor_bsp/
+[BSP build complete]
+[scannerToProcessor build complete]
+17:01:21 **** Incremental Build of configuration Nios II for project scannerToProcessor ****
+make all 
+Info: Building ../scannerToProcessor_bsp/
+C:/altera/16.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../scannerToProcessor_bsp/
+[BSP build complete]
+[scannerToProcessor build complete]

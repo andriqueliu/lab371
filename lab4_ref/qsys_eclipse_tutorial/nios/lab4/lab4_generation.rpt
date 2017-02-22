@@ -1,0 +1,128 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\nios\lab4.qsys --block-symbol-file --output-directory=C:\nios\lab4 --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading nios/lab4.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 16.0]
+Progress: Parameterizing module clk_0
+Progress: Adding cpu [altera_nios2_qsys 16.0]
+Progress: Parameterizing module cpu
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 16.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding led_pio [altera_avalon_pio 16.0]
+Progress: Parameterizing module led_pio
+Progress: Adding onchip_mem [altera_avalon_onchip_memory2 16.0]
+Progress: Parameterizing module onchip_mem
+Progress: Adding sys_clk_timer [altera_avalon_timer 16.0]
+Progress: Parameterizing module sys_clk_timer
+Progress: Adding sysid [altera_avalon_sysid_qsys 16.0]
+Progress: Parameterizing module sysid
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: lab4.cpu: Nios II Classic cores are no longer recommended for new projects
+Info: lab4.jtag_uart: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: lab4.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: lab4.sysid: Time stamp will be automatically updated when this component is generated.
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\nios\lab4.qsys --synthesis=VERILOG --output-directory=C:\nios\lab4\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
+Progress: Loading nios/lab4.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 16.0]
+Progress: Parameterizing module clk_0
+Progress: Adding cpu [altera_nios2_qsys 16.0]
+Progress: Parameterizing module cpu
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 16.0]
+Progress: Parameterizing module jtag_uart
+Progress: Adding led_pio [altera_avalon_pio 16.0]
+Progress: Parameterizing module led_pio
+Progress: Adding onchip_mem [altera_avalon_onchip_memory2 16.0]
+Progress: Parameterizing module onchip_mem
+Progress: Adding sys_clk_timer [altera_avalon_timer 16.0]
+Progress: Parameterizing module sys_clk_timer
+Progress: Adding sysid [altera_avalon_sysid_qsys 16.0]
+Progress: Parameterizing module sysid
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: lab4.cpu: Nios II Classic cores are no longer recommended for new projects
+Info: lab4.jtag_uart: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: lab4.sysid: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: lab4.sysid: Time stamp will be automatically updated when this component is generated.
+Info: lab4: Generating lab4 "lab4" for QUARTUS_SYNTH
+Info: cpu: Starting RTL generation for module 'lab4_cpu'
+Info: cpu:   Generation command is [exec C:/altera/16.0/quartus/bin64/eperlcmd.exe -I C:/altera/16.0/quartus/bin64/perl/lib -I C:/altera/16.0/quartus/sopc_builder/bin/europa -I C:/altera/16.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/16.0/quartus/sopc_builder/bin -I C:/altera/16.0/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/16.0/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/16.0/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/16.0/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/16.0/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=lab4_cpu --dir=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0001_cpu_gen/ --quartus_bindir=C:/altera/16.0/quartus/bin64 --verilog --config=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0001_cpu_gen//lab4_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2016.11.20 11:39:10 (*) Starting Nios II generation
+Info: cpu: # 2016.11.20 11:39:10 (*)   Checking for plaintext license.
+Info: cpu: # 2016.11.20 11:39:11 (*)   Couldn't query license setup in Quartus directory C:/altera/16.0/quartus/bin64
+Info: cpu: # 2016.11.20 11:39:11 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2016.11.20 11:39:11 (*)   Plaintext license not found.
+Info: cpu: # 2016.11.20 11:39:11 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2016.11.20 11:39:12 (*)   Couldn't query license setup in Quartus directory C:/altera/16.0/quartus/bin64
+Info: cpu: # 2016.11.20 11:39:12 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2016.11.20 11:39:12 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2016.11.20 11:39:12 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2016.11.20 11:39:12 (*)   Creating all objects for CPU
+Info: cpu: # 2016.11.20 11:39:13 (*)     Pipeline frontend
+Info: cpu: # 2016.11.20 11:39:14 (*)   Generating RTL from CPU objects
+Info: cpu: # 2016.11.20 11:39:16 (*)   Creating encrypted RTL
+Info: cpu: # 2016.11.20 11:39:17 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'lab4_cpu'
+Info: cpu: "lab4" instantiated altera_nios2_qsys "cpu"
+Info: jtag_uart: Starting RTL generation for module 'lab4_jtag_uart'
+Info: jtag_uart:   Generation command is [exec C:/altera/16.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/16.0/quartus/bin64/perl/lib -I C:/altera/16.0/quartus/sopc_builder/bin/europa -I C:/altera/16.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/16.0/quartus/sopc_builder/bin -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=lab4_jtag_uart --dir=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0002_jtag_uart_gen/ --quartus_dir=C:/altera/16.0/quartus --verilog --config=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0002_jtag_uart_gen//lab4_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart: Done RTL generation for module 'lab4_jtag_uart'
+Info: jtag_uart: "lab4" instantiated altera_avalon_jtag_uart "jtag_uart"
+Info: led_pio: Starting RTL generation for module 'lab4_led_pio'
+Info: led_pio:   Generation command is [exec C:/altera/16.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/16.0/quartus/bin64/perl/lib -I C:/altera/16.0/quartus/sopc_builder/bin/europa -I C:/altera/16.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/16.0/quartus/sopc_builder/bin -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=lab4_led_pio --dir=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0003_led_pio_gen/ --quartus_dir=C:/altera/16.0/quartus --verilog --config=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0003_led_pio_gen//lab4_led_pio_component_configuration.pl  --do_build_sim=0  ]
+Info: led_pio: Done RTL generation for module 'lab4_led_pio'
+Info: led_pio: "lab4" instantiated altera_avalon_pio "led_pio"
+Info: onchip_mem: Starting RTL generation for module 'lab4_onchip_mem'
+Info: onchip_mem:   Generation command is [exec C:/altera/16.0/quartus/bin64/perl/bin/perl.exe -I C:/altera/16.0/quartus/bin64/perl/lib -I C:/altera/16.0/quartus/sopc_builder/bin/europa -I C:/altera/16.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/16.0/quartus/sopc_builder/bin -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=lab4_onchip_mem --dir=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0004_onchip_mem_gen/ --quartus_dir=C:/altera/16.0/quartus --verilog --config=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0004_onchip_mem_gen//lab4_onchip_mem_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_mem: Done RTL generation for module 'lab4_onchip_mem'
+Info: onchip_mem: "lab4" instantiated altera_avalon_onchip_memory2 "onchip_mem"
+Info: sys_clk_timer: Starting RTL generation for module 'lab4_sys_clk_timer'
+Info: sys_clk_timer:   Generation command is [exec C:/altera/16.0/quartus/bin64//perl/bin/perl.exe -I C:/altera/16.0/quartus/bin64//perl/lib -I C:/altera/16.0/quartus/sopc_builder/bin/europa -I C:/altera/16.0/quartus/sopc_builder/bin/perl_lib -I C:/altera/16.0/quartus/sopc_builder/bin -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/altera/16.0/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=lab4_sys_clk_timer --dir=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0005_sys_clk_timer_gen/ --quartus_dir=C:/altera/16.0/quartus --verilog --config=C:/Users/wli1/AppData/Local/Temp/alt7125_74597187626413644.dir/0005_sys_clk_timer_gen//lab4_sys_clk_timer_component_configuration.pl  --do_build_sim=0  ]
+Info: sys_clk_timer: Done RTL generation for module 'lab4_sys_clk_timer'
+Info: sys_clk_timer: "lab4" instantiated altera_avalon_timer "sys_clk_timer"
+Info: sysid: "lab4" instantiated altera_avalon_sysid_qsys "sysid"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "lab4" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: irq_mapper: "lab4" instantiated altera_irq_mapper "irq_mapper"
+Info: rst_controller: "lab4" instantiated altera_reset_controller "rst_controller"
+Info: cpu_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "cpu_data_master_translator"
+Info: jtag_uart_avalon_jtag_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "jtag_uart_avalon_jtag_slave_translator"
+Info: cpu_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "cpu_data_master_agent"
+Info: jtag_uart_avalon_jtag_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "jtag_uart_avalon_jtag_slave_agent"
+Info: jtag_uart_avalon_jtag_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "jtag_uart_avalon_jtag_slave_agent_rsp_fifo"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: cpu_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "cpu_instruction_master_limiter"
+Info: Reusing file C:/nios/lab4/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
+Info: Reusing file C:/nios/lab4/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_002"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/nios/lab4/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/nios/lab4/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: lab4: Done "lab4" with 30 modules, 48 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

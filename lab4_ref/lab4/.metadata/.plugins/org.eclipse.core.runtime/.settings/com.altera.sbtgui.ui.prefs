@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+newSoftwareExampleWizardPage.defaultLocation=C\:\\lab4\\software\\scannerToProcessor
+newSoftwareExampleWizardPage.sopcinfoFile=C\:\\lab4\\nios2.sopcinfo
+newSoftwareExampleWizardPage2.newBspLocation=C\:\\lab4\\software\\scannerToProcessor_bsp

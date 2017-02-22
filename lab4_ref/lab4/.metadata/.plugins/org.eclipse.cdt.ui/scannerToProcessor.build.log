@@ -1,0 +1,9 @@
+17:01:21 **** Incremental Build of configuration Nios II for project scannerToProcessor ****
+make all 
+Info: Building ../scannerToProcessor_bsp/
+C:/altera/16.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../scannerToProcessor_bsp/
+[BSP build complete]
+[scannerToProcessor build complete]
+
+17:01:21 Build Finished (took 640ms)
+

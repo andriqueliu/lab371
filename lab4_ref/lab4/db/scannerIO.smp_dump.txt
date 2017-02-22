@@ -1,0 +1,27 @@
+
+State Machine - |scannerIO|nios2:processor|nios2_nios2:nios2|nios2_nios2_nios2_oci:the_nios2_nios2_nios2_oci|nios2_nios2_jtag_debug_module_wrapper:the_nios2_nios2_jtag_debug_module_wrapper|nios2_nios2_jtag_debug_module_tck:the_nios2_nios2_jtag_debug_module_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 
+
+State Machine - |scannerIO|scanner:s2|scannerState:ctrl|ps
+Name ps.flushing ps.xferring ps.idle ps.scanning ps.standby ps.lowPower 
+ps.lowPower 0 0 0 0 0 0 
+ps.standby 0 0 0 0 1 1 
+ps.scanning 0 0 0 1 0 1 
+ps.idle 0 0 1 0 0 1 
+ps.xferring 0 1 0 0 0 1 
+ps.flushing 1 0 0 0 0 1 
+
+State Machine - |scannerIO|scanner:s1|scannerState:ctrl|ps
+Name ps.flushing ps.xferring ps.idle ps.scanning ps.standby ps.lowPower 
+ps.lowPower 0 0 0 0 0 0 
+ps.standby 0 0 0 0 1 1 
+ps.scanning 0 0 0 1 0 1 
+ps.idle 0 0 1 0 0 1 
+ps.xferring 0 1 0 0 0 1 
+ps.flushing 1 0 0 0 0 1 

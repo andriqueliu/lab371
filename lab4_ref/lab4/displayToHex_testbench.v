@@ -1,0 +1,36 @@
+module displayToHex_testbench;
+	reg [3:0] fourBitData;
+	wire [6:0] HEX;
+	
+	displayToHex dut(.fourBitData(fourBitData), .HEX(HEX));
+
+	parameter delay = 10; 
+	// begin simulation
+	initial begin
+		fourBitData = 4'b0000; #delay; 
+		fourBitData = 4'b0001; #delay; 
+		fourBitData = 4'b0010; #delay; 
+		fourBitData = 4'b0011; #delay; 
+		fourBitData = 4'b0100; #delay; 
+		fourBitData = 4'b0101; #delay; 
+		fourBitData = 4'b0110; #delay; 
+		fourBitData = 4'b0111; #delay; 
+		fourBitData = 4'b1000; #delay; 
+		fourBitData = 4'b1001; #delay; 
+		fourBitData = 4'b1010; #delay; 
+		fourBitData = 4'b1011; #delay; 
+		fourBitData = 4'b1100; #delay; 
+		fourBitData = 4'b1101; #delay; 
+		fourBitData = 4'b1110; #delay; 
+		fourBitData = 4'b1111; #delay; 
+		fourBitData = 4'b1010; #delay; 
+		fourBitData = 4'b0000; #delay; 
+		$finish;
+	end
+
+	// gtkwave filedump
+	initial begin
+		$dumpfile("displayToHex.vcd");
+		$dumpvars;
+	end
+endmodule
