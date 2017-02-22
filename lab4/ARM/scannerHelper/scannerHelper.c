@@ -6,6 +6,8 @@ Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 The ARM processor is used to supplement the behavior of the FPGA in this lab's
 project. 
 
+CHANGE TO NIOS PROCESSOR...
+
 Inputs:
 The processor takes the "ReadyToTransfer" signal from an active scanner
 
@@ -21,10 +23,14 @@ These signals initiate the scanning and transferring processes, respectively.
 
 /* Declare volatile pointers to I/O registers (volatile means that the locations will not be cached,
 * even in registers) */
-volatile int * LED_ptr = (int *) 0xFF200000; // red LED address
-volatile int * HEX3_HEX0_ptr = (int *) 0xFF200020; // HEX3_HEX0 address
-volatile int * SW_switch_ptr = (int *) 0xFF200040; // SW slider switch address
-volatile int * KEY_ptr = (int *) 0xFF200050; // pushbutton KEY address
+// ALL ADDRESSES CHANGED TO NIOS SYSTEM - Nikhil
+volatile char * LED_ptr = (char *) 0x00050b0; // red LED address
+volatile char * HEX3_ptr = (char *) 0x0005060; // HEX3 address
+volatile char * HEX2_ptr = (char *) 0x0005070; // HEX2 address
+volatile char * HEX1_ptr = (char *) 0x0005080; //HEX1 address
+volatile char * HEX0_ptr = (char *) 0x0005090; //HEX0 address
+volatile char * SW_switch_ptr = (char *) 0x00050c0; // SW slider switch address
+volatile char * KEY_ptr = (char *) 0x00050a0; // pushbutton KEY address
 
 // Forward Declarations
 void printWelcome(void);
