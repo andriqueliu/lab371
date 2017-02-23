@@ -28,7 +28,8 @@ module stateDisplay (clk, reset, startScanning, startTransfer, address, HEX);
 				if (address == 0 && startScanning) begin
 					ns = SCAN;
 					HEX = scanning;
-				end else if (address == 749 && startTransfer) begin
+//				end else if (address == 749 && startTransfer) begin
+				end else if (address == 9 && startTransfer) begin
 					ns = TRANSFER;
 					HEX = transferring;
 				end else begin
@@ -37,7 +38,8 @@ module stateDisplay (clk, reset, startScanning, startTransfer, address, HEX);
 				end
 			end
 			SCAN: begin
-				if (address == 749) begin
+//				if (address == 749) begin
+				if (address == 9) begin
 					ns = LP;
 					HEX = lowPower;
 				end else begin
