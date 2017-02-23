@@ -117,6 +117,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 //	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scan9]),
 //	                     .readyIn(readySwitch), .readyOut(GPIO_0_in[27]));
 	
+	// Debug; SW[0] is NOT used in final demo
 	logic  startWrite;
 	assign startWrite = GPIO_0[31] || SW[0];
 	
@@ -127,7 +128,8 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 										.transferBit(GPIO_0_in[35]), .clkOut(GPIO_0_in[34]),
                               .lights({ hexMSBInput, hexLSBInput }),
 										.stateHEX(HEX4),
-										.pctgHEX(HEX5));
+										.pctgHEX(HEX5),
+										.readyToTransfer(LEDR[0]));
 	
 	// 
 	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scanner(GPIO_0[29]),
@@ -136,8 +138,6 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	// Turn off unused hex displays
 	assign HEX2[6:0] = ~(7'b0000000);
 	assign HEX3[6:0] = ~(7'b0000000);
-	
-	
 	
 endmodule
 

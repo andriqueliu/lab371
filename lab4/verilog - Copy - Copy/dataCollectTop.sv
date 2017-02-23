@@ -10,7 +10,7 @@ the memory, and then reads them out, displaying them on the LEDs.
 
 */
 module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights,
-                       stateHEX, pctgHEX);
+                       stateHEX, pctgHEX, readyToTransfer);
    input  logic  clk, reset;            // Clock, Reset signals
 	inout  [7:0] data;          // Bidirectional 32-bit I/O port
 	// 11-bit address input- see Note.
@@ -38,6 +38,11 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	output logic [7:0] lights;
 	
 	output logic [6:0] stateHEX, pctgHEX;
+	
+	// 
+	output logic readyToTransfer;
+	
+	
 	
 	assign lights = data;
 	
@@ -97,6 +102,12 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 			clkOut = 1'b0;
 			transferBit = 1'b0;
 		end
+		
+		if (address >= 5) begin
+			readyToTransfer = 1'b1;
+		end else begin
+			readyToTransfer = 1'b0;
+		end
 	end
 	
 	// Sequential Logic
@@ -152,44 +163,44 @@ module dataCollectTop (clk, reset, data, startWrite, startRead, clkLight, transf
 	
 endmodule
 
-// Tester Module
-module dataCollectTop_testbench();
-	logic  clk, reset;            // Clock, Reset signals
-	wire [7:0] data;              // Bidirectional 32-bit I/O port
-	logic startWrite, startRead;
-	logic clkLight;
-	logic transferBit;
-	logic clkOut;
-	logic [7:0] lights;
-	
-	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
-	
-	// Set up the clock.
-	parameter CLOCK_PERIOD=100;
-	initial begin
-		clk <= 0;
-		forever #(CLOCK_PERIOD/2) clk <= ~clk;
-	end
-	
-	// Set up the inputs to the design. Each line is a clock cycle.
-	// Test... set direction to pass data in
-	// Then clear direction to read data
-	initial begin
-								  @(posedge clk);
-	reset <= 1;            @(posedge clk);
-	reset <= 0;            @(posedge clk);
-	@(posedge clk);
-	@(posedge clk);
-	startWrite <= 1;
-						repeat (300) @(posedge clk);
-	startRead <= 1;
-						repeat (300) @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	$stop; // End the simulation.
-	end
-endmodule
+//// Tester Module
+//module dataCollectTop_testbench();
+//	logic  clk, reset;            // Clock, Reset signals
+//	wire [7:0] data;              // Bidirectional 32-bit I/O port
+//	logic startWrite, startRead;
+//	logic clkLight;
+//	logic transferBit;
+//	logic clkOut;
+//	logic [7:0] lights;
+//	
+//	dataCollectTop dut (clk, reset, data, startWrite, startRead, clkLight, transferBit, clkOut, lights);
+//	
+//	// Set up the clock.
+//	parameter CLOCK_PERIOD=100;
+//	initial begin
+//		clk <= 0;
+//		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//	end
+//	
+//	// Set up the inputs to the design. Each line is a clock cycle.
+//	// Test... set direction to pass data in
+//	// Then clear direction to read data
+//	initial begin
+//								  @(posedge clk);
+//	reset <= 1;            @(posedge clk);
+//	reset <= 0;            @(posedge clk);
+//	@(posedge clk);
+//	@(posedge clk);
+//	startWrite <= 1;
+//						repeat (300) @(posedge clk);
+//	startRead <= 1;
+//						repeat (300) @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	$stop; // End the simulation.
+//	end
+//endmodule
