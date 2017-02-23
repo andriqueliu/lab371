@@ -1,0 +1,12 @@
+/*
+
+
+
+
+*/
+module transferProcess (clk, reset, );
+	input  logic clk, reset;
+	input  logic
+	
+	output logic
+endmodule

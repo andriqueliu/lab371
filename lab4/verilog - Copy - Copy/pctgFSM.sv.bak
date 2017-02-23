@@ -1,0 +1,15 @@
+/*
+
+
+
+
+*/
+module pctgFSM (clk, reset, );
+	input  logic clk, reset;
+	input  logic address
+	
+	output logic [6:0] HEX;
+	
+	percentageDisplay pctgDisplay (HEX5, percent);
+	
+endmodule

@@ -1,0 +1,12 @@
+module dflipflop (clk, reset, d, q);
+	input logic clk, reset, d;
+	output logic q;
+
+	// DFFs
+	always_ff @(posedge clk)
+		if (reset)
+			q <= 0;   // Resets to 0
+		else
+			q <= d;   // Otherwise, output = d
+			
+endmodule

@@ -1,0 +1,9 @@
+/*
+
+
+
+
+*/
+module timer #(parameter DELAY=(25000000*3)) (clk, reset, timerStart, timerComplete);
+	
+endmodule

@@ -1,0 +1,13 @@
+/*
+EE 371 Winter 2017
+Lab 3 Project
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
+
+
+
+*/
+module ();
+	input  logic clk, reset; 
+	
+	output logic
+endmodule

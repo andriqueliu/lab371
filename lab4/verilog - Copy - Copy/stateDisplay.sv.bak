@@ -1,0 +1,16 @@
+/*
+
+
+
+
+*/
+module stateDisplay ();
+	input  logic clk, reset;
+	input  logic
+	
+	output logic
+	
+	
+	
+	
+endmodule
