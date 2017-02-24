@@ -1,0 +1,3 @@
+module lab4top (clk, leds, reset);
+
+endmodule
