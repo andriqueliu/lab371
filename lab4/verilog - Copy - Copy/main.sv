@@ -8,7 +8,6 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	input  logic 		  CLOCK_50; // 50MHz clock.
 	output logic  [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 	output logic  [9:0] LEDR;
-//	output logic  [9:1] LEDR;
 	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
 	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
@@ -48,51 +47,14 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	logic reset;
 	assign reset = ~KEY[3];
-	
-	// 
-//	nios_system nios (
-//		.clk_clk(CLOCK_50),          //      clk.clk
-//		.reset_reset_n(reset),    //    reset.reset_n
-//		.switches_export(SW),  // switches.export
-//		.leds_export(LEDR),      //     leds.export
-//		.keys_export(KEY),      //     keys.export
-//		.hex0_export( ),      //     hex0.export
-//		.hex1_export( ),      //     hex1.export
-//		.hex2_export( ),      //     hex2.export
-//		.hex3_export( ),      //     hex3.export
-//		.hex4_export( ),      //     hex4.export
-//		.hex5_export( ),      //     hex5.export
-////		.gpio_0_out_export({ GPIO_0_in[35], GPIO_0_in[34], GPIO_0_in[32], GPIO_0_in[25], GPIO_0_in[24] }),
-////		.gpio_0_in_export({ GPIO_0[33], GPIO_0[31], GPIO_0[29], GPIO_0[28], GPIO_0[26] })
-//		.gpio_0_out_export({ GPIO_0_in[35], GPIO_0_in[34], GPIO_0_in[32], GPIO_0_in[25], GPIO_0_in[24] }),
-//		.gpio_0_in_export({ GPIO_0[33], GPIO_0[31], GPIO_0[29], GPIO_0[28], GPIO_0[26] })
-//	);
 
 	nios_system nios (
-		.clk_clk(CLOCK_50),           //        clk.clk
-//		.reset_reset_n(KEY[3]),     //      reset.reset_n
-		.reset_reset_n(KEY[2]),     //      reset.reset_n
+		.clk_clk(CLOCK_50),                //        clk.clk
+		.reset_reset_n(KEY[2]),            //      reset.reset_n
 		.switches_export({ SW[9], SW[8] }),   //   switches.export
 		.gpio_0_out_export({ GPIO_0_in[25], GPIO_0_in[24] }), // gpio_0_out.export
 		.gpio_0_in_export(GPIO_0_in[26])   //  gpio_0_in.export
-	);
-	
-	
-	
-	// 
-//	logic  startWrite, readySwitch;
-//	assign reset = ~KEY[3];
-
-
-	// done by Processor
-//	assign startWrite = SW[9];
-//	assign readySwitch  = SW[8];
-	
-//	logic  SWScan, SWReady;
-//	assign GPIO_0_in[24] = SW[9];
-//	assign GPIO_0_in[25] = SW[8];
-	
-	
+	);	
 	
 	// Assign reference clock for debugging and probing
 	assign LEDR[9] = clk[whichClock];
@@ -103,19 +65,6 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	logic  [3:0] hexLSBInput, hexMSBInput;
 	hexDriver hexDriveLSB (.value(hexLSBInput), .leds(HEX0));
 	hexDriver hexDriveMSB (.value(hexMSBInput), .leds(HEX1));
-	
-//	// !!! this module also has to have an 
-//	dataCollectTop collectTop (.clk(clk[whichClock]), .reset, .data( ),
-//	                           .startWrite, .startRead(GPIO_0[33]), .clkLight( ),
-//										.transferBit(GPIO_0_in[35]), .clkOut(GPIO_0_in[34]),
-////										.lights(LEDR[7:0]),
-//                              .lights({ hexMSBInput, hexLSBInput }),
-//										.stateHEX(HEX4),
-//										.pctgHEX(HEX5));
-//	
-//	// 
-//	transfer transferTop(.clk(GPIO_0[28]), .reset, .data_scan9]),
-//	                     .readyIn(readySwitch), .readyOut(GPIO_0_in[27]));
 	
 	// Debug; SW[0] is NOT used in final demo
 	logic  startWrite;
