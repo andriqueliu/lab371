@@ -15,7 +15,7 @@ module main (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0
 	
 	// 
 	logic [31:0] clk;
-	parameter whichClock = 15;   // Roughly 768 Hz
+	parameter whichClock = 17;   // Roughly 768 Hz
 //	parameter whichClock = 20; //  Hz
 	clock_divider cdiv (CLOCK_50, clk);
 	

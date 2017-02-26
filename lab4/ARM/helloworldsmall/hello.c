@@ -2,8 +2,11 @@
 EE 371 Lab 4 Project
 Building and Working with a Simple Microprocessor
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-
+This program prompts the user for input; if the user inputs "G," the program
+will allow lights and switches behavior. Otherwise, the program exits and
+disables lights and switches behavior.
 */
 
 #include <stdio.h> // Standard I/O
@@ -19,6 +22,7 @@ volatile int * KEY_ptr = (int *) 0xFF200050; // pushbutton KEY address
 void clearLEDRs(void);
 int askUser(void);
 void turnOnLEDRs(void);
+void complementLEDRs(void);
 int power(int number, int power);
 
 int main()
@@ -30,7 +34,12 @@ int main()
 	if (askUser()) {
 		while (1) {
 			// *(LED_ptr) |= 0x01;
-			turnOnLEDRs();
+			// turnOnLEDRs();
+			if (*(SW_switch_ptr) & 0x01) {
+				turnOnLEDRs();
+			} else {
+				complementLEDRs();
+			}
 		}
 	} else {
 		printf("Exiting...\n");
@@ -60,8 +69,17 @@ int askUser(void)
 // Turns on the active LEDRs, and also turns off inactive LEDRs.
 void turnOnLEDRs(void)
 {
-	*(LED_ptr) |= *(SW_switch_ptr);
-	*(LED_ptr) &= *(SW_switch_ptr);
+	// *(LED_ptr) |= *(SW_switch_ptr);
+	// *(LED_ptr) &= *(SW_switch_ptr);
+	*(LED_ptr) = (*SW_switch_ptr);
+}
+
+// Turns on the active LEDRs, and also turns off inactive LEDRs.
+void complementLEDRs(void)
+{
+	// *(LED_ptr) |= *(SW_switch_ptr);
+	// *(LED_ptr) &= *(SW_switch_ptr);
+	*(LED_ptr) = ~(*SW_switch_ptr);
 }
 
 // Return number to the power of...

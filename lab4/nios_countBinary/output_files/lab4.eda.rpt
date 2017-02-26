@@ -1,6 +1,6 @@
 EDA Netlist Writer report for lab4
-Sun Nov 20 11:47:15 2016
-Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Standard Edition
+Fri Feb 24 11:20:49 2017
+Quartus II 64-Bit Version 14.0.0 Build 200 06/17/2014 SJ Web Edition
 
 
 ---------------------
@@ -8,23 +8,21 @@ Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Standard Edition
 ---------------------
   1. Legal Notice
   2. EDA Netlist Writer Summary
-  3. Simulation Settings
-  4. Simulation Generated Files
-  5. EDA Netlist Writer Messages
+  3. EDA Netlist Writer Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Copyright (C) 1991-2014 Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus Prime License Agreement,
+Subscription Agreement, the Altera Quartus II License Agreement,
 the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
@@ -34,63 +32,34 @@ agreement for further details.
 
 
 
-+-------------------------------------------------------------------+
-; EDA Netlist Writer Summary                                        ;
-+---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Sun Nov 20 11:47:15 2016 ;
-; Revision Name             ; lab4                                  ;
-; Top-level Entity Name     ; lab4top                               ;
-; Family                    ; Cyclone V                             ;
-; Simulation Files Creation ; Successful                            ;
-+---------------------------+---------------------------------------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------+
-; Simulation Settings                                                                                                           ;
-+---------------------------------------------------------------------------------------------------+---------------------------+
-; Option                                                                                            ; Setting                   ;
-+---------------------------------------------------------------------------------------------------+---------------------------+
-; Tool Name                                                                                         ; ModelSim-Altera (Verilog) ;
-; Generate functional simulation netlist                                                            ; Off                       ;
-; Time scale                                                                                        ; 1 ps                      ;
-; Truncate long hierarchy paths                                                                     ; Off                       ;
-; Map illegal HDL characters                                                                        ; Off                       ;
-; Flatten buses into individual nodes                                                               ; Off                       ;
-; Maintain hierarchy                                                                                ; Off                       ;
-; Bring out device-wide set/reset signals as ports                                                  ; Off                       ;
-; Enable glitch filtering                                                                           ; Off                       ;
-; Do not write top level VHDL entity                                                                ; Off                       ;
-; Disable detection of setup and hold time violations in the input registers of bi-directional pins ; Off                       ;
-; Architecture name in VHDL output netlist                                                          ; structure                 ;
-; Generate third-party EDA tool command script for RTL functional simulation                        ; Off                       ;
-; Generate third-party EDA tool command script for gate-level simulation                            ; Off                       ;
-+---------------------------------------------------------------------------------------------------+---------------------------+
-
-
-+-------------------------------------+
-; Simulation Generated Files          ;
-+-------------------------------------+
-; Generated Files                     ;
-+-------------------------------------+
-; C:/nios/simulation/modelsim/lab4.vo ;
-+-------------------------------------+
++---------------------------------------------------------------+
+; EDA Netlist Writer Summary                                    ;
++---------------------------+-----------------------------------+
+; EDA Netlist Writer Status ; Failed - Fri Feb 24 11:20:49 2017 ;
+; Revision Name             ; lab4                              ;
+; Top-level Entity Name     ; lab4top                           ;
+; Family                    ; Cyclone V                         ;
++---------------------------+-----------------------------------+
 
 
 +-----------------------------+
 ; EDA Netlist Writer Messages ;
 +-----------------------------+
 Info: *******************************************************************
-Info: Running Quartus Prime EDA Netlist Writer
-    Info: Version 16.0.0 Build 211 04/27/2016 SJ Standard Edition
-    Info: Processing started: Sun Nov 20 11:47:12 2016
+Info: Running Quartus II 64-Bit EDA Netlist Writer
+    Info: Version 14.0.0 Build 200 06/17/2014 SJ Web Edition
+    Info: Processing started: Fri Feb 24 11:20:47 2017
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off lab4 -c lab4
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Warning (10905): Generated the EDA functional simulation netlist because it is the only supported netlist type for this device.
-Info (204019): Generated file lab4.vo in folder "C:/nios/simulation/modelsim/" for EDA simulation tool
-Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 888 megabytes
-    Info: Processing ended: Sun Nov 20 11:47:15 2016
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:03
+Error (204012): Can't generate netlist output files because the file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is an OpenCore Plus time-limited file
+Error (204009): Can't generate netlist output files because the license for encrypted file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is not available
+Error (204012): Can't generate netlist output files because the file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is an OpenCore Plus time-limited file
+Error (204009): Can't generate netlist output files because the license for encrypted file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is not available
+Error (204012): Can't generate netlist output files because the file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is an OpenCore Plus time-limited file
+Error (204009): Can't generate netlist output files because the license for encrypted file "C:/Users/Andrique/Documents/EE 371/labs/lab371/lab4/nios_countBinary/lab4/synthesis/submodules/lab4_cpu.v" is not available
+Error: Quartus II 64-Bit EDA Netlist Writer was unsuccessful. 6 errors, 0 warnings
+    Error: Peak virtual memory: 588 megabytes
+    Error: Processing ended: Fri Feb 24 11:20:49 2017
+    Error: Elapsed time: 00:00:02
+    Error: Total CPU time (on all processors): 00:00:03
 
 
