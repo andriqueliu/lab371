@@ -1,0 +1,10 @@
+!SESSION 2017-02-24 11:37:21.930 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+
+!ENTRY org.eclipse.epp.usagedata.recording 1 0 2017-02-24 11:38:09.307
+!MESSAGE Usage data upload to http://udc.eclipse.org/upload.php failed with error code 404.
