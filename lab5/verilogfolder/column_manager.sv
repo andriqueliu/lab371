@@ -11,7 +11,7 @@ module column_manager (clk, reset, drop_red, drop_green, red_on, green_on);
 	output logic [7:0] red_on, green_on;
 	
 	// available_nodes indicates which node is next to be filled
-	// node_on is used for debugging; is the node on at all?
+	// node_on is used for debugging: is the node on at all?
 	logic [7:0] available_nodes, node_on;
 	
 	integer count; // How many discs are currently in the column?
