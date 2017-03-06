@@ -13,22 +13,24 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	
 	output logic clk_out, bit_out;
 	
-	// 
-	// 
-	
 	logic [2:0] serial_register;
 	
 	encoder enc (.clk, .reset, .column, .select(serial_register));
 	
+	// serial_active determines whether the module is currently sending serial data.
+	// i iterates through the serial_register, selecting which bit to output.
 	logic serial_active;
 	integer i;
 	
+	// Initialize registers
 	initial begin
 		serial_active = 0;
 		i = 0;
 	end
 	
-	// 
+	// Combinational Logic
+	// If serial output is active (serial_active), then match clk_out to clk
+	// and send out serial data. Otherwise, keep output ports low.
 	always_comb begin
 		if (serial_active) begin
 			clk_out = clk;
@@ -39,10 +41,12 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 		end
 	end
 	
-	// 
-	// 
+	// -------------------------------------------------------- //
+	// Sequential Logic Block
 	
-	// 
+	// This block sends serial data and iterates through the serial_register.
+	// Also, this block controls serial_active and iterator through the
+	// serial_register.
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			 i <= 0;
@@ -56,7 +60,8 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 		end
 	end
 	
-	// 
+	// Watch for the negedge of the clock; otherwise, an extra posedge
+	// will be sent through clk_out.
 	always_ff @(negedge clk) begin
 		if (i == 2 && serial_active) begin
 			serial_active <= 0;
@@ -64,8 +69,8 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 		end
 	end
 	
-	// 
-	// 
+	// End Sequential Logic Block
+	// -------------------------------------------------------- //
 	
 	
 endmodule
@@ -122,12 +127,12 @@ module serial_out_testbench();
 								  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk); // Enter two cycles later
+	repeat (6) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
+	column <= 8'b10000000;							  @(posedge clk);
+	enter <= 1;							  @(posedge clk);
+	enter <= 0;							  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
