@@ -20,8 +20,6 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	
 	encoder enc (.clk, .reset, .column, .select(serial_register));
 	
-	
-	
 	logic serial_active;
 	integer i;
 	
@@ -30,6 +28,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 		i = 0;
 	end
 	
+	// 
 	always_comb begin
 		if (serial_active) begin
 			clk_out = clk;
@@ -106,14 +105,14 @@ module serial_out_testbench();
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
+	enter <= 0;							  @(posedge clk); // Enter right after
 								  @(posedge clk);
 								  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk);
 								  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
+	enter <= 0;							  @(posedge clk); // Enter one cycle later
 								  @(posedge clk);
 	repeat (5) @(posedge clk);
 								  @(posedge clk);
@@ -122,7 +121,7 @@ module serial_out_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
+	enter <= 0;							  @(posedge clk); // Enter two cycles later
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
