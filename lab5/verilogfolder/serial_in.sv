@@ -37,22 +37,8 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 			i <= 0;
 		end
 	end
-	
-	// 
-//	always_ff @(negedge clk_in) begin
-//		local_binary_data[i] <= bit_in;
-//		i <= i + 1;
-//	end
-	
-//	always_ff @(negedge clk_in) begin
-//		if (i == 3) begin
-//			i <= 0;
-//		end else begin
-//			local_binary_data[i] <= bit_in;
-//			i <= i + 1;
-//		end
-//	end
 
+	// 
 	always_ff @(negedge clk_in) begin
 		if (i != 3) begin
 			local_binary_data[i] <= bit_in;
