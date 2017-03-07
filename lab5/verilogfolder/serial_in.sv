@@ -33,7 +33,14 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
 			i <= 0;
-		end else if (i == 3) begin
+		end
+//		end else if (i == 3) begin
+//			i <= 0;
+//		end
+	end
+	
+	always_ff @(negedge clk) begin
+		if (i == 3) begin
 			i <= 0;
 		end
 	end
