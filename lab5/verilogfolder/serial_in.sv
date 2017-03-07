@@ -23,10 +23,10 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 		i = 0;
 	end
 	
-	
 	decoder dec (.clk, .reset, .binary_data(local_binary_data),
 	             .decoded_data(local_column_select));
 	
+	// 
 	always_comb begin
 		if (match) begin
 			column_select = local_column_select;
@@ -36,28 +36,6 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	end
 	
 	// 
-//	always_ff @(posedge clk) begin
-//		if (reset) begin
-//			local_binary_data <= {3{1'b0}};
-//			i <= 0;
-//		end
-////		end else if (i == 3) begin
-////			i <= 0;
-////		end
-//	end
-//	
-//	always_ff @(negedge clk) begin
-//		if (i == 3) begin
-//			i <= 0;
-//		end
-//	end
-//	
-//	// 
-//	always_ff @(negedge clk_in) begin
-//			local_binary_data[i] <= bit_in;
-//			i <= i + 1;
-//	end
-
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
