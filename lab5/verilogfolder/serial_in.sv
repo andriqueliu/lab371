@@ -37,7 +37,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 			i <= 0;
 		end
 	end
-
+	
 	// 
 	always_ff @(negedge clk_in) begin
 		if (i != 3) begin
