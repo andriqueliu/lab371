@@ -29,28 +29,45 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	end
 	
 	// 
+//	always_ff @(posedge clk) begin
+//		if (reset) begin
+//			local_binary_data <= {3{1'b0}};
+//			i <= 0;
+//		end
+////		end else if (i == 3) begin
+////			i <= 0;
+////		end
+//	end
+//	
+//	always_ff @(negedge clk) begin
+//		if (i == 3) begin
+//			i <= 0;
+//		end
+//	end
+//	
+//	// 
+//	always_ff @(negedge clk_in) begin
+//			local_binary_data[i] <= bit_in;
+//			i <= i + 1;
+//	end
+
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
 			i <= 0;
 		end
-//		end else if (i == 3) begin
-//			i <= 0;
-//		end
-	end
-	
-	always_ff @(negedge clk) begin
-		if (i == 3) begin
+		if (i == 2) begin
+			
+		end else if (i == 3) begin
+			local_binary_data <= {3{1'b0}};
 			i <= 0;
 		end
 	end
 	
 	// 
 	always_ff @(negedge clk_in) begin
-		if (i != 3) begin
-			local_binary_data[i] <= bit_in;
-			i <= i + 1;
-		end
+		local_binary_data[i] <= bit_in;
+		i <= i + 1;
 	end
 	
 endmodule
