@@ -13,10 +13,13 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	logic  [6:0] local_column_select;
 	logic  [2:0] local_binary_data;
 	
+	logic  match;
+	
 	integer i;
 	
 	initial begin
 		local_binary_data = {3{1'b0}};
+		match = 0;
 		i = 0;
 	end
 	
@@ -25,7 +28,11 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	             .decoded_data(local_column_select));
 	
 	always_comb begin
-		
+		if (match) begin
+			column_select = local_column_select;
+		end else begin
+			column_select = {7{1'b0}};
+		end
 	end
 	
 	// 
@@ -55,12 +62,13 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
 			i <= 0;
-		end
-		if (i == 2) begin
-			
+			match <= 0;
 		end else if (i == 3) begin
-			local_binary_data <= {3{1'b0}};
+			match <= 1;
+			i <= 4;
+		end else if (i == 4) begin
 			i <= 0;
+			match <= 0;
 		end
 	end
 	
