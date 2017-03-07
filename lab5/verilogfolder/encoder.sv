@@ -6,34 +6,31 @@
 */
 module encoder (clk, reset, column, select);
 	input  logic clk, reset;
-	input  logic [7:0] column;
+	input  logic [6:0] column;
 	
 	output logic [2:0] select;
 	
 	always_comb begin
 		case (column)
-			8'b00000001: begin
-				select = 3'b000;
-			end
-			8'b00000010: begin
+			7'b0000001: begin
 				select = 3'b001;
 			end
-			8'b00000100: begin
+			7'b0000010: begin
 				select = 3'b010;
 			end
-			8'b00001000: begin
+			7'b0000100: begin
 				select = 3'b011;
 			end
-			8'b00010000: begin
+			7'b0001000: begin
 				select = 3'b100;
 			end
-			8'b00100000: begin
+			7'b0010000: begin
 				select = 3'b101;
 			end
-			8'b01000000: begin
+			7'b0100000: begin
 				select = 3'b110;
 			end
-			8'b10000000: begin
+			7'b1000000: begin
 				select = 3'b111;
 			end
 			default: begin

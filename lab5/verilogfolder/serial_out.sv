@@ -8,10 +8,14 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	input  logic clk, reset;
 	input  logic ready_in;
 	
-	input  logic [7:0] column;
+	input  logic [6:0] column;
 	input  logic enter;
 	
 	output logic clk_out, bit_out;
+	
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! // 
+	// Add support to change the ready out signal
+	
 	
 	logic [2:0] serial_register;
 	
@@ -80,7 +84,7 @@ module serial_out_testbench();
 	logic clk, reset;
 	logic ready_in;
 	
-	logic [7:0] column;
+	logic [6:0] column;
 	logic enter;
 	
 	logic clk_out, bit_out;
@@ -102,7 +106,7 @@ module serial_out_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-	column <= 8'b00000010;							  @(posedge clk);
+	column <= 7'b00000010;							  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk);
 								  @(posedge clk);
@@ -130,7 +134,7 @@ module serial_out_testbench();
 	repeat (6) @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-	column <= 8'b10000000;							  @(posedge clk);
+	column <= 7'b1000000;							  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk);
 								  @(posedge clk);
