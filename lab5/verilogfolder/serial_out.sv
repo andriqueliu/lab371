@@ -28,8 +28,8 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	
 	// Initialize registers
 	initial begin
-		serial_active = 0;
-		i = 0;
+//		serial_active = 0;
+//		i = 0;
 	end
 	
 	// Combinational Logic
@@ -38,6 +38,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	always_comb begin
 		if (serial_active) begin
 			clk_out = clk;
+//			clk_out = ~clk;
 			bit_out = serial_register[i];
 		end else begin
 			clk_out = 0;
@@ -51,7 +52,20 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	// This block sends serial data and iterates through the serial_register.
 	// Also, this block controls serial_active and iterator through the
 	// serial_register.
-	always_ff @(posedge clk) begin
+//	always_ff @(posedge clk) begin
+//		if (reset) begin
+//			 i <= 0;
+//			 serial_active <= 0;
+//		end else if (enter && !serial_active) begin
+//			serial_active <= 1;
+//		end else if (i == 0 && serial_active) begin
+//			i <= 1;
+//		end else if (i == 1 && serial_active) begin
+//			i <= 2;
+//		end
+//	end
+	
+	always_ff @(negedge clk) begin
 		if (reset) begin
 			 i <= 0;
 			 serial_active <= 0;
@@ -61,17 +75,21 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 			i <= 1;
 		end else if (i == 1 && serial_active) begin
 			i <= 2;
+		end else begin
+			serial_active <= 0;
+			i <= 0;
+			
 		end
 	end
 	
 	// Watch for the negedge of the clock; otherwise, an extra posedge
 	// will be sent through clk_out.
-	always_ff @(negedge clk) begin
-		if (i == 2 && serial_active) begin
-			serial_active <= 0;
-			i <= 0;
-		end
-	end
+//	always_ff @(negedge clk) begin
+//		if (i == 2 && serial_active) begin
+//			serial_active <= 0;
+//			i <= 0;
+//		end
+//	end
 	
 	// End Sequential Logic Block
 	// -------------------------------------------------------- //

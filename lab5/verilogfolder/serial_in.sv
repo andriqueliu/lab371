@@ -18,9 +18,9 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	integer i;
 	
 	initial begin
-		local_binary_data = {3{1'b0}};
-		match = 0;
-		i = 0;
+//		local_binary_data = {3{1'b0}};
+//		match = 0;
+//		i = 0;
 	end
 	
 	decoder dec (.clk, .reset, .binary_data(local_binary_data),
