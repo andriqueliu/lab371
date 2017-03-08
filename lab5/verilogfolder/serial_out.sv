@@ -4,7 +4,7 @@
 
 
 */
-module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
+module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_out);
 	input  logic clk, reset;
 	input  logic ready_in;
 	
@@ -12,10 +12,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	input  logic enter;
 	
 	output logic clk_out, bit_out;
-	
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! // 
-	// Add support to change the ready out signal
-	
+	output logic ready_out;
 	
 	logic [2:0] serial_register;
 	
@@ -61,16 +58,14 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 			i <= 1;
 		end else if (i == 1 && serial_active) begin
 			i <= 2;
-		end else begin
+		end else if (i == 2 && serial_active) begin
 			serial_active <= 0;
 			i <= 0;
-			
 		end
 	end
 	
 	// End Sequential Logic Block
 	// -------------------------------------------------------- //
-	
 	
 endmodule
 
@@ -83,8 +78,9 @@ module serial_out_testbench();
 	logic enter;
 	
 	logic clk_out, bit_out;
+	logic ready_out;
 	
-	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out);
+	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_out);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
@@ -101,7 +97,7 @@ module serial_out_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
-	column <= 7'b00000010;							  @(posedge clk);
+	column <= 7'b0000010;							  @(posedge clk);
 	enter <= 1;							  @(posedge clk);
 	enter <= 0;							  @(posedge clk);
 								  @(posedge clk);
