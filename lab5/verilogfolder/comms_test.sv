@@ -47,7 +47,7 @@ module comms_test (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, 
 	// 
 	logic  enter, enter_out;
 	assign enter = ~KEY[2];
-	uinput (.clk(CLOCK_50), .reset, .in(enter), .out(enter_out));
+	uinput user_input (.clk(CLOCK_50), .reset, .in(enter), .out(enter_out));
 	
 	// 
 	logic [6:0] local_reg;
