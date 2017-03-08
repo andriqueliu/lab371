@@ -51,42 +51,6 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 //		end
 	end
 	
-//	// 
-//	always_ff @(posedge clk) begin
-//		if (reset) begin
-//			local_binary_data <= {3{1'b0}};
-//			i <= 0;
-//			match <= 0;
-//		end else if (i == 3) begin
-//			match <= 1;
-//			i <= 4;
-//		end else if (i == 4) begin
-//			i <= 0;
-//			match <= 0;
-//		end
-//	end
-//	
-//	// 
-//	always_ff @(negedge clk_in) begin
-//		local_binary_data[i] <= bit_in;
-//		i <= i + 1;
-//	end
-	
-	// 
-//	always_ff @(posedge clk) begin
-//		if (reset) begin
-//			local_binary_data <= {3{1'b0}};
-//			i <= 0;
-//			match <= 0;
-//		end else if (i == 3) begin
-//			match <= 1;
-//			i <= 4;
-//		end else if (i == 4) begin
-//			i <= 0;
-//			match <= 0;
-//		end
-//	end
-	
 	always_ff @(posedge clk_in or posedge reset) begin
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
@@ -95,27 +59,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 			local_binary_data[i % 3] <= bit_in;
 			i <= i + 1;
 		end
-		
-//		if (reset) begin
-//			local_binary_data <= {3{1'b0}};
-//			i <= 0;
-//		end else begin
-//			local_binary_data[i % 3] <= bit_in;
-//			i <= i + 1;
-//		end
-//		if ((i % 3) == 0) begin
-//			column_select <= local_column_select;
-//		end else begin
-//			column_select <= {7{1'b0}};
-//		end
 	end
-	
-	
-//	// 
-//	always_ff @(posedge clk_in) begin
-//		local_binary_data[i % 3] <= bit_in;
-//		i <= i + 1;
-//	end
 	
 endmodule
 
