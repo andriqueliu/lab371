@@ -38,7 +38,6 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out);
 	always_comb begin
 		if (serial_active) begin
 			clk_out = clk;
-//			clk_out = ~clk;
 			bit_out = serial_register[i];
 		end else begin
 			clk_out = 0;
