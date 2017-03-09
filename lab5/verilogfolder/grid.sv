@@ -7,7 +7,6 @@ Dimensions: 6 rows x 7 columns
 module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 	input  logic clk, reset;
 	input  logic enter;
-//	input  logic test_enter;
 	input  logic [6:0] drop_red, drop_green;
 	
 	output logic [5:0][7:0] red_on, green_on;
@@ -15,8 +14,10 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 	// 
 	logic  [6:0][5:0] red_col, green_col;
 	
+	// 
 	integer  a, b, itr;
 	
+	// 
 	always_comb begin
 		for (a = 0; a < 6; a++) begin
 			for (b = 6; b > -1; b--) begin
@@ -29,14 +30,6 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 			red_on[itr][7] = 0;
 			green_on[itr][7] = 0;
 		end
-		
-//		red_on[0][0] = red_col[0][0];
-//		red_on[1][0] = red_col[0][1];
-//		red_on[2][0] = red_col[0][2];
-//		red_on[3][0] = red_col[0][3];
-//		red_on[4][0] = red_col[0][4];
-//		red_on[5][0] = red_col[0][5];
-		
 	end
 	
 	// Column 6 is the leftmost, Column 0 is the rightmost
@@ -54,15 +47,5 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 	                     .red_on(red_col[1]), .green_on(green_col[1]));
 	column_manager col0 (.clk, .reset, .drop_red(drop_red[0]), .drop_green(drop_green[0]),
 	                     .red_on(red_col[0]), .green_on(green_col[0]));
-	
-//	always_comb begin
-//		if () begin
-//			
-//		end else begin
-//			
-//		end
-//	end
-	
-	
 	
 endmodule
