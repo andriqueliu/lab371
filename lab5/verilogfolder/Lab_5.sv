@@ -60,22 +60,41 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// ---------------------------------------------------- //
 	
 	logic  [6:0] drop_red, drop_green;
+	logic  [6:0] drop_RG;
+	logic  P1, P2;
+	assign LEDR[8] = P1;
+	assign LEDR[7] = P2;
+	
+	logic  enter_red, enter_green;
+	
+	// 
+	always_comb begin
+		if (P1 && !P2) begin
+			enter_red = enter;
+			enter_green = 0;
+		end else begin
+			enter_green = enter;
+			enter_red = 0;
+		end
+	end
 	
 	uinput test_user_input (.clk(clk[whichClock]), .reset, .in(enter_in), .out(enter));
 	
-//	change_Player change (.clk, .reset, .enter, .ready_in, .leds, .P1, .P2, .ready_out);
+	change_Player change (.clk(clk[whichClock]), .reset, .enter, .ready_in(GPIO_0[3]),
+	                      .P1, .P2, .ready_out(GPIO_0_in[7]));
 	
+	// This needs to accomodate the serial in
 	native_board_input nat_b_in (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
-	                             .enter, .column_select(drop_red));
-	
-	native_board_input test_nat_b_in (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
-	                             .enter(test_enter), .column_select(drop_green));
+	                             .enter(enter_red), .column_select(drop_red));
+	native_board_input nat_b_in1 (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
+	                             .enter(enter_green), .column_select(drop_green)); // ???
 	
 	// You're getting ROWS ([5:0])
 //	logic  [5:0][6:0] red_on, green_on;
 	logic  [5:0][7:0] red_on, green_on;
 	
 	// Enter below???
+	// 
 	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red, .drop_green,
 	                .red_on,
 						 .green_on);
