@@ -34,7 +34,7 @@ module decoder (clk, reset, binary_data, decoded_data);
 				decoded_data = 7'b1000000;
 			end
 			default: begin
-				decoded_data = {7{1'bX}};
+				decoded_data = {7{1'b0}};
 			end
 		endcase
 	end

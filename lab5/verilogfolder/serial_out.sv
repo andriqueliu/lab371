@@ -4,7 +4,7 @@
 
 
 */
-module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_out);
+module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, output_complete);
 	input  logic clk, reset;
 	input  logic ready_in;
 	
@@ -12,7 +12,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_
 	input  logic enter;
 	
 	output logic clk_out, bit_out;
-	output logic ready_out;
+	output logic output_complete;
 	
 	logic [2:0] serial_register;
 	
@@ -21,7 +21,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_
 	// serial_active determines whether the module is currently sending serial data.
 	// i iterates through the serial_register, selecting which bit to output.
 	logic serial_active;
-	integer i;
+	integer i, prev_i;
 	
 	// Initialize registers
 	initial begin
@@ -62,6 +62,14 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_
 			serial_active <= 0;
 			i <= 0;
 		end
+		
+		prev_i <= i;
+		
+		if (prev_i == 2 && i == 0) begin
+			output_complete <= 1;
+		end else begin
+			output_complete <= 0;
+		end
 	end
 	
 	// End Sequential Logic Block
@@ -78,9 +86,9 @@ module serial_out_testbench();
 	logic enter;
 	
 	logic clk_out, bit_out;
-	logic ready_out;
+	logic output_complete;
 	
-	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out, ready_out);
+	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out, output_complete);
 	
 	// Set up the clock.
 	parameter CLOCK_PERIOD=100;
