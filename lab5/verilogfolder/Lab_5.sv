@@ -71,7 +71,16 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	native_board_input test_nat_b_in (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
 	                             .enter(test_enter), .column_select(drop_green));
 	
-	grid  ();
+	// You're getting ROWS ([5:0])
+//	logic  [5:0][6:0] red_on, green_on;
+	logic  [5:0][7:0] red_on, green_on;
+	
+	// Enter below???
+	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red, .drop_green,
+	                .red_on,
+						 .green_on);
+	
+	logic  [7:0] blank_row_1, blank_row_2;
 	
 //	logic  [7:0][7:0] tests;
 //	assign tests[7] = 8'b10101010; // Highest
@@ -90,8 +99,12 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 
 //						           .red_array(tests),
 
-                             .red_array(),
-	                          .green_array( ), 
+                             .red_array({ blank_row_1,
+									               blank_row_2,
+									               red_on }),
+	                          .green_array({ blank_row_1,
+									                 blank_row_2,
+														  green_on }), 
 									  .red_driver(GPIO_0_in[27:20]), .green_driver(GPIO_0_in[35:28]),
 									  .row_sink(GPIO_0_in[19:12]));
 	
