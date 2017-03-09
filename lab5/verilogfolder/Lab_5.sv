@@ -34,22 +34,55 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// Configure LED grid outputs
 	assign out_en[35:12] = {24{1'b1}};
 	// Configure outputs
-	assign out_en[0] = 1'b1; // Reset out
-	assign out_en[1] = 1'b1; // Clk out
-	assign out_en[2] = 1'b1; // Serial out
-	// Configure inputs
-	assign out_en[3] = 1'b0; // Ready in
+//	assign out_en[0] = 1'b1; // Reset out
+//	assign out_en[1] = 1'b1; // Clk out
+//	assign out_en[2] = 1'b1; // Serial out
+//	// Configure inputs
+//	assign out_en[3] = 1'b0; // Ready in
+//	
+//	// Configure inputs
+//	assign out_en[4] = 1'b0; // Reset in
+//	assign out_en[5] = 1'b0; // Clk in
+//	assign out_en[6] = 1'b0; // Serial in
+//	// Configure outputs
+//	assign out_en[7] = 1'b1; // Ready out
 	
-	// Configure inputs
-	assign out_en[4] = 1'b0; // Reset in
-	assign out_en[5] = 1'b0; // Clk in
-	assign out_en[6] = 1'b0; // Serial in
-	// Configure outputs
-	assign out_en[7] = 1'b1; // Ready out
+	/*
+	In data 0 them, 7 us
+	In clk
+	In ready
+	In reset
+	out data
+	out clk
+	out ready
+	out reset 7 them, 0 us
 	
-	logic  reset, enter_in, enter;
-	assign reset = ~KEY[3];
+	*/
+	assign out_en[7] = 0; // Data in
+	assign out_en[6] = 0; // Clk in
+	assign out_en[5] = 0; // Ready in
+	assign out_en[4] = 0; // Reset in
+	assign out_en[3] = 1; // Data out
+	assign out_en[2] = 1; // Clk out
+	assign out_en[1] = 1; // Ready out
+	assign out_en[0] = 1; // Reset out
+	
+	logic  reset_in, reset, enter_in, enter;
+	assign reset = (~KEY[3] || GPIO_0[4]);
+	
+	assign GPIO_0_in[0] = ~KEY[3];
+	uinput user_input (.clk(clk[whichClock]), .reset, .in(test_enter_in), .out(test_enter));
+	
 	assign enter_in = ~KEY[2];
+	
+	// !!! Clocks for serial comms are still 50 rn
+	// 
+	serial_out ser_out (.clk(CLOCK_50), .reset, .ready_in( ), .column(SW[6:0]),
+	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]));
+	
+	// 
+	serial_in ser_in (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
+	                  .column_select(local_reg));
 	
 	// ---------------------------------------------------- //
 	
@@ -80,8 +113,8 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	uinput test_user_input (.clk(clk[whichClock]), .reset, .in(enter_in), .out(enter));
 	
-	change_Player change (.clk(clk[whichClock]), .reset, .enter, .ready_in(GPIO_0[3]),
-	                      .P1, .P2, .ready_out(GPIO_0_in[7]));
+	change_Player change (.clk(clk[whichClock]), .reset, .enter, .ready_in(GPIO_0[5]),
+	                      .P1, .P2, .ready_out(GPIO_0_in[1]));
 	
 	// This needs to accomodate the serial in
 	native_board_input nat_b_in (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
@@ -126,6 +159,8 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 														  green_on }), 
 									  .red_driver(GPIO_0_in[27:20]), .green_driver(GPIO_0_in[35:28]),
 									  .row_sink(GPIO_0_in[19:12]));
+	
+	
 	
 	
 	
