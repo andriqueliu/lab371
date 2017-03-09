@@ -67,11 +67,15 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	assign out_en[1] = 1; // Ready out
 	assign out_en[0] = 1; // Reset out
 	
-	logic  reset_in, reset, enter_in, enter;
-	assign reset = (~KEY[3] || GPIO_0[4]);
+	// !!!!!!!!!! FIX UP RESET IF YOU HAVE TIME // 
 	
-	assign GPIO_0_in[0] = ~KEY[3];
-	uinput user_input (.clk(clk[whichClock]), .reset, .in(test_enter_in), .out(test_enter));
+	logic  reset_in, reset, enter_in, enter;
+//	assign reset = (~KEY[3] || GPIO_0[4]);
+	assign reset = (reset_in || GPIO_0[4]);
+	
+//	assign GPIO_0_in[0] = ~KEY[3];
+	assign GPIO_0_in[0] = reset_in;
+	uinput reset_input (.clk(clk[whichClock]), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	
 	assign enter_in = ~KEY[2];
 	
