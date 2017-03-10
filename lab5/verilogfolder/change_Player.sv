@@ -5,7 +5,10 @@ EE 371 Final Project
 Authors: Emraj Sidhu, Nikhil Grover, Andrique Liu
 
 This modules alternates between Player 1 (us) and Player 2 (the other group).
+Transitions between states occur in response to the 3-bit serial IO sequences.
 
+For instance, our turn goes to their turn when we have sent 3 bits.
+Conversely, their turn goes to our turn when we have received 3 bits.
 */
 module change_Player (clk, reset, enter, ready_in, three_in, three_out, P1, P2, ready_out);
 	input  logic clk, reset; // Clock, Reset signals

@@ -14,7 +14,7 @@ module legality_checker (clk, reset, enter_input, column_select, enter_output);
 	input  logic enter_input;
 	input  logic [6:0] column_select;
 	
-	// Can't add to a filled up column
+	// Can't add to a filled up column!!! Implement that next
 	
 	output logic enter_output;
 	
@@ -25,7 +25,9 @@ module legality_checker (clk, reset, enter_input, column_select, enter_output);
 	// True if only one bit is set AND at least one bit is set
 	assign one_bit_set = ((column_select == (column_select & -column_select)) && (!no_bits_set));
 	
-	// 
+	// Combinational Logic
+	// If move is legal, then route the enter input to the enter output.
+	// Else, enter output is disabled.
 	always_comb begin
 		if (one_bit_set) begin
 			enter_output = enter_input;

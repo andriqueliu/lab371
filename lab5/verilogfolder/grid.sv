@@ -22,6 +22,7 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 	
 	// 
 	always_comb begin
+		// 
 		for (a = 0; a < 6; a++) begin
 			for (b = 6; b > -1; b--) begin
 				red_on[a][b] = red_col[b][a];
@@ -29,6 +30,8 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 			end
 		end
 		
+		// Fill up the leftmost column with 0s.
+		// !!! Note that without this step, the stacking occurs diagonally???
 		for (itr = 0; itr < 6; itr++) begin
 			red_on[itr][7] = 0;
 			green_on[itr][7] = 0;

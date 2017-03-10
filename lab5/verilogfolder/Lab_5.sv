@@ -61,8 +61,8 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	assign GPIO_0_in[0] = reset_in;
 	// Debounce reset key
 	uinput reset_input (.clk(CLOCK_50), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
-	// Debounce enter key
-//	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
+	// Debounce enter key: the output of this uinput module will be checked by
+	// the legal checker.
 	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter_check));
 	
 	// 
