@@ -1,16 +1,23 @@
-// Authors: Andrique Liu, Emraj Sidhu, Nikhil Grover
-// This modules alternates between player 1 (us) and player 2 (the other group) 
-// for our connect four game
+/*
+EE 371 Final Project
+2-Player Connect Four
+
+Authors: Emraj Sidhu, Nikhil Grover, Andrique Liu
+
+This modules alternates between Player 1 (us) and Player 2 (the other group).
+
+*/
 module change_Player (clk, reset, enter, ready_in, three_in, three_out, P1, P2, ready_out);
-	input  logic clk, reset;
-	// Enter makes a move; each player gets to make one move during their turn.
-	// 
+	input  logic clk, reset; // Clock, Reset signals
+	// enter makes a move; each player gets to make one move during their turn.
+	// ready_in is OBSOLETE in this module
 	input  logic enter, ready_in;
 	
-	// Received three bits, Sent three bits
+	// Three_in indicates that the serial input module has received a full 3-bit sequence
+	// Three_out indicates that the serial output module has sent a full 3-bit sequence
 	input  logic three_in, three_out;
 	
-	
+	// 
 	output logic P1, P2;
 	output logic ready_out;
 	

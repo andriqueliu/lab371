@@ -5,15 +5,15 @@
 
 
 
-
-In data 0 them, 7 us
-In clk
-In ready
-In reset
-out data
-out clk
-out ready
-out reset 7 them, 0 us
+GPIO_0 Port Orientation:
+	In data 0 them, 7 us
+	In clk
+	In ready
+	In reset
+	Out data
+	Out clk
+	Out ready
+	Out reset 7 them, 0 us
 */
 module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0);
 	input  logic 		  CLOCK_50; // 50MHz clock.
@@ -125,12 +125,15 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// Rows... 
 	logic  [5:0][7:0] red_on, green_on;
 	
+	// 
 	grid led_array (.clk(CLOCK_50), .reset, .enter( ), .drop_red, .drop_green(g),
 	                .red_on,
 						 .green_on);
 	
+	// 
 	logic  [7:0] blank_row_1, blank_row_2;
 	
+	// 
 	led_matrix_driver driver (.clk(clk[whichClock]),
                              .red_array({ blank_row_1,
 									               blank_row_2,
