@@ -21,9 +21,6 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 	
 	integer i, prev_i;
 	
-//	local_col_FSM col_fsm (.clk, .reset, .i,
-//	                       .column_in(local_column_select), .column_out(column_select));
-	
 	initial begin
 		local_binary_data = {3{1'b0}};
 		match = 0;
@@ -39,7 +36,6 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 	always_comb begin
 		case (ps)
 			WAIT: begin
-//				if ((prev_i % 2 == 0) && (i % 3 == 0) && (i != 0 && prev_i != 0)) begin
 				if (((prev_i + 1) % 3 == 0) && (i % 3 == 0) && (i != 0 && prev_i != 0)) begin
 					ns = SEND;
 					column_select = local_column_select;
@@ -64,6 +60,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		
 	end
 	
+	// 
 	always_ff @(posedge clk_in or posedge reset) begin
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
@@ -72,19 +69,9 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 			local_binary_data[i % 3] <= bit_in;
 			i <= i + 1;
 		end
-		
-		
-//		prev_i <= i;
 	end
 	
-//	always_ff @(posedge clk) begin
-//		if ((prev_i % 2 == 0) && (i % 3 == 0)) begin
-//			column_select <= local_column_select;
-//		end else begin
-//			column_select <= 7'b0000000;
-//		end
-//	end
-
+	// 
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= WAIT;

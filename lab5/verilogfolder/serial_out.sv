@@ -23,12 +23,6 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, output
 	logic serial_active;
 	integer i, prev_i;
 	
-	// Initialize registers
-	initial begin
-//		serial_active = 0;
-//		i = 0;
-	end
-	
 	// Combinational Logic
 	// If serial output is active (serial_active), then match clk_out to clk
 	// and send out serial data. Otherwise, keep output ports low.

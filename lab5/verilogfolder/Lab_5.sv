@@ -26,7 +26,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	// Clock Divider
 	logic [31:0] clk;
-	parameter whichClock = 15;   // Roughly 768 Hz
+	parameter whichClock = 15; // Roughly 768 Hz
 	clock_divider cdiv (CLOCK_50, clk);
 	
 	// Configure GPIO_0 pins
@@ -114,7 +114,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	native_board_input nat_b_in1 (.clk(CLOCK_50), .reset, .column(SW[6:0]),
 	                             .enter(enter_green), .column_select(drop_green));
 	
-	// You're getting ROWS ([5:0])
+	// Rows... 
 	logic  [5:0][7:0] red_on, green_on;
 	
 	grid led_array (.clk(CLOCK_50), .reset, .enter( ), .drop_red, .drop_green(g),
