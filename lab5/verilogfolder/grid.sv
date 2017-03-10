@@ -1,8 +1,12 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
+
+grid 
 
 Orientation: "6" refers to the leftmost, "0" refers to the rightmost
-
 Dimensions: 6 rows x 7 columns
 */
 module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
@@ -17,12 +21,14 @@ module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
 	// 7 6-bit registers: models a column of height 6
 	logic  [6:0][5:0] red_col, green_col;
 	
-	// 
+	// Iterator integers:
+	// a is used for the outer loop (6 rows)
+	// b is used for the inner loop (7 columns)
 	integer  a, b, itr;
 	
-	// 
+	// Combinational Logic
 	always_comb begin
-		// 
+		// Assign row elements to column elements
 		for (a = 0; a < 6; a++) begin
 			for (b = 6; b > -1; b--) begin
 				red_on[a][b] = red_col[b][a];
