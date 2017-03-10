@@ -1,17 +1,20 @@
 /*
 
 
+Orientation: "6" refers to the leftmost, "0" refers to the rightmost
 
 Dimensions: 6 rows x 7 columns
 */
 module grid (clk, reset, enter, drop_red, drop_green, red_on, green_on);
-	input  logic clk, reset;
-	input  logic enter;
+	input  logic clk, reset; // Clock, Reset signals
+	input  logic enter;      // User input: enter command (OBSOLETE IN THIS MODULE)
+	// Command signals; drop a red or green disc into the respective column
 	input  logic [6:0] drop_red, drop_green;
 	
+	// Indicates whether a node is active, and what color it is
 	output logic [5:0][7:0] red_on, green_on;
 	
-	// 
+	// 7 6-bit registers: models a column of height 6
 	logic  [6:0][5:0] red_col, green_col;
 	
 	// 
