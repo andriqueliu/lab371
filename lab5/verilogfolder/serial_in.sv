@@ -15,15 +15,12 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 	logic  [6:0] local_column_select;
 	logic  [2:0] local_binary_data;
 	
-	logic  match;
-	
 	assign constant_col_sel = local_column_select;
 	
 	integer i, prev_i;
 	
 	initial begin
 		local_binary_data = {3{1'b0}};
-		match = 0;
 		i = 0;
 	end
 	

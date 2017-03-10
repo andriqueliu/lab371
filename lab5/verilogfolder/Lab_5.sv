@@ -53,17 +53,19 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	assign out_en[1] = 1; // Ready out
 	assign out_en[0] = 1; // Reset out
 	
-	// 
+	// Configure reset and enter signals
 	logic  reset_in, reset, enter;
+	// Reset by either native or other board's reset
 	assign reset = (reset_in || GPIO_0[4]);
-	
+	// Reset output
 	assign GPIO_0_in[0] = reset_in;
+	// Debounce reset key
 	uinput reset_input (.clk(CLOCK_50), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
-	
+	// Debounce enter key
 	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
 	
-	logic  three_in;
-	logic  three_out;
+	// 
+	logic  three_in, three_out;
 	
 	serial_out ser_out (.clk(CLOCK_50), .reset, .ready_in( ), .column(SW[6:0]),
 	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]),
