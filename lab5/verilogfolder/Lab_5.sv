@@ -75,32 +75,36 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 //	assign GPIO_0_in[0] = ~KEY[3];
 	assign GPIO_0_in[0] = reset_in;
-	// The clock is wrong here!!!!!! Very slow compared to the 50 CLOCK!
-//	uinput reset_input (.clk(clk[whichClock]), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	uinput reset_input (.clk(CLOCK_50), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	
-	assign enter_in = ~KEY[2];
+//	assign enter_in = ~KEY[2];
 	
-//	logic  [6:0] 
+	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
+	
+	logic  three_in;
+	logic  three_out;
 	
 	// !!! Clocks for serial comms are still 50 rn
 	// 
 	serial_out ser_out (.clk(CLOCK_50), .reset, .ready_in( ), .column(SW[6:0]),
-	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]));
+	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]),
+							  .output_complete(three_out));
 	
 	logic  [6:0] serial_red, serial_green;
 	
 	// 
 	serial_in ser_in (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
-	                  .column_select(serial_red), .constant_col_sel(LEDR[6:0]));
-	serial_in ser_in1 (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
-	                   .column_select(serial_green), .constant_col_sel( ));
+	                  .column_select(serial_green), .constant_col_sel(LEDR[6:0]),
+							.three_in);
+//	serial_in ser_in1 (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
+//	                   .column_select(serial_green), .constant_col_sel( ),
+//							 .);
 	
 	// ---------------------------------------------------- //
 	
-	logic  test_enter_in, test_enter;
-	assign test_enter_in = ~KEY[1];
-	uinput user_input (.clk(clk[whichClock]), .reset, .in(test_enter_in), .out(test_enter));
+//	logic  test_enter_in, test_enter;
+//	assign test_enter_in = ~KEY[1];
+//	uinput user_input (.clk(clk[whichClock]), .reset, .in(test_enter_in), .out(test_enter));
 	
 	// ---------------------------------------------------- //
 	
@@ -112,49 +116,45 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	logic  enter_red, enter_green;
 	
+	logic  [6:0] r, g;
+	
 	// 
 	always_comb begin
 		if (P1 && !P2) begin
 			enter_red = enter;
 			enter_green = 0;
 			
-			
-			// route serial in into P1
-			
+			r = drop_red;
+			g = 7'b0000000;
 		end else begin
-			enter_green = enter;
 			enter_red = 0;
+			enter_green = 0;
 			
-			
-			
-			
+			r = 7'b0000000;
+			g = serial_green;
 		end
 	end
 	
-	uinput test_user_input (.clk(clk[whichClock]), .reset, .in(enter_in), .out(enter));
-	
-	change_Player change (.clk(clk[whichClock]), .reset, .enter, .ready_in(GPIO_0[5]),
-	                      .P1, .P2, .ready_out(GPIO_0_in[1]));
+	change_Player change (.clk(CLOCK_50), .reset, .enter, .ready_in(GPIO_0[5]),
+	                      .three_in, .three_out, .P1, .P2, .ready_out(GPIO_0_in[1]));
+//	clk, reset, enter, ready_in, three_in, three_out, P1, P2, ready_out
 	
 	// This needs to accomodate the serial in
-	native_board_input nat_b_in (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
+	native_board_input nat_b_in (.clk(CLOCK_50), .reset, .column(SW[6:0]),
 	                             .enter(enter_red), .column_select(drop_red));
-	native_board_input nat_b_in1 (.clk(clk[whichClock]), .reset, .column(SW[6:0]),
+	native_board_input nat_b_in1 (.clk(CLOCK_50), .reset, .column(SW[6:0]),
 	                             .enter(enter_green), .column_select(drop_green)); // ???
 	
 	// You're getting ROWS ([5:0])
-//	logic  [5:0][6:0] red_on, green_on;
 	logic  [5:0][7:0] red_on, green_on;
-	
-	logic  [6:0] r, g;
-//	assign r = drop_red || serial_red;
-	assign r = drop_red;
-//	assign g = drop_green || serial_green;
-	assign g = drop_green;
 	
 	// Enter below???
 	// 
-	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red(r), .drop_green(g),
+//	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red(r), .drop_green(g),
+//	                .red_on,
+//						 .green_on);
+	
+	grid led_array (.clk(CLOCK_50), .reset, .enter( ), .drop_red, .drop_green(g),
 	                .red_on,
 						 .green_on);
 	
@@ -191,3 +191,47 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	
 endmodule
+
+//// Tester Module
+//module Lab_5_testbench();
+//	logic 		  CLOCK_50; // 50MHz clock.
+//	logic  [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+//	logic  [9:0] LEDR;
+//	logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
+//	logic  [9:0] SW;
+//	
+//	wire [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
+//	
+//	Lab_5 dut (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0);
+//	
+//	// Set up the clock.
+//	parameter CLOCK_PERIOD=100;
+//	initial begin
+//		clk <= 0;
+//		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//	end
+//	
+//	// Set up the inputs to the design. Each line is a clock cycle.
+//	initial begin
+//								  @(posedge clk);
+//	KEY[3] <= 1;           @(posedge clk);
+//	KEY[3] <= 0;           @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	KEY[2] <= 1;           @(posedge clk);
+//	KEY[2] <= 0;           @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	$stop; // End the simulation.
+//	end
+//endmodule

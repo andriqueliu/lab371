@@ -77,79 +77,79 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, output
 	
 endmodule
 
-// Tester Module
-module serial_out_testbench();
-	logic clk, reset;
-	logic ready_in;
-	
-	logic [6:0] column;
-	logic enter;
-	
-	logic clk_out, bit_out;
-	logic output_complete;
-	
-	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out, output_complete);
-	
-	// Set up the clock.
-	parameter CLOCK_PERIOD=100;
-	initial begin
-		clk <= 0;
-		forever #(CLOCK_PERIOD/2) clk <= ~clk;
-	end
-	
-	// Set up the inputs to the design. Each line is a clock cycle.
-	initial begin
-								  @(posedge clk);
-	reset <= 1;							  @(posedge clk);
-	reset <= 0;							  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	column <= 7'b0000010;							  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
-								  @(posedge clk);
-	repeat (10) @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk); // Enter right after
-								  @(posedge clk);
-								  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
-								  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk); // Enter one cycle later
-								  @(posedge clk);
-	repeat (5) @(posedge clk);
-								  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk); // Enter two cycles later
-	repeat (6) @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	column <= 7'b1000000;							  @(posedge clk);
-	enter <= 1;							  @(posedge clk);
-	enter <= 0;							  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-								  @(posedge clk);
-	$stop; // End the simulation.
-	end
-endmodule
+//// Tester Module
+//module serial_out_testbench();
+//	logic clk, reset;
+//	logic ready_in;
+//	
+//	logic [6:0] column;
+//	logic enter;
+//	
+//	logic clk_out, bit_out;
+//	logic output_complete;
+//	
+//	serial_out dut (clk, reset, ready_in, column, enter, clk_out, bit_out, output_complete);
+//	
+//	// Set up the clock.
+//	parameter CLOCK_PERIOD=100;
+//	initial begin
+//		clk <= 0;
+//		forever #(CLOCK_PERIOD/2) clk <= ~clk;
+//	end
+//	
+//	// Set up the inputs to the design. Each line is a clock cycle.
+//	initial begin
+//								  @(posedge clk);
+//	reset <= 1;							  @(posedge clk);
+//	reset <= 0;							  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	column <= 7'b0000010;							  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk);
+//								  @(posedge clk);
+//	repeat (10) @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk); // Enter right after
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk);
+//								  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk); // Enter one cycle later
+//								  @(posedge clk);
+//	repeat (5) @(posedge clk);
+//								  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk); // Enter two cycles later
+//	repeat (6) @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	column <= 7'b1000000;							  @(posedge clk);
+//	enter <= 1;							  @(posedge clk);
+//	enter <= 0;							  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//								  @(posedge clk);
+//	$stop; // End the simulation.
+//	end
+//endmodule

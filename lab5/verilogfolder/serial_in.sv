@@ -74,7 +74,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		end
 		
 		
-		prev_i <= i;
+//		prev_i <= i;
 	end
 	
 //	always_ff @(posedge clk) begin
@@ -91,6 +91,8 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		end else begin
 			ps <= ns;
 		end
+		
+		prev_i <= i;
 	end
 	
 endmodule
