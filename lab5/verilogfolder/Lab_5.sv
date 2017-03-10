@@ -75,6 +75,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 //	assign GPIO_0_in[0] = ~KEY[3];
 	assign GPIO_0_in[0] = reset_in;
+	// The clock is wrong here!!!!!! Very slow compared to the 50 CLOCK!
 	uinput reset_input (.clk(clk[whichClock]), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	
 	assign enter_in = ~KEY[2];
@@ -109,9 +110,17 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 		if (P1 && !P2) begin
 			enter_red = enter;
 			enter_green = 0;
+			
+			
+			// route serial in into P1
+			
 		end else begin
 			enter_green = enter;
 			enter_red = 0;
+			
+			
+			
+			
 		end
 	end
 	
