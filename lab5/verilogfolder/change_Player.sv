@@ -5,7 +5,11 @@ module change_Player (clk, reset, enter, ready_in, P1, P2, ready_out);
 	input  logic clk, reset;
 	// Enter makes a move; each player gets to make one move during their turn.
 	// 
-	input  logic enter, ready_in;
+//	input  logic enter, ready_in;
+	
+	// Received three bits, Sent three bits
+	input  logic three_in, three_out;
+	
 	
 	output logic P1, P2;
 	output logic ready_out;

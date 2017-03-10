@@ -15,7 +15,7 @@ module serial_tester (clk, reset, column, enter);
 	                    .clk_out(clk_pipe), .bit_out(bit_pipe), .output_complete( ));
 	
 	serial_in ser_in (.clk, .reset, .clk_in(clk_pipe), .bit_in(bit_pipe),
-	                  .column_select( ));
+	                  .column_select( ), .three_in( ));
 	
 	
 endmodule

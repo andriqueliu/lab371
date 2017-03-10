@@ -92,9 +92,9 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	// 
 	serial_in ser_in (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
-	                  .column_select(serial_red));
+	                  .column_select(serial_red), .constant_col_sel(LEDR[6:0]));
 	serial_in ser_in1 (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
-	                   .column_select(serial_green));
+	                   .column_select(serial_green), .constant_col_sel( ));
 	
 	// ---------------------------------------------------- //
 	
@@ -147,9 +147,10 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	logic  [5:0][7:0] red_on, green_on;
 	
 	logic  [6:0] r, g;
-	assign r = drop_red || serial_red;
-//	assign r = drop_red;
+//	assign r = drop_red || serial_red;
+	assign r = drop_red;
 //	assign g = drop_green || serial_green;
+	assign g = drop_green;
 	
 	// Enter below???
 	// 
