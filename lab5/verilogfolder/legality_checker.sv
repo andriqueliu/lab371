@@ -14,6 +14,8 @@ module legality_checker (clk, reset, enter_input, column_select, enter_output);
 	input  logic enter_input;
 	input  logic [6:0] column_select;
 	
+	// Can't add to a filled up column
+	
 	output logic enter_output;
 	
 	// Boolean variables

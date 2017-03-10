@@ -54,7 +54,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	assign out_en[0] = 1; // Reset out
 	
 	// Configure reset and enter signals
-	logic  reset_in, reset, enter;
+	logic  reset_in, reset, enter, enter_check;
 	// Reset by either native or other board's reset
 	assign reset = (reset_in || GPIO_0[4]);
 	// Reset output
@@ -62,7 +62,12 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// Debounce reset key
 	uinput reset_input (.clk(CLOCK_50), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	// Debounce enter key
-	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
+//	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
+	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter_check));
+	
+	// 
+	legality_checker legal (.clk(CLOCK_50), .reset, .enter_input(enter_check),
+	                        .column_select(SW[6:0]), .enter_output(enter));
 	
 	// Three_in indicates that the serial input module has received a full 3-bit sequence
 	// Three_out indicates that the serial output module has sent a full 3-bit sequence
