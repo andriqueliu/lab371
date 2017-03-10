@@ -64,13 +64,17 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// Debounce enter key
 	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter));
 	
-	// 
+	// Three_in indicates that the serial input module has received a full 3-bit sequence
+	// Three_out indicates that the serial output module has sent a full 3-bit sequence
 	logic  three_in, three_out;
 	
+	// Serial output module: Player makes moves on their turn; these commands are also
+	// sent to the serial output module to be sent to the other player.
 	serial_out ser_out (.clk(CLOCK_50), .reset, .ready_in( ), .column(SW[6:0]),
 	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]),
 							  .output_complete(three_out));
 	
+	// 
 	logic  [6:0] serial_red, serial_green;
 	
 	// 
@@ -108,9 +112,11 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 		end
 	end
 	
+	// 
 	change_Player change (.clk(CLOCK_50), .reset, .enter, .ready_in(GPIO_0[5]),
 	                      .three_in, .three_out, .P1, .P2, .ready_out(GPIO_0_in[1]));
 	
+	// 
 	native_board_input nat_b_in (.clk(CLOCK_50), .reset, .column(SW[6:0]),
 	                             .enter(enter_red), .column_select(drop_red));
 	native_board_input nat_b_in1 (.clk(CLOCK_50), .reset, .column(SW[6:0]),
@@ -125,23 +131,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	
 	logic  [7:0] blank_row_1, blank_row_2;
 	
-//	logic  [7:0][7:0] tests;
-//	assign tests[7] = 8'b10101010; // Highest
-//	assign tests[6] = 8'b01010100;
-//	assign tests[5] = 8'b10101010;
-//	assign tests[4] = 8'b01010100;
-//	assign tests[3] = 8'b00000000;
-//	assign tests[2] = 8'b11111110;
-//	assign tests[1] = 8'b11100010;
-//	assign tests[0] = 8'b11101010; // Lowest
-	
 	led_matrix_driver driver (.clk(clk[whichClock]),
-//	                          .red_array({ 8'b10101010, 8'b01010101, 8'b00000001,
-//									               8'b11111110, 8'b11100010, 8'b00000001,
-//														8'b00011100, 8'b01010111 }),
-
-//						           .red_array(tests),
-
                              .red_array({ blank_row_1,
 									               blank_row_2,
 									               red_on }),
