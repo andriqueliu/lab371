@@ -1,8 +1,13 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-
-
+legality_checker performs checks on whether a move can be made or not.
+If a move is legal, then the enter command functions as normal. If a move is illegal,
+then enter simply goes to 0 and the player must try a legal move before progressing
+the game state.
 */
 module legality_checker (clk, reset, enter_input, column_select, enter_output);
 	input  logic clk, reset;
@@ -11,7 +16,7 @@ module legality_checker (clk, reset, enter_input, column_select, enter_output);
 	
 	output logic enter_output;
 	
-	// 
+	// Boolean variables
 	logic  no_bits_set, one_bit_set;
 	// True only if no bits are set
 	assign no_bits_set = (column_select == {7{1'b0}});
