@@ -29,31 +29,30 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 	decoder dec (.clk, .reset, .binary_data(local_binary_data),
 	             .decoded_data(local_column_select));
 	
+	enum { WAIT, SEND } ps, ns;
+	
 	// 
 	always_comb begin
+		case (ps)
+			WAIT: begin
+				if ((prev_i % 2 == 0) && (i % 3 == 0)) begin
+					ns = SEND;
+					column_select = local_column_select;
+				end else begin
+					column_select = 7'b0000000;
+				end
+			end
+			
+			SEND: begin
+				if (i % 3 == 0) begin
+					ns = SEND;
+				end else begin
+					ns = WAIT;
+				end
+				column_select = 7'b0000000;
+			end
+		endcase
 		
-//		column_select = local_column_select;
-//		if ((i % 3)) begin
-//			
-//		end
-		
-		
-//		if (match) begin
-//			column_select = local_column_select;
-//		end else begin
-//			column_select = {7{1'b0}};
-//		end
-//		if ((i % 3) == 1) begin
-//			column_select = local_column_select;
-//		end else begin
-//			column_select = {7{1'b0}};
-//		end
-
-//		if ((i % 3) == 0) begin
-//			column_select = local_column_select;
-//		end else begin
-//			column_select = {7{1'b0}};
-//		end
 	end
 	
 	always_ff @(posedge clk_in or posedge reset) begin
@@ -67,21 +66,21 @@ module serial_in (clk, reset, clk_in, bit_in, column_select);
 		
 		
 		prev_i <= i;
-		
-		
-//		if (prev_i == 1 && i == 2) begin
+	end
+	
+//	always_ff @(posedge clk) begin
+//		if ((prev_i % 2 == 0) && (i % 3 == 0)) begin
 //			column_select <= local_column_select;
 //		end else begin
 //			column_select <= 7'b0000000;
 //		end
-	end
-	
+//	end
+
 	always_ff @(posedge clk) begin
-//		if (prev_i == 2 && i == 3) begin
-		if ((prev_i % 2 == 0) && (i % 3 == 0)) begin
-			column_select <= local_column_select;
+		if (reset) begin
+			ps <= WAIT;
 		end else begin
-			column_select <= 7'b0000000;
+			ps <= ns;
 		end
 	end
 	

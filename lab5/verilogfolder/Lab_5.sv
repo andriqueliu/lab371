@@ -76,18 +76,25 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 //	assign GPIO_0_in[0] = ~KEY[3];
 	assign GPIO_0_in[0] = reset_in;
 	// The clock is wrong here!!!!!! Very slow compared to the 50 CLOCK!
-	uinput reset_input (.clk(clk[whichClock]), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
+//	uinput reset_input (.clk(clk[whichClock]), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
+	uinput reset_input (.clk(CLOCK_50), .reset(reset_in), .in(~KEY[3]), .out(reset_in));
 	
 	assign enter_in = ~KEY[2];
+	
+//	logic  [6:0] 
 	
 	// !!! Clocks for serial comms are still 50 rn
 	// 
 	serial_out ser_out (.clk(CLOCK_50), .reset, .ready_in( ), .column(SW[6:0]),
 	                    .enter, .clk_out(GPIO_0_in[2]), .bit_out(GPIO_0_in[3]));
 	
+	logic  [6:0] serial_red, serial_green;
+	
 	// 
 	serial_in ser_in (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
-	                  .column_select(local_reg));
+	                  .column_select(serial_red));
+	serial_in ser_in1 (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
+	                   .column_select(serial_green));
 	
 	// ---------------------------------------------------- //
 	
@@ -139,9 +146,14 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 //	logic  [5:0][6:0] red_on, green_on;
 	logic  [5:0][7:0] red_on, green_on;
 	
+	logic  [6:0] r, g;
+	assign r = drop_red || serial_red;
+//	assign r = drop_red;
+//	assign g = drop_green || serial_green;
+	
 	// Enter below???
 	// 
-	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red, .drop_green,
+	grid led_array (.clk(clk[whichClock]), .reset, .enter( ), .drop_red(r), .drop_green(g),
 	                .red_on,
 						 .green_on);
 	
