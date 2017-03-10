@@ -54,6 +54,7 @@ module test_one_bit_testbench();
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
+	tester <= 6'b000000;   @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);
 								  @(posedge clk);

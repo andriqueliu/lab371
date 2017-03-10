@@ -54,7 +54,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	assign out_en[0] = 1; // Reset out
 	
 	// 
-	logic  reset_in, reset, enter_in, enter;
+	logic  reset_in, reset, enter;
 	assign reset = (reset_in || GPIO_0[4]);
 	
 	assign GPIO_0_in[0] = reset_in;
