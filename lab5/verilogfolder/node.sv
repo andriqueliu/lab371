@@ -1,24 +1,32 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-
-
+node functions as a single node in the Connect Four playing field.
+In the final game, node is instantiated 42 times (6 rows by 7 columns).
+A node indicates whether it is active, and if it is, whether it is red or green.
+Player input allows discs to be dropped, which eventually occupy empty nodes.
 */
 module node (clk, reset, node_available, drop_red, drop_green,
              red_on, green_on);
-	input  logic clk, reset;
-	input  logic node_available;
+	input  logic clk, reset; // Clock, Reset Signals
+	input  logic node_available; // Is the node available?
+	// Drop a red or green disc into this node
 	input  logic drop_red, drop_green;
 	
+	// On: red or green
 	output logic red_on, green_on;
 	
 	// State Variables
 	enum { OFF, RED, GREEN } ps, ns;
 	
-	// 
-	// 
+	// Combinational/Next State Logic
 	always_comb begin
 		case (ps)
+			// If the node is available and it sees a drop red or drop green
+			// signal, it will turn active and become that respective color.
 			OFF: begin
 				if (node_available && drop_red) begin
 					ns = RED;
@@ -31,12 +39,14 @@ module node (clk, reset, node_available, drop_red, drop_green,
 				green_on = 0;
 			end
 			
+			// Remain red
 			RED: begin
 				ns = RED;
 				red_on = 1;
 				green_on = 0;
 			end
 			
+			// Remain green
 			GREEN: begin
 				ns = GREEN;
 				red_on = 0;
@@ -46,7 +56,7 @@ module node (clk, reset, node_available, drop_red, drop_green,
 	end
 	
 	// Sequential Logic
-	// 
+	// If reset, go OFF. Else, go to the next state.
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= OFF;
