@@ -1,4 +1,6 @@
 // Sample code
+// Used with permission from the UW Department of Electrical Engineering
+// Scott Hauck
 
 // Drives the LED array
 // Iterates; drives one row active at a time

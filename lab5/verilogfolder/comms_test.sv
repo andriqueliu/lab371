@@ -1,4 +1,12 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
+
+Authors: Nikhil Grover, Andrique Liu, Emraj Sidhu
+
+comms_test is used to test whether our serial IO modules are functional; this module
+is intended to be tested using ModelSim, and is not designed to be ported to the board.
+
 
 */
 module comms_test (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_0);
@@ -8,11 +16,6 @@ module comms_test (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, 
 	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
 	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
-	
-//	// 
-//	logic [31:0] clk;
-//	parameter whichClock = 17;   // Roughly 768 Hz
-//	clock_divider cdiv (CLOCK_50, clk);
 	
 	logic  [35:0] out_en, GPIO_0_in;
 	

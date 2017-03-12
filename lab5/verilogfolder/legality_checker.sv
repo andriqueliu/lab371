@@ -8,15 +8,23 @@ legality_checker performs checks on whether a move can be made or not.
 If a move is legal, then the enter command functions as normal. If a move is illegal,
 then enter simply goes to 0 and the player must try a legal move before progressing
 the game state.
+
+This enter blocking behavior is enabled by connecting an enter output to the enter input
+if a move is legal. Otherwise, a 0 is connected to enter output, and enter input is ignored.
+
+Note that if a move is illegal, due to this legality checking module, a player will not
+be able to advance the game state at all if they are trying to make an illegal move
+on their turn.
 */
 module legality_checker (clk, reset, enter_input, column_select, enter_output);
-	input  logic clk, reset;
-	input  logic enter_input;
+	input  logic clk, reset;  // Clock, Reset signals
+	input  logic enter_input; // Player input
+	// Player selects which column they would like to drop a disc into
 	input  logic [6:0] column_select;
 	
-	// Can't add to a filled up column!!! Implement that next
+	// Future feature: cannot overflow a column
 	
-	output logic enter_output;
+	output logic enter_output; // Connected to enter_input if legal, 0 otherwise
 	
 	// Boolean variables
 	logic  no_bits_set, one_bit_set;

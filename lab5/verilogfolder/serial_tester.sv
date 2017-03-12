@@ -1,8 +1,13 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Nikhil Grover, Andrique Liu, Emraj Sidhu
 
+serial_tester is used to test whether our serial IO modules are functional; this module
+is intended to be tested using ModelSim, and is not designed to be ported to the board.
 
-
+Please refer to Lab Report Appendices to observe ModelSim waveforms.
 */
 module serial_tester (clk, reset, column, enter);
 	input  logic clk, reset;

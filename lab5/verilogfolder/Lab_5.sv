@@ -1,9 +1,14 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
+Lab_5 is the top-level module managing our Connect-Four design. This module uses input and
+output ports which allow us to utilize FPGA peripherals such as switches, LEDs, etc.
 
-
-
+This module makes the connections between our design's major modules, and also connects
+the appropriate data to the led matrix driver. 
 
 GPIO_0 Port Orientation:
 	In data 0 them, 7 us
@@ -19,7 +24,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	input  logic 		  CLOCK_50; // 50MHz clock.
 	output logic  [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 	output logic  [9:0] LEDR;
-	input  logic  [3:0] KEY;    // True when not pressed, False when pressed (For the physical board)
+	input  logic  [3:0] KEY; // True when not pressed, False when pressed (For the physical board)
 	input  logic  [9:0] SW;
 	
 	inout  [35:0] GPIO_0; // [0] is the leftmost, [35] rightmost
@@ -29,7 +34,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	parameter whichClock = 15; // Roughly 768 Hz
 	clock_divider cdiv (CLOCK_50, clk);
 	
-	// Configure GPIO_0 pins
+	// Configure GPIO_0 pins using tri-states
 	logic  [35:0] out_en, GPIO_0_in;
 	integer i;
 	always_comb begin
@@ -65,7 +70,7 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// the legal checker.
 	uinput u_in (.clk(CLOCK_50), .reset, .in(~KEY[2]), .out(enter_check));
 	
-	// 
+	// Instantiate legality checker, which determines whether a move is legal or not.
 	legality_checker legal (.clk(CLOCK_50), .reset, .enter_input(enter_check),
 	                        .column_select(SW[6:0]), .enter_output(enter));
 	
@@ -82,7 +87,8 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	// 
 	logic  [6:0] serial_red, serial_green;
 	
-	// 
+	// Instantiate serial input module which aims to parse binary data from the other
+	// player
 	serial_in ser_in (.clk(CLOCK_50), .reset, .clk_in(GPIO_0[6]), .bit_in(GPIO_0[7]),
 	                  .column_select(serial_green), .constant_col_sel(LEDR[6:0]),
 							.three_in);
@@ -127,18 +133,20 @@ module Lab_5 (CLOCK_50, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, KEY, LEDR, SW, GPIO_
 	native_board_input nat_b_in1 (.clk(CLOCK_50), .reset, .column(SW[6:0]),
 	                             .enter(enter_green), .column_select(drop_green));
 	
-	// Rows... 
+	// 
 	logic  [5:0][7:0] red_on, green_on;
 	
-	// 
+	// Instantiates grid: manages every column of nodes.
 	grid led_array (.clk(CLOCK_50), .reset, .enter( ), .drop_red, .drop_green(g),
 	                .red_on,
 						 .green_on);
 	
-	// 
+	// Two blank rows which are used to clear the top two rows of the LED grid, since
+	// our design's dimensions are 6 rows x 7 columns.
 	logic  [7:0] blank_row_1, blank_row_2;
 	
-	// 
+	// Instantiate led matrix driver. This module takes 2D registers as inputs and rotates
+	// through them to output through the LED grid.
 	led_matrix_driver driver (.clk(clk[whichClock]),
                              .red_array({ blank_row_1,
 									               blank_row_2,

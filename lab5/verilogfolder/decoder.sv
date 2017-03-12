@@ -1,8 +1,15 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
+decoder is used to decode from binary data to decode data.
 
-
+The pattern is as follows:
+	001: 0000001
+	010: 0000010
+	etc.
 */
 module decoder (clk, reset, binary_data, decoded_data);
 	input  logic clk, reset;

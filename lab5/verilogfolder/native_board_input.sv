@@ -1,8 +1,15 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Emraj Sidhu, Nikhil Grover, Andrique Liu
 
+native_board_input connects column selection to disc dropping inputs into the game grid.
+If enter is true, then the output to the grid is whatever the column selection is. Else,
+the output to the grid is cleared.
 
-
+Note: This module only works assuming enter is debounced AND the Game Turn FSM
+properly switches between player turns
 */
 module native_board_input (clk, reset, column, enter, column_select);
 	input  logic clk, reset;
@@ -22,13 +29,6 @@ module native_board_input (clk, reset, column, enter, column_select);
 			column_select = {7{1'b0}};
 		end
 	end
-	
-	
-//	always_ff @(posedge clk) begin
-//		if (reset) begin
-//			press <= 0;
-//		end
-//	end
 	
 endmodule
 

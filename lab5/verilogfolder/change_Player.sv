@@ -20,14 +20,18 @@ module change_Player (clk, reset, enter, ready_in, three_in, three_out, P1, P2, 
 	// Three_out indicates that the serial output module has sent a full 3-bit sequence
 	input  logic three_in, three_out;
 	
-	// 
+	// P1 set means that it is Player 1's turn.
+	// P2 set means that it is Player 2's turn.
 	output logic P1, P2;
 	output logic ready_out;
 	
 	// State Variables
 	enum { PLAYER_1, PLAYER_2 } ps, ns;
 	
-	// 
+	// Combinational/Next State Logic
+	// States are advanced by watching serial input and output.
+	// For example, if it is our turn, then we make the transition to the other player's turn
+	// once three bits are SENT.
 	always_comb begin
 		case (ps)
 			PLAYER_1: begin
@@ -57,7 +61,7 @@ module change_Player (clk, reset, enter, ready_in, three_in, three_out, P1, P2, 
 		endcase
 	end
 	
-	// 
+	// Sequential Logic
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= PLAYER_1;

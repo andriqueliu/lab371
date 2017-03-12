@@ -4,7 +4,8 @@ EE 371 Final Project
 
 Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-grid 
+grid instantiates 7 column managers, and also connects player disc dropping input
+to these column managers. 
 
 Orientation: "6" refers to the leftmost, "0" refers to the rightmost
 Dimensions: 6 rows x 7 columns
