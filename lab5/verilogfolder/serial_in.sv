@@ -1,8 +1,12 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Emraj Sidhu, Nikhil Grover
 
-
-
+serial_in is used to parse serial input from the other player. This module keeps track of an
+integer; at every third bit received, a local 3-bit register is decoded into a format which
+will then be connected to disc dropping inputs of the grid.
 */
 module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, three_in);
 	input  logic clk, reset;
@@ -29,7 +33,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 	
 	enum { WAIT, SEND } ps, ns;
 	
-	// 
+	// Combinational/Next State Logic
 	always_comb begin
 		case (ps)
 			WAIT: begin
@@ -57,7 +61,8 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		
 	end
 	
-	// 
+	// Sequential block which watches for either clk input from the other group,
+	// or from a reset signal.
 	always_ff @(posedge clk_in or posedge reset) begin
 		if (reset) begin
 			local_binary_data <= {3{1'b0}};
@@ -68,7 +73,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		end
 	end
 	
-	// 
+	// Sequential Logic block which also progresses the FSM to its next state.
 	always_ff @(posedge clk) begin
 		if (reset) begin
 			ps <= WAIT;
@@ -76,7 +81,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 			ps <= ns;
 		end
 		
-		prev_i <= i;
+		prev_i <= i; // Used to keep track of the previous i.
 	end
 	
 endmodule
