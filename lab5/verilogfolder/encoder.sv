@@ -1,8 +1,10 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
-
-
+encoder is used to encode from decoded data to encoded data.
 */
 module encoder (clk, reset, column, select);
 	input  logic clk, reset;

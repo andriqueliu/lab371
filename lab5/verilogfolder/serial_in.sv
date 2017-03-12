@@ -28,6 +28,7 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 		i = 0;
 	end
 	
+	// Decoder to decode from binary data to decoded data.
 	decoder dec (.clk, .reset, .binary_data(local_binary_data),
 	             .decoded_data(local_column_select));
 	
@@ -37,7 +38,12 @@ module serial_in (clk, reset, clk_in, bit_in, column_select, constant_col_sel, t
 	always_comb begin
 		case (ps)
 			WAIT: begin
-				if (((prev_i + 1) % 3 == 0) && (i % 3 == 0) && (i != 0 && prev_i != 0)) begin
+				/*
+				If 
+				*/
+				if (((prev_i + 1) % 3 == 0) &&
+				    (i % 3 == 0) &&
+				    (i != 0 && prev_i != 0)) begin
 					ns = SEND;
 					column_select = local_column_select;
 					three_in = 1;
