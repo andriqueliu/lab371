@@ -1,21 +1,31 @@
 /*
+EE 371 Final Project
+2-Player Connect Four
 
+Authors: Andrique Liu, Nikhil Grover, Emraj Sidhu
 
+serial_out is used to output binary data to the other player through serial communication.
+Protocol: send binary representation of switch selection, little endian.
 
-
+This module waits for the "local" player to make a move, and then sends that same move
+to the other player serially.
 */
 module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, output_complete);
-	input  logic clk, reset;
-	input  logic ready_in;
+	input  logic clk, reset; // Clock, Reset signals
+	input  logic ready_in; // OBSOLETE in this module
 	
-	input  logic [6:0] column;
-	input  logic enter;
+	input  logic [6:0] column; // Which column is selected?
+	input  logic enter; // OBSOLETE in this module
 	
+	// Clock and Serial Data Outputs
 	output logic clk_out, bit_out;
+	// Indicate once serial output sequence is complete
 	output logic output_complete;
 	
+	// Local 3-bit register which holds binary representation of switch selection
 	logic [2:0] serial_register;
 	
+	// Encoder: encode switch selection into binary representation
 	encoder enc (.clk, .reset, .column, .select(serial_register));
 	
 	// serial_active determines whether the module is currently sending serial data.
@@ -26,6 +36,7 @@ module serial_out (clk, reset, ready_in, column, enter, clk_out, bit_out, output
 	// Combinational Logic
 	// If serial output is active (serial_active), then match clk_out to clk
 	// and send out serial data. Otherwise, keep output ports low.
+	// Sending out clock edges allows the other player to clock in new bits.
 	always_comb begin
 		if (serial_active) begin
 			clk_out = clk;
